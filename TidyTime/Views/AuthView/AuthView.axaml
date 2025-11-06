@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.AuthView"
+             x:DataType="vm:AuthViewModel">
+
+     <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,*" 
+          ColumnDefinitions="*" 
+          Background="#FFFFFF">
+        
+        <StackPanel VerticalAlignment="Center" Spacing="12">
+            
+            <TextBlock Text="Добро пожаловать в Tidy Time!" 
+                       FontSize="25" FontWeight="Bold" 
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"/>
+
+            <TextBlock Text="Для детей, которые любят успевать, и родителей, которые ценят спокойствие." 
+                       FontSize="14"
+                       TextAlignment="Left"
+                       TextWrapping="Wrap"/>
+
+            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" HorizontalAlignment="Stretch" PlaceholderText="Роль"/>
+
+            <TextBox Watermark="Email / Телефон" Text="{Binding Login}" />
+            <TextBox Watermark="Пароль" Text="{Binding Password}" PasswordChar="*" />
+            <TextBox Watermark="Повторите пароль" Text="{Binding RepeatPassword}" PasswordChar="*" />
+            
+            <Button Content="Зарегистрироваться" 
+                    Command="{Binding RegisterCommand}" 
+                    HorizontalAlignment="Center" Margin="0,20,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
