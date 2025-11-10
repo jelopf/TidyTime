@@ -10,3 +10,5 @@ public partial class AuthView : UserControl
         DataContext = new ViewModels.AuthViewModel();
     }
 }
+
+

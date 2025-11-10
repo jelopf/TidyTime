@@ -7,31 +7,68 @@
              x:Class="TidyTime.Views.AuthView"
              x:DataType="vm:AuthViewModel">
 
-     <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,*" 
-          ColumnDefinitions="*" 
-          Background="#FFFFFF">
         
-        <StackPanel VerticalAlignment="Center" Spacing="12">
+    <StackPanel Background="#B8ED78">
             
-            <TextBlock Text="Добро пожаловать в Tidy Time!" 
-                       FontSize="25" FontWeight="Bold" 
-                       TextAlignment="Left"
-                       TextWrapping="Wrap"/>
+        <Border Padding="30,45,30,45">
+            <StackPanel Spacing="30">
+                <TextBlock Text="Добро пожаловать в Tidy Time!" 
+                        FontSize="25" FontWeight="Bold" 
+                        TextAlignment="Left"
+                        TextWrapping="Wrap"/>
 
-            <TextBlock Text="Для детей, которые любят успевать, и родителей, которые ценят спокойствие." 
-                       FontSize="14"
-                       TextAlignment="Left"
-                       TextWrapping="Wrap"/>
+                <TextBlock Text="Для детей, которые любят успевать, и родителей, которые ценят спокойствие." 
+                        FontSize="14"
+                        TextAlignment="Left"
+                        TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
 
-            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding SelectedRole}" HorizontalAlignment="Stretch" PlaceholderText="Роль"/>
+            <TabControl>
+                <TabItem Header="Вход">
+                    <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="0, 16, 16, 16">
+                        <StackPanel Spacing="16">
+                            <TextBox Watermark="Email / Телефон" Text="{Binding Login}" />
+                            <TextBox Watermark="Пароль" Text="{Binding Password}" PasswordChar="*" />
+                            <Button Content="Войти"
+                                    Command="{Binding LoginUserCommand}"
 
-            <TextBox Watermark="Email / Телефон" Text="{Binding Login}" />
-            <TextBox Watermark="Пароль" Text="{Binding Password}" PasswordChar="*" />
-            <TextBox Watermark="Повторите пароль" Text="{Binding RepeatPassword}" PasswordChar="*" />
-            
-            <Button Content="Зарегистрироваться" 
-                    Command="{Binding RegisterCommand}" 
-                    HorizontalAlignment="Center" Margin="0,20,0,0"/>
-        </StackPanel>
-    </Grid>
+                                    HorizontalAlignment="Center" 
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Background="#E2FF98"
+                                    CornerRadius="16"
+                                    Height="45" Width="215"/>
+                        </StackPanel>
+                    </Border>
+                </TabItem>
+
+                <TabItem Header="Регистрация">
+                    <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="16, 0, 16, 16">
+                        <StackPanel Spacing="16" Background="#FFFFFF">
+
+                            <ComboBox ItemsSource="{Binding Roles}" 
+                                    SelectedItem="{Binding SelectedRole}" 
+                                    HorizontalAlignment="Stretch" 
+                                    PlaceholderText="Роль"/>
+
+                            <TextBox Watermark="Email / Телефон" Text="{Binding Login}" />
+                            <TextBox Watermark="Пароль" Text="{Binding Password}" PasswordChar="*" />
+                            <TextBox Watermark="Повторите пароль" Text="{Binding RepeatPassword}" PasswordChar="*" />
+                            
+                            <Button Content="Зарегистрироваться" 
+                                    Command="{Binding RegisterUserCommand}" 
+                                    HorizontalAlignment="Center"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Background="#E2FF98"
+                                    CornerRadius="16"
+                                    Height="45" Width="215"/>
+                        </StackPanel>
+                    </Border>
+                </TabItem>
+
+            </TabControl>
+
+    </StackPanel>
 </UserControl>

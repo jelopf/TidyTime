@@ -11,5 +11,7 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://TidyTime/Assets/Styles/TabStyles.axaml"/>
+        <StyleInclude Source="avares://TidyTime/Assets/Styles/Inputs.axaml"/>
     </Application.Styles>
 </Application>
