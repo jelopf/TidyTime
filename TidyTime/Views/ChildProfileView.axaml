@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.ChildProfileView"
+             x:DataType="vm:ChildProfileViewModel">
+
+    <Grid Background="White">
+
+        <Border Background="Purple"
+                Height="180"
+                CornerRadius="0,0,24,24">
+            <TextBlock Text="Профиль ребёнка"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="22"/>
+        </Border>
+
+        <Button Content="Выйти"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,16,16,0"/>
+    </Grid>
+</UserControl>

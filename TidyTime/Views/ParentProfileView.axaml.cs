@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace TidyTime.Views;
 
-public partial class MainWindow : Window
+public partial class ParentProfileView : UserControl
 {
-    public MainWindow()
+    public ParentProfileView()
     {
         InitializeComponent();
     }

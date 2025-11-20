@@ -4,8 +4,8 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using TidyTime.ViewModels;
 using TidyTime.Views;
+using TidyTime.Services;
 
 namespace TidyTime;
 
@@ -18,22 +18,16 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        // Отключаем валидацию DataAnnotation, чтобы не было конфликтов с CommunityToolkit
+        DisableAvaloniaDataAnnotationValidation();
+
+        if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
-            DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
-        }
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel()
-            };
+            // Создаём навигационный сервис для мобильного приложения
+            var navigationService = new NavigationService(singleViewPlatform);
+
+            // Задаём стартовый экран
+            singleViewPlatform.MainView = new AuthView(navigationService);
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -41,11 +35,11 @@ public partial class App : Application
 
     private void DisableAvaloniaDataAnnotationValidation()
     {
-        // Get an array of plugins to remove
+        // Получаем все плагины валидации DataAnnotation
         var dataValidationPluginsToRemove =
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
-        // remove each entry found
+        // Удаляем их, чтобы не было дублирующейся валидации
         foreach (var plugin in dataValidationPluginsToRemove)
         {
             BindingPlugins.DataValidators.Remove(plugin);
