@@ -2,10 +2,11 @@ using Avalonia.Controls;
 
 namespace TidyTime.Views;
 
-public partial class MainWindow : Window
+public partial class AddTaskPopupView : UserControl
 {
-    public MainWindow()
+    public AddTaskPopupView()
     {
         InitializeComponent();
     }
 }
+

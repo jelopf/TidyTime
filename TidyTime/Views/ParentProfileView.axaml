@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.ParentProfileView"
+             x:DataType="vm:ParentProfileViewModel">
+
+    <Grid Background="White">
+
+        <!-- стрелка назад -->
+        <Button Content="&lt;"
+                Command="{Binding GoBackCommand}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Width="40"
+                Height="40"
+                Background="Transparent"
+                BorderThickness="0"
+                FontSize="20"/>
+
+        <!-- кнопка выйти -->
+        <Button Content="Выйти"
+                Command="{Binding GoToAuthCommand}"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,20"
+                Width="150"
+                Height="45"
+                Background="MediumPurple"
+                CornerRadius="16"
+                FontSize="16"/>
+    </Grid>
+</UserControl>

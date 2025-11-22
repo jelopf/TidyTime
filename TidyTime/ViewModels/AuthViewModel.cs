@@ -1,14 +1,19 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
+using TidyTime.Services;
+using TidyTime.Views;
 
 namespace TidyTime.ViewModels;
 
 public partial class AuthViewModel : ViewModelBase
 {
-    [ObservableProperty] private int selectedTabIndex = 1; // 0 - вход, 1 - регистрация по умолчанию
+    public AuthViewModel(INavigationService navigationService) 
+        : base(navigationService)
+    {
+    }
 
+    [ObservableProperty] private int selectedTabIndex = 1;
 
     [ObservableProperty] private string selectedRole = "";
     public ObservableCollection<string> Roles { get; } = new() { "Родитель", "Ребёнок" };
@@ -18,15 +23,16 @@ public partial class AuthViewModel : ViewModelBase
     [ObservableProperty] private string repeatPassword = "";
 
     [RelayCommand]
-    private async Task LoginUser()
+    private void LoginUser()
     {
-        System.Console.WriteLine($"Вход: {Login}");
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService);
+        NavigationService.NavigateTo(scheduleVm);
     }
 
     [RelayCommand]
-    private async Task RegisterUser()
+    private void RegisterUser()
     {
-        System.Console.WriteLine($"Регистрация: {Login}, роль: {SelectedRole}");
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService);
+        NavigationService.NavigateTo(scheduleVm);
     }
 }
-

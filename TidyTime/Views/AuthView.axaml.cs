@@ -7,8 +7,5 @@ public partial class AuthView : UserControl
     public AuthView()
     {
         InitializeComponent();
-        DataContext = new ViewModels.AuthViewModel();
     }
 }
-
-

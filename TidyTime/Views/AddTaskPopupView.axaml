@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.AddTaskPopupView"
+             x:DataType="vm:AddTaskPopupViewModel">
+
+    <Grid>
+        <Border Background="White"
+                MaxHeight="489"
+                CornerRadius="16"
+                HorizontalAlignment="Stretch"
+                Margin="0,80,0,71"
+                Padding="30"
+                BorderBrush="#656565"
+                BorderThickness="1">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Задача:" 
+                        FontSize="14"
+                        VerticalAlignment="Center"/>
+
+                    <Button Content="X"
+                            Grid.Column="1"
+                            Command="{Binding CloseCommand}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            FontSize="14"/>
+                </Grid>
+
+                <StackPanel Grid.Row="1"
+                            Margin="0,10,0,10"
+                            Spacing="16">
+
+                    <TextBox Watermark="Что нужно сделать?"/>
+
+                    <TextBox Watermark="Описание задачи"/>
+
+                    <TextBlock Text="Время выполнения:" FontSize="14"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Watermark="Начало" Grid.Column="0" Margin="0,0,5,0" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <TextBlock Text="-" Grid.Column="1" VerticalAlignment="Center"/>
+                        <TextBox Watermark="Окончание" Grid.Column="2" Margin="5,0,0,0" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    </Grid>
+
+                    <Button Content="Весь день" Width="120" HorizontalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+                    <TextBlock Text="Сложность:" FontSize="14"/>
+
+                    <Border Height="40">
+                        <TextBlock Text="-----------------------------------------" 
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+
+                </StackPanel>
+
+                <Button Grid.Row="2"
+                        Content="Сохранить"
+                        Command="{Binding CloseCommand}"
+                        Width="135"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Background="#86C6FF"
+                        CornerRadius="16"
+                        Margin="0,30,0,0"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
