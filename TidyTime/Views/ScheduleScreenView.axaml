@@ -2,16 +2,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="using:TidyTime.Views"
              xmlns:vm="using:TidyTime.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="TidyTime.Views.ScheduleScreenView"
-             x:DataType="vm:ScheduleScreenViewModel">
+             x:DataType="vm:ScheduleScreenViewModel"
+             x:Name="Root">
 
 
     <StackPanel Background="#FFFFFF">
         
-        <!-- Top Bar -->
-        <Border Height="60" Background="LightGray" Padding="10,0">
+        <!-- топбар -->
+        <Border Height="80" Padding="10,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -19,57 +21,80 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 
-                <!-- Иконка профиля -->
+                <!-- иконка профиля -->
                 <Button Grid.Column="0" 
                         Content="П" 
                         Width="40" 
                         Height="40"
                         Background="Transparent"
-                        BorderThickness="0"/>
+                        BorderThickness="0"
+                        Command="{Binding GoToProfileCommand}"
+                        FontSize="16"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        CommandParameter="Child"/>
                 
-                <!-- Фамилия Имя -->
+                <!-- ФИ -->
                 <TextBlock Grid.Column="1" 
                            Text="Вася Пупкин" 
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="16"/>
                 
-                <!-- Иконка меню -->
+                <!-- иконка меню -->
                 <Button Grid.Column="2" 
-                        Content="х" 
+                        Content="М" 
                         Width="40" 
                         Height="40"
                         Background="Transparent"
-                        BorderThickness="0"/>
+                        BorderThickness="0"
+                        FontSize="16"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding GoToMenuCommand}"/>
             </Grid>
         </Border>
 
-        <!-- Голубой контейнер посередине -->
-        <Border Background="LightBlue" 
-                Height="400" 
-                Margin="20" 
+        <!-- расписание -->
+        <Border Background="#86C7FF" 
+                Height="416" 
                 VerticalAlignment="Center"
-                CornerRadius="10">
+                CornerRadius="16">
             
             <StackPanel VerticalAlignment="Bottom" 
                         Margin="20">
                 
-                <!-- Текст "Добавить задачу" -->
-                <TextBlock Text="Добавить задачу" 
-                           HorizontalAlignment="Center"
-                           FontSize="14"
-                           Margin="0,0,0,10"/>
-                
-                <!-- Кнопка "+" -->
-                <Button Content="+" 
-                        Width="50" 
-                        Height="50"
-                        FontSize="20"
-                        HorizontalAlignment="Center"
-                        Background="White"
-                        BorderThickness="1"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Добавить задачу" 
+                               VerticalAlignment="Center"
+                               FontSize="14"
+                               Grid.Column="0"/>
+
+                    <Button Content="+"
+                            Width="50" Height="50"
+                            FontSize="20"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderThickness="1"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Command="{Binding OpenAddTaskCommand}"/>
+                </Grid>
             </StackPanel>
         </Border>
+
+        <!-- добавление задачи (попап)-->
+        <Popup IsOpen="{Binding IsPopupOpen}"
+            Placement="Center">
+            <views:AddTaskPopupView DataContext="{Binding AddTaskPopupViewModel}" />
+        </Popup>
 
     </StackPanel>
 </UserControl>

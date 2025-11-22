@@ -1,11 +1,12 @@
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
+using TidyTime.ViewModels;
 
 namespace TidyTime.Services;
 
 public interface INavigationService
 {
-    void NavigateTo(UserControl view, object? dataContext = null);
+    void NavigateTo(ViewModelBase viewModel);
 }
 
 public class NavigationService : INavigationService
@@ -17,9 +18,10 @@ public class NavigationService : INavigationService
         _lifetime = lifetime;
     }
 
-    public void NavigateTo(UserControl view, object? dataContext = null)
+    public void NavigateTo(ViewModelBase viewModel)
     {
+        var view = (UserControl)new ViewLocator().Build(viewModel)!;
+        view.DataContext = viewModel;
         _lifetime.MainView = view;
     }
 }
-

@@ -6,6 +6,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using TidyTime.Views;
 using TidyTime.Services;
+using TidyTime.ViewModels;
 
 namespace TidyTime;
 
@@ -18,16 +19,13 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        // Отключаем валидацию DataAnnotation, чтобы не было конфликтов с CommunityToolkit
-        DisableAvaloniaDataAnnotationValidation();
-
-        if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+        if (ApplicationLifetime is ISingleViewApplicationLifetime lifetime)
         {
-            // Создаём навигационный сервис для мобильного приложения
-            var navigationService = new NavigationService(singleViewPlatform);
+            var nav = new NavigationService(lifetime);
+            var authVm = new AuthViewModel(nav);
 
-            // Задаём стартовый экран
-            singleViewPlatform.MainView = new AuthView(navigationService);
+            lifetime.MainView = new ViewLocator().Build(authVm)!;
+            lifetime.MainView.DataContext = authVm;
         }
 
         base.OnFrameworkInitializationCompleted();
@@ -35,14 +33,10 @@ public partial class App : Application
 
     private void DisableAvaloniaDataAnnotationValidation()
     {
-        // Получаем все плагины валидации DataAnnotation
         var dataValidationPluginsToRemove =
             BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
-        // Удаляем их, чтобы не было дублирующейся валидации
         foreach (var plugin in dataValidationPluginsToRemove)
-        {
             BindingPlugins.DataValidators.Remove(plugin);
-        }
     }
 }

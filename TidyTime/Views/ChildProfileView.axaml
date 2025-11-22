@@ -9,19 +9,29 @@
 
     <Grid Background="White">
 
-        <Border Background="Purple"
-                Height="180"
-                CornerRadius="0,0,24,24">
-            <TextBlock Text="Профиль ребёнка"
-                       Foreground="White"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="22"/>
-        </Border>
-
-        <Button Content="Выйти"
-                HorizontalAlignment="Right"
+        <!-- стрелка назад -->
+        <Button Content="&lt;"
+                Command="{Binding GoBackCommand}"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Margin="0,16,16,0"/>
+                Width="40"
+                Height="40"
+                Background="Transparent"
+                BorderThickness="0"
+                FontSize="20"/>
+
+        <!-- кнопка выйти -->
+        <Button Content="Выйти"
+                Command="{Binding GoToAuthCommand}"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,20"
+                Width="150"
+                Height="45"
+                Background="MediumPurple"
+                CornerRadius="16"
+                FontSize="16"/>
     </Grid>
 </UserControl>

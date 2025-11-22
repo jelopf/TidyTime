@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace TidyTime.Views;
 
-public partial class ChildProfileView : UserControl
+public partial class AddTaskPopupView : UserControl
 {
-    public ChildProfileView()
+    public AddTaskPopupView()
     {
         InitializeComponent();
     }

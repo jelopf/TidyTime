@@ -25,16 +25,14 @@ public partial class AuthViewModel : ViewModelBase
     [RelayCommand]
     private void LoginUser()
     {
-        var view = new ScheduleScreenView();
-        view.DataContext = new ScheduleScreenViewModel(NavigationService);
-        NavigationService.NavigateTo(view);
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService);
+        NavigationService.NavigateTo(scheduleVm);
     }
 
     [RelayCommand]
     private void RegisterUser()
     {
-        var view = new ScheduleScreenView();
-        view.DataContext = new ScheduleScreenViewModel(NavigationService);
-        NavigationService.NavigateTo(view);
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService);
+        NavigationService.NavigateTo(scheduleVm);
     }
 }

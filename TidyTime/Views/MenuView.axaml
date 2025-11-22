@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.MenuView"
+             x:DataType="vm:MenuViewModel">
+
+    <Grid Background="White">
+        <!-- кнопка назад -->
+        <Button Content="&lt;" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="40" Height="40"
+                Background="Transparent"
+                BorderThickness="0"
+                FontSize="20"
+                Command="{Binding GoBackCommand}"/>
+    </Grid>
+</UserControl>

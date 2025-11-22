@@ -2,11 +2,10 @@ using Avalonia.Controls;
 
 namespace TidyTime.Views;
 
-public partial class ChildProfileView : UserControl
+public partial class MenuView : UserControl
 {
-    public ChildProfileView()
+    public MenuView()
     {
         InitializeComponent();
     }
 }
-
