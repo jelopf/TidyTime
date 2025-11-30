@@ -7,14 +7,17 @@ namespace TidyTime.ViewModels;
 
 public partial class ScheduleScreenViewModel : ViewModelBase
 {
+    private readonly IAuthService _authService;
+
     [ObservableProperty]
     private bool isPopupOpen;
 
     public AddTaskPopupViewModel AddTaskPopupViewModel { get; }
 
-    public ScheduleScreenViewModel(INavigationService navigationService) 
+    public ScheduleScreenViewModel(INavigationService navigationService, IAuthService authService) 
         : base(navigationService)
     {
+        _authService = authService;
         AddTaskPopupViewModel = new AddTaskPopupViewModel(() => CloseAddTask());
     }
 
@@ -23,12 +26,12 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (role == "Child")
         {
-            var vm = new ChildProfileViewModel(NavigationService);
+            var vm = new ChildProfileViewModel(NavigationService, _authService);
             NavigationService.NavigateTo(vm);
         }
         else
         {
-            var vm = new ParentProfileViewModel(NavigationService);
+            var vm = new ParentProfileViewModel(NavigationService, _authService);
             NavigationService.NavigateTo(vm);
         }
     }
@@ -36,7 +39,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     [RelayCommand]
     private void GoToMenu()
     {
-        var vm = new MenuViewModel(NavigationService);
+        var vm = new MenuViewModel(NavigationService, _authService);
         NavigationService.NavigateTo(vm);
     }
 

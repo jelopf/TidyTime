@@ -22,7 +22,9 @@ public partial class App : Application
         if (ApplicationLifetime is ISingleViewApplicationLifetime lifetime)
         {
             var nav = new NavigationService(lifetime);
-            var authVm = new AuthViewModel(nav);
+            var firebaseService = new FirebaseService();
+            var authService = new AuthService(firebaseService);
+            var authVm = new AuthViewModel(nav, authService);
 
             lifetime.MainView = new ViewLocator().Build(authVm)!;
             lifetime.MainView.DataContext = authVm;

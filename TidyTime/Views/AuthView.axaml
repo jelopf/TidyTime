@@ -27,7 +27,7 @@
             <TabControl>
                 <TabItem Header="Вход">
                     <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="0, 16, 16, 16">
-                        <StackPanel Spacing="16">
+                        <StackPanel Spacing="">
                             <StackPanel>
                                 <TextBox Watermark="Email / Телефон" Text="{Binding LoginInput}" />
                                 <TextBlock Text="{Binding LoginInputError}" Foreground="Red" FontSize="12"/>
@@ -53,7 +53,7 @@
 
                 <TabItem Header="Регистрация">
                     <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="16, 0, 16, 16">
-                        <StackPanel Spacing="16" Background="#FFFFFF">
+                        <StackPanel Spacing="" Background="#FFFFFF">
 
                             <StackPanel>
                                 <ComboBox ItemsSource="{Binding Roles}" 

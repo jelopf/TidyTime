@@ -1,17 +1,21 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Firebase.Auth;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using TidyTime.Services;
 using TidyTime.Views;
+using TidyTime.Models;
 
 namespace TidyTime.ViewModels;
 
 public partial class AuthViewModel : ViewModelBase
 {
-    public AuthViewModel(INavigationService navigationService) 
+    private readonly IAuthService _authService;
+    public AuthViewModel(INavigationService navigationService, IAuthService authService) 
         : base(navigationService)
     {
+        _authService = authService;
     }
 
     [ObservableProperty] private int selectedTabIndex = 1;
@@ -36,7 +40,7 @@ public partial class AuthViewModel : ViewModelBase
     [ObservableProperty] private string passwordInputError = ""; 
 
     [RelayCommand]
-    private void LoginUser()
+    private async Task LoginUser()
     {
         ClearLoginErrors();
 
@@ -56,12 +60,21 @@ public partial class AuthViewModel : ViewModelBase
 
         if (!isValid) return;
 
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService);
+        var user = await _authService.LoginUserAsync(LoginInput, PasswordInput);
+
+        if (user == null)
+        {
+            LoginInputError = "Неверные данные";
+            PasswordInputError = "Неверные данные";
+            return;
+        }
+
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService);
         NavigationService.NavigateTo(scheduleVm);
     }
 
     [RelayCommand]
-    private void RegisterUser()
+    private async Task RegisterUser()
     {
         ClearRegisterErrors();
 
@@ -92,8 +105,23 @@ public partial class AuthViewModel : ViewModelBase
         }
 
         if (!isValid) return;
+
+        var user = new TidyTime.Models.User
+        {
+            Login = RegisterLoginInput,
+            PasswordHash = RegisterPasswordInput,
+            Role = SelectedRole
+        };
+
+        bool success = await _authService.RegisterUserAsync(user);
+
+        if (!success)
+        {
+            RegisterLoginInputError = "Пользователь уже существует";
+            return;
+        }
         
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService);
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService);
         NavigationService.NavigateTo(scheduleVm);
     }
 
