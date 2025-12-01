@@ -48,6 +48,14 @@
                                                 Width="23.73"
                                                 />
                                         </Grid>
+                                        <TextBlock Text="Фамилия Имя"
+                                        FontSize="14"
+                                        FontFamily="Comfortaa"
+                                        FontWeight="Bold"
+                                        HorizontalAlignment="Left"
+                                        Padding="8,20,0,0"
+                                        TextWrapping="Wrap"
+                                        TextAlignment="Center"/>
                                 </StackPanel>
 
                                 <Grid Width="300"
