@@ -29,9 +29,17 @@
             <TabControl>
                 <TabItem Header="Вход">
                     <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="0, 16, 16, 16">
-                        <StackPanel Spacing="16">
-                            <TextBox Watermark="Email / Телефон" Text="{Binding Login}" />
-                            <TextBox Watermark="Пароль" Text="{Binding Password}" PasswordChar="*" />
+                        <StackPanel Spacing="">
+                            <StackPanel>
+                                <TextBox Watermark="Email / Телефон" Text="{Binding LoginInput}" />
+                                <TextBlock Text="{Binding LoginInputError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <TextBox Watermark="Пароль" Text="{Binding PasswordInput}" PasswordChar="*" />
+                                <TextBlock Text="{Binding PasswordInputError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
+
                             <Button Content="Войти"
                                     Command="{Binding LoginUserCommand}"
 
@@ -48,17 +56,31 @@
 
                 <TabItem Header="Регистрация">
                     <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="16, 0, 16, 16">
-                        <StackPanel Spacing="16" Background="#FFFFFF">
+                        <StackPanel Spacing="" Background="#FFFFFF">
 
-                            <ComboBox ItemsSource="{Binding Roles}" 
-                                    SelectedItem="{Binding SelectedRole}" 
-                                    HorizontalAlignment="Stretch" 
-                                    PlaceholderText="Роль"/>
-
-                            <TextBox Watermark="Email / Телефон" Text="{Binding Login}" />
-                            <TextBox Watermark="Пароль" Text="{Binding Password}" PasswordChar="*" />
-                            <TextBox Watermark="Повторите пароль" Text="{Binding RepeatPassword}" PasswordChar="*" />
+                            <StackPanel>
+                                <ComboBox ItemsSource="{Binding Roles}" 
+                                        SelectedItem="{Binding SelectedRole}" 
+                                        HorizontalAlignment="Stretch" 
+                                        PlaceholderText="Роль"/>
+                                <TextBlock Text="{Binding RegisterRoleError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
                             
+                            <StackPanel>
+                                <TextBox Watermark="Email / Телефон" Text="{Binding RegisterLoginInput}" />
+                                <TextBlock Text="{Binding RegisterLoginInputError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <TextBox Watermark="Пароль" Text="{Binding RegisterPasswordInput}" PasswordChar="*" />
+                                <TextBlock Text="{Binding RegisterPasswordInputError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <TextBox Watermark="Повторите пароль" Text="{Binding RegisterRepeatPasswordInput}" PasswordChar="*" />
+                                <TextBlock Text="{Binding RegisterRepeatPasswordInputError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
+
                             <Button Content="Зарегистрироваться" 
                                     Command="{Binding RegisterUserCommand}"
                                     FontFamily="Comfortaa"

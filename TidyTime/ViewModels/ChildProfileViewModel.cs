@@ -7,21 +7,24 @@ namespace TidyTime.ViewModels;
 
 public partial class ChildProfileViewModel : ViewModelBase
 {
-    public ChildProfileViewModel(INavigationService navigationService) 
+    private readonly IAuthService _authService;
+
+    public ChildProfileViewModel(INavigationService navigationService, IAuthService authService) 
         : base(navigationService)
     {
+        _authService = authService;
     }
 
     [RelayCommand]
     private void GoBack()
     {
-        NavigationService.NavigateTo(new ScheduleScreenViewModel(NavigationService));
+        NavigationService.NavigateTo(new ScheduleScreenViewModel(NavigationService, _authService));
     }
 
     [RelayCommand]
     private void GoToAuth()
     {
-        NavigationService.NavigateTo(new AuthViewModel(NavigationService));
+        NavigationService.NavigateTo(new AuthViewModel(NavigationService, _authService));
     }
 
 }

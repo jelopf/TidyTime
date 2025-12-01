@@ -6,15 +6,18 @@ namespace TidyTime.ViewModels;
 
 public partial class MenuViewModel : ViewModelBase
 {
-    public MenuViewModel(INavigationService navigationService)
+    private readonly IAuthService _authService;
+
+    public MenuViewModel(INavigationService navigationService, IAuthService authService)
         : base(navigationService)
     {
+        _authService = authService;
     }
 
     [RelayCommand]
     private void GoBack()
     {
-        var vm = new ScheduleScreenViewModel(NavigationService);
+        var vm = new ScheduleScreenViewModel(NavigationService, _authService);
         NavigationService.NavigateTo(vm);
     }
 }
