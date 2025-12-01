@@ -14,11 +14,89 @@
                 Command="{Binding GoBackCommand}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                Width="40"
-                Height="40"
+                Margin="30,30,0,0"
+                Width="11.56"
+                Height="20.02"
                 Background="Transparent"
                 BorderThickness="0"
                 FontSize="20"/>
+        
+        <Grid>
+                <Border Background="#DF80D6"
+                MaxHeight="406"
+                CornerRadius="16"
+                Margin="0,80,0,154"
+                Padding="30">
+                        <Grid>
+                                <StackPanel MaxHeight="177"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Center"
+                                Margin="90,0,75.02,0">
+                                        <Grid>
+                                                <Border Background="#EEEEEE"
+                                                Width="120"
+                                                Height="120"
+                                                CornerRadius="8"
+                                                HorizontalAlignment="Left">
+                                                </Border>
+
+                                                <Button Content="К"
+                                                VerticalAlignment="Bottom"
+                                                Margin="111.25,0,0,0.79"
+                                                HorizontalAlignment="Right"
+                                                Height="24.97"
+                                                Width="23.73"
+                                                />
+                                        </Grid>
+                                </StackPanel>
+
+                                <Grid Width="300"
+                                Height="109"
+                                Margin="0,60,0,0"
+                                VerticalAlignment="Bottom"> 
+                                        <Border Background="#FFFFFF"
+                                        Width="300"
+                                        Height="93"
+                                        Margin="0,16,0,0"
+                                        CornerRadius="16"
+                                        Padding="20">
+                                                <Grid>
+                                                        <TextBlock Text="Всего выполнено задач:"
+                                                        HorizontalAlignment="Left"
+                                                        FontSize="14"
+                                                        FontFamily="comfortaa"
+                                                        FontWeight="Regular"
+                                                        Margin="0,19,0,0"/>
+
+                                                        <TextBlock Text ="15"
+                                                        HorizontalAlignment="Right"
+                                                        FontSize="25"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Bold"
+                                                        Margin="0,13,0,0"/>
+
+                                                        
+                                                </Grid>
+                                        </Border>
+
+                                        <Border Background="#FBB2FF"
+                                        Width="94"
+                                        Height="35"
+                                        VerticalAlignment="Top"
+                                        CornerRadius="16"
+                                        Padding="0,10,0,9">
+                                                <Grid>
+                                                        <TextBlock Text="120"
+                                                        HorizontalAlignment="Center"
+                                                        FontSize="14"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Bold"/>
+                                                </Grid>
+                                        </Border>
+                                </Grid>
+                        </Grid>
+                </Border>
+        </Grid>
 
         <!-- кнопка выйти -->
         <Button Content="Выйти"
@@ -27,11 +105,14 @@
                 VerticalContentAlignment="Center"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Margin="0,0,0,20"
-                Width="150"
-                Height="45"
+                Margin="0,0,0,64"
+                Width="135"
+                Height="30"
                 Background="MediumPurple"
                 CornerRadius="16"
-                FontSize="16"/>
+                FontSize="14"
+                Padding="7"
+                FontFamily="Comfortaa"
+                FontWeight="Medium"/>
     </Grid>
 </UserControl>

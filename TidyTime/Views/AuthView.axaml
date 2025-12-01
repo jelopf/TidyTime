@@ -13,12 +13,14 @@
         <Border Padding="30,45,30,45">
             <StackPanel Spacing="30">
                 <TextBlock Text="Добро пожаловать в Tidy Time!" 
-                        FontSize="25" FontWeight="Bold" 
+                        FontSize="25" FontWeight="Bold"
+                        FontFamily="Comfortaa"
                         TextAlignment="Left"
                         TextWrapping="Wrap"/>
 
                 <TextBlock Text="Для детей, которые любят успевать, и родителей, которые ценят спокойствие." 
                         FontSize="14"
+                        FontFamily="Comfortaa"
                         TextAlignment="Left"
                         TextWrapping="Wrap"/>
             </StackPanel>
@@ -33,7 +35,8 @@
                             <Button Content="Войти"
                                     Command="{Binding LoginUserCommand}"
 
-                                    HorizontalAlignment="Center" 
+                                    HorizontalAlignment="Center"
+                                    FontFamily="Comfortaa"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Background="#E2FF98"
@@ -57,7 +60,8 @@
                             <TextBox Watermark="Повторите пароль" Text="{Binding RepeatPassword}" PasswordChar="*" />
                             
                             <Button Content="Зарегистрироваться" 
-                                    Command="{Binding RegisterUserCommand}" 
+                                    Command="{Binding RegisterUserCommand}"
+                                    FontFamily="Comfortaa"
                                     HorizontalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
