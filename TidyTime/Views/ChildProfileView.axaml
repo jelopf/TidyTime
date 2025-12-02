@@ -19,7 +19,8 @@
                 Height="20.02"
                 Background="Transparent"
                 BorderThickness="0"
-                FontSize="20"/>
+                FontSize="20"
+                Padding="0"/>
         
         <Grid>
                 <Border Background="#DF80D6"
@@ -46,7 +47,7 @@
                                                 HorizontalAlignment="Right"
                                                 Height="24.97"
                                                 Width="23.73"
-                                                />
+                                                Padding="0"/>
                                         </Grid>
                                         <TextBlock Text="Фамилия Имя"
                                         FontSize="14"
