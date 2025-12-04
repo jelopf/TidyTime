@@ -7,18 +7,11 @@ using TidyTime.Models;
 
 namespace TidyTime.Services;
 
-public class TaskService : ITaskService
+public class TaskService : BaseFirebaseService, ITaskService
 {
-    private readonly FirebaseClient _firebaseClient;
-
-    public TaskService()
-    {
-        _firebaseClient = new FirebaseClient("https://tidytime-d27eb-default-rtdb.firebaseio.com/");
-    }
-
     public async Task<List<TaskItem>> GetTasksForUserAsync(User user)
     {
-        var tasks = await _firebaseClient.Child("tasks").OnceAsync<TaskItem>();
+        var tasks = await FirebaseClient.Child("tasks").OnceAsync<TaskItem>();
         var all = tasks.Select(t => t.Object).ToList();
 
         if (user.Role == UserRole.Child)
@@ -42,11 +35,11 @@ public class TaskService : ITaskService
 
     public async Task AddTaskAsync(TaskItem task)
     {
-        var result = await _firebaseClient.Child("tasks").PostAsync(task);
+        var result = await FirebaseClient.Child("tasks").PostAsync(task);
 
         task.Id = result.Key;
 
-        await _firebaseClient
+        await FirebaseClient
             .Child("tasks")
             .Child(result.Key)
             .PutAsync(task);
@@ -54,21 +47,21 @@ public class TaskService : ITaskService
 
     public async Task UpdateTaskAsync(TaskItem task)
     {
-        var allTasks = await _firebaseClient.Child("tasks").OnceAsync<TaskItem>();
+        var allTasks = await FirebaseClient.Child("tasks").OnceAsync<TaskItem>();
         var firebaseTask = allTasks.FirstOrDefault(t => t.Object.Id == task.Id);
         if (firebaseTask != null)
         {
-            await _firebaseClient.Child("tasks").Child(firebaseTask.Key).PutAsync(task);
+            await FirebaseClient.Child("tasks").Child(firebaseTask.Key).PutAsync(task);
         }
     }
 
     public async Task DeleteTaskAsync(string taskId)
     {
-        var allTasks = await _firebaseClient.Child("tasks").OnceAsync<TaskItem>();
+        var allTasks = await FirebaseClient.Child("tasks").OnceAsync<TaskItem>();
         var firebaseTask = allTasks.FirstOrDefault(t => t.Object.Id == taskId);
         if (firebaseTask != null)
         {
-            await _firebaseClient.Child("tasks").Child(firebaseTask.Key).DeleteAsync();
+            await FirebaseClient.Child("tasks").Child(firebaseTask.Key).DeleteAsync();
         }
     }
 }

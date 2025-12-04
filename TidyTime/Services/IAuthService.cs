@@ -5,7 +5,7 @@ namespace TidyTime.Services;
 
 public interface IAuthService
 {
-    Task<bool> RegisterUserAsync(User user);
+    Task<bool> RegisterUserAsync(User user, string password);
     Task<User?> LoginUserAsync(string login, string password);
     Task<bool> CheckIfUserExistsAsync(string login);
 

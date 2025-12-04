@@ -7,26 +7,18 @@ using TidyTime.Models;
 
 namespace TidyTime.Services
 {
-    public class FirebaseService : IFirebaseService
+    public class FirebaseService :  BaseFirebaseService, IFirebaseService
     {
-        private readonly FirebaseClient _firebaseClient;
-
-        public FirebaseService()
-        {
-            // Указываем URL вашего проекта Firebase (Realtime Database)
-            _firebaseClient = new FirebaseClient("https://tidytime-d27eb-default-rtdb.firebaseio.com/");
-        }
-
         public async Task PostUserAsync(User user)
         {
-            await _firebaseClient
+            await FirebaseClient
                 .Child("users")
                 .PostAsync(user);
         }
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-            var users = await _firebaseClient
+            var users = await FirebaseClient
                 .Child("users")
                 .OnceAsync<User>();
 

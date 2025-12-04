@@ -112,13 +112,12 @@ public partial class AuthViewModel : ViewModelBase
         var user = new TidyTime.Models.User
         {
             Login = RegisterLoginInput,
-            PasswordHash = RegisterPasswordInput,
             Role = SelectedRole == "Родитель" 
                 ? UserRole.Parent 
                 : UserRole.Child
         };
 
-        bool success = await _authService.RegisterUserAsync(user);
+        bool success = await _authService.RegisterUserAsync(user, RegisterPasswordInput);
 
         if (!success)
         {
