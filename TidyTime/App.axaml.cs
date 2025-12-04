@@ -23,8 +23,9 @@ public partial class App : Application
         {
             var nav = new NavigationService(lifetime);
             var firebaseService = new FirebaseService();
+            var taskService = new TaskService();
             var authService = new AuthService(firebaseService);
-            var authVm = new AuthViewModel(nav, authService);
+            var authVm = new AuthViewModel(nav, authService, taskService);
 
             lifetime.MainView = new ViewLocator().Build(authVm)!;
             lifetime.MainView.DataContext = authVm;

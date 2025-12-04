@@ -8,17 +8,29 @@ namespace TidyTime.ViewModels;
 public partial class ScheduleScreenViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
+    private readonly ITaskService _taskService;
 
     [ObservableProperty]
     private bool isPopupOpen;
 
-    public AddTaskPopupViewModel AddTaskPopupViewModel { get; }
+    public AddTaskPopupViewModel? AddTaskPopupViewModel { get; }
 
-    public ScheduleScreenViewModel(INavigationService navigationService, IAuthService authService) 
+    public ScheduleScreenViewModel(INavigationService navigationService, IAuthService authService, ITaskService taskService) 
         : base(navigationService)
     {
         _authService = authService;
-        AddTaskPopupViewModel = new AddTaskPopupViewModel(() => CloseAddTask());
+        _taskService = taskService;
+
+        var currentUser = _authService.GetCurrentUser();
+        
+        if (currentUser != null)
+        {
+            AddTaskPopupViewModel = new AddTaskPopupViewModel(
+                _taskService,
+                CloseAddTask,
+                currentUser.Id
+            );
+        }
     }
 
     [RelayCommand]
@@ -26,12 +38,12 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (role == "Child")
         {
-            var vm = new ChildProfileViewModel(NavigationService, _authService);
+            var vm = new ChildProfileViewModel(NavigationService, _authService, _taskService);
             NavigationService.NavigateTo(vm);
         }
         else
         {
-            var vm = new ParentProfileViewModel(NavigationService, _authService);
+            var vm = new ParentProfileViewModel(NavigationService, _authService, _taskService);
             NavigationService.NavigateTo(vm);
         }
     }
@@ -39,7 +51,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     [RelayCommand]
     private void GoToMenu()
     {
-        var vm = new MenuViewModel(NavigationService, _authService);
+        var vm = new MenuViewModel(NavigationService, _authService, _taskService);
         NavigationService.NavigateTo(vm);
     }
 

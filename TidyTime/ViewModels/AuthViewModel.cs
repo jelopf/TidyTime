@@ -12,10 +12,13 @@ namespace TidyTime.ViewModels;
 public partial class AuthViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
-    public AuthViewModel(INavigationService navigationService, IAuthService authService) 
+    private readonly ITaskService _taskService;
+
+    public AuthViewModel(INavigationService navigationService, IAuthService authService, ITaskService taskService) 
         : base(navigationService)
     {
         _authService = authService;
+        _taskService = taskService;
     }
 
     [ObservableProperty] private int selectedTabIndex = 1;
@@ -69,7 +72,7 @@ public partial class AuthViewModel : ViewModelBase
             return;
         }
 
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService);
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService);
         NavigationService.NavigateTo(scheduleVm);
     }
 
@@ -110,7 +113,9 @@ public partial class AuthViewModel : ViewModelBase
         {
             Login = RegisterLoginInput,
             PasswordHash = RegisterPasswordInput,
-            Role = SelectedRole
+            Role = SelectedRole == "Родитель" 
+                ? UserRole.Parent 
+                : UserRole.Child
         };
 
         bool success = await _authService.RegisterUserAsync(user);
@@ -121,7 +126,7 @@ public partial class AuthViewModel : ViewModelBase
             return;
         }
         
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService);
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService);
         NavigationService.NavigateTo(scheduleVm);
     }
 
