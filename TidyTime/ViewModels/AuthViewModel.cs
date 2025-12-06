@@ -72,7 +72,8 @@ public partial class AuthViewModel : ViewModelBase
             return;
         }
 
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService);
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(scheduleVm);
     }
 
@@ -125,7 +126,8 @@ public partial class AuthViewModel : ViewModelBase
             return;
         }
         
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService);
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(scheduleVm);
     }
 

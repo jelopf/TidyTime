@@ -19,7 +19,8 @@ public partial class MenuViewModel : ViewModelBase
     [RelayCommand]
     private void GoBack()
     {
-        var vm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService);
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        var vm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(vm);
     }
 }

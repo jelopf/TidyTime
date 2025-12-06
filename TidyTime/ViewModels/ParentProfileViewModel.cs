@@ -20,7 +20,8 @@ public partial class ParentProfileViewModel : ViewModelBase
     [RelayCommand]
     private void GoBack()
     {
-        NavigationService.NavigateTo(new ScheduleScreenViewModel(NavigationService, _authService, _taskService));
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        NavigationService.NavigateTo(new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService));
     }
 
     [RelayCommand]

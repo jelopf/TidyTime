@@ -20,16 +20,28 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is ISingleViewApplicationLifetime lifetime)
+    {
+        var nav = new NavigationService(lifetime);
+        var firebaseService = new FirebaseService();
+        var taskService = new TaskService();
+        var authService = new AuthService(firebaseService);
+        
+        var currentUser = authService.GetCurrentUser();
+        
+        if (currentUser != null)
         {
-            var nav = new NavigationService(lifetime);
-            var firebaseService = new FirebaseService();
-            var taskService = new TaskService();
-            var authService = new AuthService(firebaseService);
+            IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+            var scheduleVm = new ScheduleScreenViewModel(nav, authService, taskService, dayOfWeekService);
+            lifetime.MainView = new ViewLocator().Build(scheduleVm)!;
+            lifetime.MainView.DataContext = scheduleVm;
+        }
+        else
+        {
             var authVm = new AuthViewModel(nav, authService, taskService);
-
             lifetime.MainView = new ViewLocator().Build(authVm)!;
             lifetime.MainView.DataContext = authVm;
         }
+    }
 
         base.OnFrameworkInitializationCompleted();
     }
