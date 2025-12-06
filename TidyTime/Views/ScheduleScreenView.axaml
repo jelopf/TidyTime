@@ -13,7 +13,7 @@
     <StackPanel Background="#FFFFFF">
         
         <!-- топбар -->
-        <Border Height="80" Padding="10,0">
+        <Border Padding="35.5,30,35.5,28">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -24,8 +24,9 @@
                 <!-- иконка профиля -->
                 <Button Grid.Column="0" 
                         Content="П" 
-                        Width="40" 
-                        Height="40"
+                        Width="20" 
+                        Height="22"
+                        Padding="0"
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{Binding GoToProfileCommand}"
@@ -40,13 +41,16 @@
                            Text="Вася Пупкин" 
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           FontSize="16"/>
+                           FontSize="14"
+                           FontFamily="Comfortaa"
+                           FontWeight="Bold"/>
                 
                 <!-- иконка меню -->
                 <Button Grid.Column="2" 
                         Content="М" 
-                        Width="40" 
-                        Height="40"
+                        Width="20" 
+                        Height="20"
+                        Padding="0"
                         Background="Transparent"
                         BorderThickness="0"
                         FontSize="16"
@@ -59,35 +63,327 @@
 
         <!-- расписание -->
         <Border Background="#86C7FF" 
-                Height="416" 
-                VerticalAlignment="Center"
-                CornerRadius="16">
-            
-            <StackPanel VerticalAlignment="Bottom" 
-                        Margin="20">
-                
+        Height="416" 
+        VerticalAlignment="Center"
+        CornerRadius="16"
+        Padding="18,8,18,8">
+            <Grid>
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                    <Button Width="4.97"
+                    Height="9.37"
+                    Content="s"
+                    Margin="1,12,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"/>
 
-                    <TextBlock Text="Добавить задачу" 
-                               VerticalAlignment="Center"
-                               FontSize="14"
-                               Grid.Column="0"/>
+                    <TabControl>
+                        <TabItem Header="92"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                                <StackPanel>
+                                    <TextBlock Text="Понедельник, 92 декабря"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"
+                                    HorizontalAlignment="Center"
+                                    />
 
-                    <Button Content="+"
-                            Width="50" Height="50"
-                            FontSize="20"
-                            Grid.Column="1"
-                            Background="Transparent"
-                            BorderThickness="1"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center"
-                            Command="{Binding OpenAddTaskCommand}"/>
+                                    <ListBox Background="Transparent">
+                                        <ListBoxItem Padding="18,12,18,12"
+                                        Background="Aqua"
+                                        Margin="0,12,0,0">
+                                            <Grid>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Купить злеб"
+                                                    FontSize="10"
+                                                    FontFamily="Comfortaa"
+                                                    FontWeight="Bold"
+                                                    VerticalAlignment="Center"
+                                                    TextWrapping="Wrap"
+                                                    MaxWidth="145"/>
+
+                                                    <TextBlock Text="1 секунда"
+                                                    Margin="6,0,0,0"
+                                                    FontSize="10"
+                                                    FontFamily="Comfortaa"
+                                                    FontWeight="Regular"
+                                                    VerticalAlignment="Center"/>
+                                                </StackPanel>
+
+                                                <StackPanel HorizontalAlignment="Right"
+                                                Orientation="Horizontal">
+                                                    <TextBlock Text="-1"
+                                                    FontSize="14"
+                                                    FontFamily="Comfortaa"
+                                                    FontWeight="Bold"/>
+
+                                                    <Button Content="V"
+                                                    Width="11.36"
+                                                    Height="6.97"
+                                                    Padding="0"
+                                                    Margin="6,0,0,0"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </ListBoxItem>
+
+                                        <ListBoxItem Padding="18,12,18,12"
+                                        Margin="0,12,0,0"
+                                        Background="Aqua">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="Вынести стили в файл"
+                                                        FontSize="10"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Bold"
+                                                        VerticalAlignment="Center"
+                                                        TextWrapping="Wrap"
+                                                        MaxWidth="145"/>
+
+                                                        <TextBlock Text="12:30-13:40"
+                                                        Margin="6,0,0,0"
+                                                        FontSize="10"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Regular"
+                                                        VerticalAlignment="Center"/>
+                                                    </StackPanel>
+
+                                                    <StackPanel HorizontalAlignment="Right"
+                                                    Orientation="Horizontal">
+                                                        <TextBlock Text="10"
+                                                        FontSize="14"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Bold"/>
+
+                                                        <Button Content="^"
+                                                        Width="11.36"
+                                                        Height="6.97"
+                                                        Padding="0"
+                                                        Margin="6,0,0,0"/>
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <StackPanel>
+                                                    <TextBlock Text="Создать файл и вынести туда стили для задач, предварительно тегнув их"
+                                                    MaxWidth="251"
+                                                    TextWrapping="Wrap"
+                                                    FontSize="10"
+                                                    HorizontalAlignment="Left"
+                                                    FontFamily="Comfortaa"
+                                                    FontWeight="Regular"
+                                                    Margin="0,12,0,12"/>
+
+                                                    <StackPanel VerticalAlignment="Bottom"
+                                                    Orientation="Horizontal">
+                                                        <Grid Width="42.65"
+                                                        HorizontalAlignment="Left">
+                                                            <Button
+                                                            Width="14.06"
+                                                            Height="16.06"/>
+
+                                                            <Button Content="P"
+                                                            Width="14.06"
+                                                            Height="16.06"
+                                                            Padding="0"
+                                                            HorizontalAlignment="Right"/>
+                                                        </Grid>
+                                                        
+                                                        <Button Width="99.06"
+                                                        Height="23"
+                                                        Padding="12,6,12,6"
+                                                        CornerRadius="16"
+                                                        Margin="122.29,0,0,0">
+                                                            <TextBlock Text="Выполнено"
+                                                            FontSize="10"
+                                                            FontFamily="Comfortaa"
+                                                            FontWeight="Bold"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </ListBoxItem>
+
+                                        <ListBoxItem Padding="18,12,18,12"
+                                        Background="Gray"
+                                        Margin="0,12,0,0">
+                                            <Grid>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Выбесить жука"
+                                                    FontSize="10"
+                                                    FontFamily="Comfortaa"
+                                                    FontWeight="Bold"
+                                                    VerticalAlignment="Center"
+                                                    TextWrapping="Wrap"
+                                                    MaxWidth="145"
+                                                    TextDecorations="Strikethrough"/>
+                                                </StackPanel>
+
+
+                                                <StackPanel HorizontalAlignment="Right"
+                                                Orientation="Horizontal"
+                                                Margin="0,0,11.36,0">
+                                                    <Border Background="#B2F6C3"
+                                                    Padding="6,3,6,3">
+                                                        <StackPanel>
+                                                            <TextBlock Text="100"
+                                                            FontSize="14"
+                                                            FontFamily="Comfortaa"
+                                                            FontWeight="Bold"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </StackPanel>
+                                            </Grid>
+                                        </ListBoxItem>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="93"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="94"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="95"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="96"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="97"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                            </Border>
+                        </TabItem>
+
+                        <TabItem Header="98"
+                        FontSize="14"
+                        FontFamily="Comfortaa"
+                        FontWeight="Bold"
+                        Height="31"
+                        Padding="0"
+                        HorizontalAlignment="Center"
+                        Width="36">
+                            <Border Background="#FFFFFF"
+                            Padding="12"
+                            CornerRadius="16"
+                            Height="323"
+                            VerticalAlignment="Top">
+                            </Border>
+                        </TabItem>
+                    </TabControl>
+
+                    <Button Width="4.97"
+                    Height="9.37"
+                    Content="s"
+                    Margin="0,12,1,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"/>
                 </Grid>
-            </StackPanel>
+
+                <StackPanel VerticalAlignment="Bottom">
+                    <Border Padding="18,0,18,0"
+                    Height="42">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Добавить задачу" 
+                                    VerticalAlignment="Center"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"
+                                    Grid.Column="0"/>
+
+                            <Button Content="+"
+                                    Width="18" Height="18"
+                                    FontSize="20"
+                                    Padding="0"
+                                    Grid.Column="1"
+                                    Background="Transparent"
+                                    BorderThickness="1"
+                                    HorizontalContentAlignment="Center"
+                                    VerticalContentAlignment="Center"
+                                    Command="{Binding OpenAddTaskCommand}"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
         </Border>
 
         <!-- добавление задачи (попап)-->
