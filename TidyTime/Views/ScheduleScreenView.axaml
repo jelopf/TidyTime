@@ -9,6 +9,35 @@
              x:DataType="vm:ScheduleScreenViewModel"
              x:Name="Root">
 
+    <UserControl.Styles>
+        <!--Задача в нормальном состоянии-->
+        <Style Selector="Expander /template/ ToggleButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+        <!--Задача при наведении-->
+        <Style Selector="Expander /template/ ToggleButton:pointerover /template/ Border#ToggleButtonBackground">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+        <!--Кнопка раскрытия в нормальном состоянии-->
+        <Style Selector="Expander /template/ ToggleButton:not(:pointerover):not(:pressed) /template/ Border#ExpandCollapseChevronBorder">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="11"/>
+        </Style>
+        <!--Кнопка раскрытия при наведении-->
+        <Style Selector="Expander /template/ ToggleButton:pointerover /template/ Border#ExpandCollapseChevronBorder">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Width" Value="15"/>
+            <Setter Property="Height" Value="11"/>
+        </Style>
+    </UserControl.Styles>
 
     <StackPanel Background="#FFFFFF">
         
@@ -98,51 +127,19 @@
                                     HorizontalAlignment="Center"
                                     />
 
-                                    <ListBox Background="Transparent">
+                                    <ListBox Background="Transparent"
+                                    ScrollViewer.VerticalScrollBarVisibility="Hidden">
                                         <ListBoxItem Padding="18,12,18,12"
                                         Background="Aqua"
                                         Margin="0,12,0,0">
-                                            <Grid>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="Купить злеб"
-                                                    FontSize="10"
-                                                    FontFamily="Comfortaa"
-                                                    FontWeight="Bold"
-                                                    VerticalAlignment="Center"
-                                                    TextWrapping="Wrap"
-                                                    MaxWidth="145"/>
-
-                                                    <TextBlock Text="1 секунда"
-                                                    Margin="6,0,0,0"
-                                                    FontSize="10"
-                                                    FontFamily="Comfortaa"
-                                                    FontWeight="Regular"
-                                                    VerticalAlignment="Center"/>
-                                                </StackPanel>
-
-                                                <StackPanel HorizontalAlignment="Right"
-                                                Orientation="Horizontal">
-                                                    <TextBlock Text="-1"
-                                                    FontSize="14"
-                                                    FontFamily="Comfortaa"
-                                                    FontWeight="Bold"/>
-
-                                                    <Button Content="V"
-                                                    Width="11.36"
-                                                    Height="6.97"
-                                                    Padding="0"
-                                                    Margin="6,0,0,0"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </ListBoxItem>
-
-                                        <ListBoxItem Padding="18,12,18,12"
-                                        Margin="0,12,0,0"
-                                        Background="Aqua">
-                                            <StackPanel>
-                                                <Grid>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Вынести стили в файл"
+                                            <Expander Width="264"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            MinHeight="16"
+                                            Padding="0">
+                                                <Expander.Header>
+                                                    <DockPanel>
+                                                        <TextBlock Text="Купить злеб"
                                                         FontSize="10"
                                                         FontFamily="Comfortaa"
                                                         FontWeight="Bold"
@@ -150,29 +147,99 @@
                                                         TextWrapping="Wrap"
                                                         MaxWidth="145"/>
 
+                                                        <TextBlock Text="1 секунда"
+                                                        Margin="6,0,0,0"
+                                                        FontSize="10"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Regular"
+                                                        VerticalAlignment="Center"/>
+                                                    
+                                                        <TextBlock Text="-1"
+                                                        FontSize="14"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Bold"
+                                                        TextAlignment="Right"
+                                                        Margin="0,0,6,0"
+                                                        VerticalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Expander.Header>
+
+                                                <StackPanel>
+                                                    <TextBlock Text="Выполнить цыганские фокусы с задачами"
+                                                    MaxWidth="251"
+                                                    TextWrapping="Wrap"
+                                                    FontSize="10"
+                                                    HorizontalAlignment="Left"
+                                                    FontFamily="Comfortaa"
+                                                    FontWeight="Regular"
+                                                    Margin="0,12,0,12"/>
+
+                                                    <StackPanel VerticalAlignment="Bottom"
+                                                    Orientation="Horizontal">
+                                                        <Grid Width="42.65"
+                                                        HorizontalAlignment="Left">
+                                                            <Button
+                                                            Width="14.06"
+                                                            Height="16.06"/>
+
+                                                            <Button Content="P"
+                                                            Width="14.06"
+                                                            Height="16.06"
+                                                            Padding="0"
+                                                            HorizontalAlignment="Right"/>
+                                                        </Grid>
+                                                        
+                                                        <Button Width="99.06"
+                                                        Height="23"
+                                                        Padding="12,6,12,6"
+                                                        CornerRadius="16"
+                                                        Margin="122.29,0,0,0">
+                                                            <TextBlock Text="Выполнено"
+                                                            FontSize="10"
+                                                            FontFamily="Comfortaa"
+                                                            FontWeight="Bold"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Expander>
+                                        </ListBoxItem>
+
+                                        <ListBoxItem Padding="18,12,18,12"
+                                        Background="Aqua"
+                                        Margin="0,12,0,0">
+                                            <Expander Width="264"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            MinHeight="16"
+                                            Padding="0">
+                                                <Expander.Header>
+                                                    <DockPanel>
+                                                        <!--Заголовок задачи-->
+                                                        <TextBlock Text="Вынести стили в файл"
+                                                        FontSize="10"
+                                                        FontFamily="Comfortaa"
+                                                        FontWeight="Bold"
+                                                        VerticalAlignment="Center"
+                                                        TextWrapping="Wrap"
+                                                        MaxWidth="145"/>
+                                                        <!--Время выполнения-->
                                                         <TextBlock Text="12:30-13:40"
                                                         Margin="6,0,0,0"
                                                         FontSize="10"
                                                         FontFamily="Comfortaa"
                                                         FontWeight="Regular"
                                                         VerticalAlignment="Center"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel HorizontalAlignment="Right"
-                                                    Orientation="Horizontal">
+                                                        <!--Кол-во монет-->
                                                         <TextBlock Text="10"
                                                         FontSize="14"
                                                         FontFamily="Comfortaa"
-                                                        FontWeight="Bold"/>
-
-                                                        <Button Content="^"
-                                                        Width="11.36"
-                                                        Height="6.97"
-                                                        Padding="0"
-                                                        Margin="6,0,0,0"/>
-                                                    </StackPanel>
-                                                </Grid>
-
+                                                        FontWeight="Bold"
+                                                        TextAlignment="Right"
+                                                        Margin="0,0,6,0"
+                                                        VerticalAlignment="Center"/>
+                                                    </DockPanel>
+                                                </Expander.Header>
+                                                <!--Раскрывающееся расписание-->
                                                 <StackPanel>
                                                     <TextBlock Text="Создать файл и вынести туда стили для задач, предварительно тегнув их"
                                                     MaxWidth="251"
@@ -210,7 +277,7 @@
                                                         </Button>
                                                     </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
+                                            </Expander>
                                         </ListBoxItem>
 
                                         <ListBoxItem Padding="18,12,18,12"
