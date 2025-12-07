@@ -37,6 +37,14 @@
             <Setter Property="Width" Value="15"/>
             <Setter Property="Height" Value="11"/>
         </Style>
+
+        <Style Selector="TabItem">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="16, 16, 0, 0"/>
+            <Setter Property="MinHeight" Value="31"/>
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Padding" Value="0,4,0,4"/>
+        </Style>
     </UserControl.Styles>
 
     <StackPanel Background="#FFFFFF">
@@ -106,14 +114,20 @@
                     VerticalAlignment="Top"/>
 
                     <TabControl>
-                        <TabItem Header="92"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="92"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Пн"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
@@ -316,14 +330,20 @@
                             </Border>
                         </TabItem>
 
-                        <TabItem Header="93"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="93"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Вт"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
@@ -332,14 +352,20 @@
                             </Border>
                         </TabItem>
 
-                        <TabItem Header="94"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="94"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Ср"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
@@ -348,14 +374,20 @@
                             </Border>
                         </TabItem>
 
-                        <TabItem Header="95"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="95"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Чт"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
@@ -364,14 +396,20 @@
                             </Border>
                         </TabItem>
 
-                        <TabItem Header="96"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="96"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Пт"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
@@ -380,14 +418,20 @@
                             </Border>
                         </TabItem>
 
-                        <TabItem Header="97"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="97"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Сб"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
@@ -396,14 +440,20 @@
                             </Border>
                         </TabItem>
 
-                        <TabItem Header="98"
-                        FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Bold"
-                        Height="31"
-                        Padding="0"
-                        HorizontalAlignment="Center"
-                        Width="36">
+                        <TabItem Height="31">
+                            <TabItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="98"
+                                    FontSize="14"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Bold"/>
+                                    
+                                    <TextBlock Text="Вс"
+                                    FontSize="10"
+                                    FontFamily="Comfortaa"
+                                    FontWeight="Regular"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Border Background="#FFFFFF"
                             Padding="12"
                             CornerRadius="16"
