@@ -8,22 +8,25 @@ namespace TidyTime.ViewModels;
 public partial class ParentProfileViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
+    private readonly ITaskService _taskService;
 
-    public ParentProfileViewModel(INavigationService navigationService, IAuthService authService) 
+    public ParentProfileViewModel(INavigationService navigationService, IAuthService authService, ITaskService taskService) 
         : base(navigationService)
     {
         _authService = authService;
+        _taskService = taskService;
     }
 
     [RelayCommand]
     private void GoBack()
     {
-        NavigationService.NavigateTo(new ScheduleScreenViewModel(NavigationService, _authService));
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        NavigationService.NavigateTo(new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService));
     }
 
     [RelayCommand]
     private void GoToAuth()
     {
-        NavigationService.NavigateTo(new AuthViewModel(NavigationService, _authService));
+        NavigationService.NavigateTo(new AuthViewModel(NavigationService, _authService, _taskService));
     }
 }

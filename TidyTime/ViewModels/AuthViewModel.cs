@@ -12,10 +12,13 @@ namespace TidyTime.ViewModels;
 public partial class AuthViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
-    public AuthViewModel(INavigationService navigationService, IAuthService authService) 
+    private readonly ITaskService _taskService;
+
+    public AuthViewModel(INavigationService navigationService, IAuthService authService, ITaskService taskService) 
         : base(navigationService)
     {
         _authService = authService;
+        _taskService = taskService;
     }
 
     [ObservableProperty] private int selectedTabIndex = 1;
@@ -69,7 +72,8 @@ public partial class AuthViewModel : ViewModelBase
             return;
         }
 
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService);
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(scheduleVm);
     }
 
@@ -109,11 +113,12 @@ public partial class AuthViewModel : ViewModelBase
         var user = new TidyTime.Models.User
         {
             Login = RegisterLoginInput,
-            PasswordHash = RegisterPasswordInput,
-            Role = SelectedRole
+            Role = SelectedRole == "Родитель" 
+                ? UserRole.Parent 
+                : UserRole.Child
         };
 
-        bool success = await _authService.RegisterUserAsync(user);
+        bool success = await _authService.RegisterUserAsync(user, RegisterPasswordInput);
 
         if (!success)
         {
@@ -121,7 +126,8 @@ public partial class AuthViewModel : ViewModelBase
             return;
         }
         
-        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService);
+        IDayOfWeekService dayOfWeekService = new DayOfWeekService();
+        var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(scheduleVm);
     }
 

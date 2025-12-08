@@ -14,6 +14,7 @@
     <PackageVersion Include="Avalonia.iOS" Version="11.3.8" />
     <PackageVersion Include="Avalonia.Browser" Version="11.3.8" />
     <PackageVersion Include="Avalonia.Android" Version="11.3.8" />
+    <PackageVersion Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageVersion Include="FirebaseAuthentication.net" Version="4.1.0" />
     <PackageVersion Include="FirebaseDatabase.net" Version="5.0.0" />
