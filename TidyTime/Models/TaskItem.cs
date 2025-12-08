@@ -21,51 +21,15 @@ public class TaskItem
     [Range(1, 5)]               
     public int Difficulty { get; set; } = 1;
 
-     public TaskStatus Status { get; set; } = TaskStatus.Pending;
+    public TaskStatus Status { get; set; } = TaskStatus.Pending;
 
     public string AssignedChildId { get; set; } = "";
 
     [Required]
     public string OwnerId { get; set; } = "";  
 
-    public string DifficultyText => Difficulty switch
-    {
-        1 => "Легкая",
-        2 => "Средняя",
-        3 => "Высокая",
-        4 => "Великая",
-        5 => "Легендарная",
-        _ => "Неизвестно"
-    };          
-
-    public string StatusText => Status switch
-    {
-        TaskStatus.Pending => "Ожидает",
-        TaskStatus.InProgress => "В процессе",
-        TaskStatus.Completed => "Выполнено",
-        TaskStatus.Cancelled => "Отменено",
-        _ => "Неизвестно"
-    };
-
-    public string TimeRange => IsAllDay 
-        ? "Весь день" 
-        : $"{StartTime:HH:mm}-{EndTime:HH:mm}";
-
-    public string CardColor => Difficulty switch
-    {
-        1 => "#B2F6C3", 
-        2 => "#F7DAB3", 
-        3 => "#EFB3F5", 
-        4 => "#FFB3B3",
-        5 => "#B3D9FF",
-        _ => "#EEEEEE"
-    };
-
-    public string CompletedCardColor => "#EEEEEE";
-
-    public bool IsTitleStrikethrough => Status == TaskStatus.Completed;
-
-    public int RewardCoins => Difficulty * 10;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public bool IsValid()
     {

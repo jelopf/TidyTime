@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -22,7 +23,10 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private DateTime _selectedDate = DateTime.Today;
 
     [ObservableProperty]
-    private ObservableCollection<TaskItem> _tasks = new();
+    private int _selectedDayIndex;
+
+    [ObservableProperty]
+    private ObservableCollection<TaskItemViewModel> _tasks = new();
 
     [ObservableProperty]
     private ObservableCollection<User> _children = new();
@@ -113,6 +117,18 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         DateTitle = char.ToUpper(DateTitle[0]) + DateTitle.Substring(1);
     }
 
+    partial void OnSelectedDateChanged(DateTime value)
+{
+    var selectedDay = WeekDays.FirstOrDefault(d => d.Date.Date == value.Date);
+    if (selectedDay != null)
+    {
+        SelectedDayIndex = WeekDays.IndexOf(selectedDay);
+    }
+    
+    UpdateDateTitle();
+    LoadTasksForDateAsync().ConfigureAwait(false);
+}
+
     private void GenerateWeekDays()
     {
         WeekDays.Clear();
@@ -134,22 +150,23 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         
         try
         {
-            List<TaskItem> tasks;
+            List<TaskItem> taskItems;
             
             if (_currentUser.Role == UserRole.Parent && SelectedChild != null)
             {
-                tasks = await _taskService.GetTasksForChildAsync(_currentUser.Id, SelectedChild.Id);
-                tasks = tasks.Where(t => t.StartTime.Date == SelectedDate.Date).ToList();
+                taskItems = await _taskService.GetTasksForChildAsync(_currentUser.Id, SelectedChild.Id);
+                taskItems = taskItems.Where(t => t.StartTime.Date == SelectedDate.Date).ToList();
             }
             else
             {
-                tasks = await _taskService.GetTasksForDateAsync(_currentUser, SelectedDate);
+                taskItems = await _taskService.GetTasksForDateAsync(_currentUser, SelectedDate);
             }
 
             Tasks.Clear();
-            foreach (var task in tasks.OrderBy(t => t.StartTime))
+            foreach (var taskItem in taskItems.OrderBy(t => t.StartTime))
             {
-                Tasks.Add(task);
+                var taskVm = new TaskItemViewModel(taskItem, NavigationService);
+                Tasks.Add(taskVm);
             }
         }
         finally
@@ -157,7 +174,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             IsLoading = false;
         }
     }
-
+    
     [RelayCommand]
     private async Task LoadChildrenAsync()
     {
@@ -232,7 +249,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void EditTaskAsync(TaskItem task)
+    private void EditTask(TaskItemViewModel taskVm)
     {
         if (_currentUser == null) return;
 
@@ -241,30 +258,38 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             CloseAddTask,
             _currentUser.Id,
             SelectedDate, 
-            task
+            taskVm.Task 
         );
         
         IsPopupOpen = true;
     }
 
     [RelayCommand]
-    private async Task DeleteTaskAsync(TaskItem task)
+    private async Task DeleteTaskAsync(TaskItemViewModel taskVm)
     {
-        if (_currentUser == null || string.IsNullOrEmpty(task.Id)) return;
+        if (_currentUser == null || string.IsNullOrEmpty(taskVm.Id)) return;
 
-        await _taskService.DeleteTaskAsync(task.Id);
+        await _taskService.DeleteTaskAsync(taskVm.Id);
         await LoadTasksForDateAsync();
         CalculateTotalCoins();
     }
 
     [RelayCommand]
-    private async Task MarkAsCompletedAsync(TaskItem task)
+    private async Task MarkAsCompletedAsync(TaskItemViewModel taskVm)
     {
-        if (_currentUser == null || string.IsNullOrEmpty(task.Id)) return;
+        if (_currentUser == null || string.IsNullOrEmpty(taskVm.Id)) return;
 
-        await _taskService.MarkTaskAsCompletedAsync(task.Id);
+        await _taskService.MarkTaskAsCompletedAsync(taskVm.Id);
         await LoadTasksForDateAsync();
         CalculateTotalCoins();
+    }
+
+    [RelayCommand]
+    private void ToggleTaskExpansion(TaskItemViewModel taskVm)
+    {
+        if (taskVm == null) return;
+        
+        taskVm.IsExpanded = !taskVm.IsExpanded;
     }
 
     [RelayCommand]
