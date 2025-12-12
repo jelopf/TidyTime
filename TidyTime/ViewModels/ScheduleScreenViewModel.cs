@@ -38,6 +38,9 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private User? _selectedChild;
 
     [ObservableProperty]
+    private bool _isParentMode = false;
+
+    [ObservableProperty]
     private bool _isLoading;
 
     [ObservableProperty]
@@ -56,7 +59,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private int _totalCoins = 0;
 
     [ObservableProperty]
-    private bool _isPopupOpen;
+    private bool _isAddTaskPopupOpen;
 
     public AddTaskPopupViewModel? AddTaskPopupViewModel { get; private set; }
 
@@ -78,6 +81,11 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (_currentUser == null) return;
 
+        if (IsParentMode)
+        {
+            await LoadChildrenAsync();
+        }
+
         UpdateDisplayNames();
         UpdateDateTitle();
         GenerateWeekDays();
@@ -98,11 +106,12 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (_currentUser == null) return;
 
-        UserDisplayName = _currentUser.Login;
+        UserDisplayName = _currentUser.FullName; 
+        IsParentMode = _currentUser.Role == UserRole.Parent;
 
-        if (_currentUser.Role == UserRole.Parent && SelectedChild != null)
+        if (IsParentMode && SelectedChild != null)
         {
-            ChildDisplayName = SelectedChild.Login;
+            ChildDisplayName = SelectedChild.FullName;
         }
         else
         {
@@ -238,12 +247,12 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             SelectedDate  
         );
         
-        IsPopupOpen = true;
+        IsAddTaskPopupOpen = true;
     }
 
     private void CloseAddTask()
     {
-        IsPopupOpen = false;
+        IsAddTaskPopupOpen = false;
         LoadTasksForDateAsync().ConfigureAwait(false);
         CalculateTotalCoins();
     }
@@ -261,7 +270,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             taskVm.Task 
         );
         
-        IsPopupOpen = true;
+        IsAddTaskPopupOpen = true;
     }
 
     [RelayCommand]

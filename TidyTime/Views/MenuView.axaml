@@ -33,7 +33,7 @@
                 Margin="0,15,0,0"/>
                 <StackPanel VerticalAlignment="Bottom"
                 Orientation="Horizontal">
-                    <StackPanel>
+                    <StackPanel IsVisible="{Binding !IsParentMode}">
                         <Button Background="#FFFFFF"
                         Width="135"
                         Height="135"

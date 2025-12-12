@@ -10,7 +10,7 @@
         
     <StackPanel Background="#B8ED78">
             
-        <Border Padding="30,45,30,45">
+        <Border Padding="30,45,30,16">
             <StackPanel Spacing="30">
                 <TextBlock Text="Добро пожаловать в Tidy Time!" 
                         FontSize="25" FontWeight="Bold"
@@ -28,7 +28,7 @@
 
             <TabControl>
                 <TabItem Header="Вход">
-                    <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="0, 16, 16, 16">
+                    <Border Background="#FFFFFF" Padding="30,18.16,30,30" CornerRadius="0, 16, 16, 16">
                         <StackPanel Spacing="">
                             <StackPanel>
                                 <TextBox Watermark="Email / Телефон" Text="{Binding LoginInput}" />
@@ -47,7 +47,7 @@
                                     FontFamily="Comfortaa"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
-                                    Background="#E2FF98"
+                                    Background="#C3F08C"
                                     CornerRadius="16"
                                     Height="45" Width="215"/>
                         </StackPanel>
@@ -55,7 +55,7 @@
                 </TabItem>
 
                 <TabItem Header="Регистрация">
-                    <Border Background="#FFFFFF" Padding="30,25.25,30,30" CornerRadius="16, 0, 16, 16">
+                    <Border Background="#FFFFFF" Padding="30,18.16,30,30" CornerRadius="16, 0, 16, 16">
                         <StackPanel Spacing="" Background="#FFFFFF">
 
                             <StackPanel>
@@ -67,7 +67,12 @@
                             </StackPanel>
                             
                             <StackPanel>
-                                <TextBox Watermark="Email / Телефон" Text="{Binding RegisterLoginInput}" />
+                                <TextBox Watermark="Фамилия Имя" Text="{Binding RegisterFullNameInput}"/>
+                                <TextBlock Text="{Binding RegisterFullNameInputError}" Foreground="Red" FontSize="12"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <TextBox Watermark="Телефон" Text="{Binding RegisterLoginInput}" />
                                 <TextBlock Text="{Binding RegisterLoginInputError}" Foreground="Red" FontSize="12"/>
                             </StackPanel>
 
@@ -87,7 +92,7 @@
                                     HorizontalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
-                                    Background="#E2FF98"
+                                    Background="#C3F08C"
                                     CornerRadius="16"
                                     Height="45" Width="215"/>
                         </StackPanel>
