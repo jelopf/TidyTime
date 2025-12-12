@@ -6,5 +6,95 @@
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="TidyTime.Views.GameMenuView"
              x:DataType="vm:GameMenuViewModel">
-    
+
+    <Grid Background="White">
+        <Button Content=">"
+        HorizontalAlignment="Left"
+        VerticalAlignment="Top"
+        Width="11.56" Height="20.02"
+        Background="Transparent"
+        BorderThickness="0"
+        Margin="30,31,0,0"
+        Padding="0"
+        FontSize="20"/>
+
+        <Grid Height="451"
+        Margin="0,62,0,0">
+            <Border Background="#2E3186">
+                <Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <!--Копка "Мемори"-->
+                        <StackPanel>
+                            <Button Background="#FFFFFF"
+                            Width="135"
+                            Height="135"
+                            CornerRadius="16">
+                            </Button>
+
+                            <TextBlock Text="Мемори"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            FontFamily="Comfortaa"
+                            FontWeight="Medium"
+                            Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                    Margin="0,0,0,30">
+                        <!--Копка "Кексы"-->
+                        <StackPanel>
+                            <Button Background="#FFFFFF"
+                            Width="135"
+                            Height="135"
+                            CornerRadius="16">
+                            </Button>
+
+                            <TextBlock Text="Кексы"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            FontFamily="Comfortaa"
+                            FontWeight="Medium"
+                            Margin="0,12,0,0"/>
+                        </StackPanel>
+
+                        <!--Копка "Пазлы"-->
+                        <StackPanel>
+                            <Button Background="#FFFFFF"
+                            Width="135"
+                            Height="135"
+                            CornerRadius="16">
+                            </Button>
+
+                            <TextBlock Text="Пазлы"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Center"
+                            FontSize="14"
+                            FontFamily="Comfortaa"
+                            FontWeight="Medium"
+                            Margin="0,12,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--Баланс-->
+            <Border Background="#BEB2FF"
+            Width="94"
+            Height="35"
+            VerticalAlignment="Top"
+            CornerRadius="16"
+            Padding="0,10,0,9">
+                <Grid>
+                    <TextBlock Text="120"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontFamily="Comfortaa"
+                    FontWeight="Bold"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
 </UserControl>
