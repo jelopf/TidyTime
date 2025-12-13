@@ -30,4 +30,11 @@ public partial class MenuViewModel : ViewModelBase
         var vm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(vm);
     }
+
+    [RelayCommand]
+    private void GoToGames()
+    {
+        var vm = new GameMenuViewModel(NavigationService, _authService, _taskService);
+        NavigationService.NavigateTo(vm);
+    }
 }
