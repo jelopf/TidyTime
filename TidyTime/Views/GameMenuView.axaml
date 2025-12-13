@@ -20,11 +20,17 @@
         FontSize="20"/>
 
         <Grid Height="451"
-        Margin="0,62,0,0">
-            <Border Background="#2E3186">
-                <Grid>
-                    <StackPanel Orientation="Horizontal">
-                        <!--Копка "Мемори"-->
+        Margin="0,62,0,0"
+        VerticalAlignment="Top">
+            <Border Background="#2E3186"
+            Height="433"
+            CornerRadius="16"
+            VerticalAlignment="Bottom">
+                <StackPanel Margin="30,47,30,30">
+                    <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                        <!--Кнопка "Мемори"-->
                         <StackPanel>
                             <Button Background="#FFFFFF"
                             Width="135"
@@ -36,16 +42,17 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
                             FontSize="14"
-                            FontFamily="Comfortaa"
-                            FontWeight="Medium"
+                            FontFamily="{StaticResource ComfortaaMedium}"
                             Margin="0,12,0,0"/>
                         </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal"
-                    Margin="0,0,0,30">
-                        <!--Копка "Кексы"-->
-                        <StackPanel>
+                    <Grid Margin="0,30,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center">
+                        <!--Кнопка "Кексы"-->
+                        <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
                             <Button Background="#FFFFFF"
                             Width="135"
                             Height="135"
@@ -56,13 +63,13 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
                             FontSize="14"
-                            FontFamily="Comfortaa"
-                            FontWeight="Medium"
+                            FontFamily="{StaticResource ComfortaaMedium}"
                             Margin="0,12,0,0"/>
                         </StackPanel>
 
-                        <!--Копка "Пазлы"-->
-                        <StackPanel>
+                        <!--Кнопка "Пазлы"-->
+                        <StackPanel VerticalAlignment="Center"
+                        HorizontalAlignment="Right">
                             <Button Background="#FFFFFF"
                             Width="135"
                             Height="135"
@@ -73,12 +80,11 @@
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
                             FontSize="14"
-                            FontFamily="Comfortaa"
-                            FontWeight="Medium"
+                            FontFamily="{StaticResource ComfortaaMedium}"
                             Margin="0,12,0,0"/>
                         </StackPanel>
-                    </StackPanel>
-                </Grid>
+                    </Grid>
+                </StackPanel>
             </Border>
 
             <!--Баланс-->
@@ -88,13 +94,19 @@
             VerticalAlignment="Top"
             CornerRadius="16"
             Padding="0,10,0,9">
-                <Grid>
+                <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
                     <TextBlock Text="120"
                     HorizontalAlignment="Center"
                     FontSize="14"
-                    FontFamily="Comfortaa"
-                    FontWeight="Bold"/>
-                </Grid>
+                    FontFamily="{StaticResource ComfortaaBold}"
+                    Margin="0,0,6,0"/>
+
+                    <Ellipse Width="16" 
+                    Height="16" 
+                    Fill="#FFCC00"/>
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>

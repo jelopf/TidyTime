@@ -51,8 +51,7 @@
                                         </Grid>
                                         <TextBlock Text="{Binding UserFullName}"
                                         FontSize="14"
-                                        FontFamily="Comfortaa"
-                                        FontWeight="Bold"
+                                        FontFamily="{StaticResource ComfortaaBold}"
                                         HorizontalAlignment="Left"
                                         Padding="8,20,0,0"
                                         TextWrapping="Wrap"
@@ -73,15 +72,13 @@
                                                         <TextBlock Text="Всего выполнено задач:"
                                                         HorizontalAlignment="Left"
                                                         FontSize="14"
-                                                        FontFamily="comfortaa"
-                                                        FontWeight="Regular"
+                                                        FontFamily="{StaticResource ComfortaaRegular}"
                                                         Margin="0,19,0,0"/>
 
                                                         <TextBlock Text ="{Binding CompletedTasksCountDisplay}"
                                                         HorizontalAlignment="Right"
                                                         FontSize="25"
-                                                        FontFamily="Comfortaa"
-                                                        FontWeight="Bold"
+                                                        FontFamily="{StaticResource ComfortaaBold}"
                                                         Margin="0,13,0,0"/>
 
                                                         
@@ -102,8 +99,7 @@
                                                                 <TextBlock Text="{Binding TotalCoinsDisplay}"
                                                                 HorizontalAlignment="Center"
                                                                 FontSize="14"
-                                                                FontFamily="Comfortaa"
-                                                                FontWeight="Bold"/>
+                                                                FontFamily="{StaticResource ComfortaaBold}"/>
 
                                                                 <Ellipse Width="16" 
                                                                 Height="16" 
@@ -130,7 +126,6 @@
                 CornerRadius="16"
                 FontSize="14"
                 Padding="7"
-                FontFamily="Comfortaa"
-                FontWeight="Medium"/>
+                FontFamily="{StaticResource ComfortaaMedium}"/>
     </Grid>
 </UserControl>

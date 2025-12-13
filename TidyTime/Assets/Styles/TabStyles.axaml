@@ -5,8 +5,6 @@
     <Style Selector="TabItem">
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="#000000"/>
-        <Setter Property="FontFamily" Value="Comfortaa"/>
-        <Setter Property="FontWeight" Value="500"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

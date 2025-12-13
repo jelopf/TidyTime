@@ -32,8 +32,7 @@
 
                     <TextBlock Text="Задача:" 
                         FontSize="14"
-                        FontFamily="Comfortaa"
-                        FontWeight="Medium"
+                        FontFamily="{StaticResource ComfortaaMedium}"
                         VerticalAlignment="Center"/>
 
                     <Button Content="X"
@@ -49,15 +48,18 @@
                             Spacing="16">
 
                     <TextBox Watermark="Что нужно сделать?"
-                            Text="{Binding Title}"/>
+                            Text="{Binding Title}"
+                            FontFamily="{StaticResource ComfortaaRegular}"
+                            FontSize="14"/>
 
                     <TextBox Watermark="Описание задачи"
-                            Text="{Binding Description}"/>
+                            Text="{Binding Description}"
+                            FontFamily="{StaticResource ComfortaaRegular}"
+                            FontSize="14"/>
 
                     <TextBlock Text="Время выполнения:"
                     FontSize="14"
-                    FontFamily="Comfortaa"
-                    FontWeight="Medium"/>
+                    FontFamily="{StaticResource ComfortaaMedium}"/>
 
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -80,12 +82,14 @@
                                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="Начало" 
                                             Foreground="#656565"
+                                            FontFamily="{StaticResource ComfortaaRegular}"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             IsVisible="{Binding !IsStartTimeSelected}"/>
                                     
                                     <TextBlock Text="{Binding StartTimeDisplay}" 
                                             Foreground="#000000"
+                                            FontFamily="{StaticResource ComfortaaRegular}"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             IsVisible="{Binding IsStartTimeSelected}"/>
@@ -118,11 +122,13 @@
                                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="Окончание" 
                                             Foreground="#656565"
+                                            FontFamily="{StaticResource ComfortaaRegular}"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             IsVisible="{Binding !IsEndTimeSelected}"/>
                                     <TextBlock Text="{Binding EndTimeDisplay}" 
                                             Foreground="#000000"
+                                            FontFamily="{StaticResource ComfortaaRegular}"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
                                             IsVisible="{Binding IsEndTimeSelected}"/>
@@ -140,6 +146,7 @@
 
                     <Button Content="Весь день"
                     Foreground="#656565"
+                    FontFamily="{StaticResource ComfortaaRegular}"
                     Width="135"
                     Height="45"
                     Background="#EFEFEE"
@@ -151,8 +158,7 @@
 
                     <TextBlock Text="Сложность:"
                     FontSize="14"
-                    FontFamily="Comfortaa"
-                    FontWeight="Medium"/>
+                    FontFamily="{StaticResource ComfortaaMedium}"/>
 
                     <StackPanel Orientation="Horizontal" 
                                 HorizontalAlignment="Center"
@@ -208,6 +214,8 @@
                 <Button Grid.Row="2"
                         Content="Сохранить"
                         Command="{Binding SaveTaskCommand}"
+                        FontFamily="{StaticResource ComfortaaMedium}"
+                        FontSize="14"
                         Width="135"
                         Height="45"
                         HorizontalAlignment="Center"

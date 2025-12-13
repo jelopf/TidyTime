@@ -97,8 +97,7 @@
                     <TextBlock Text="{Binding UserDisplayName}" 
                                VerticalAlignment="Center"
                                FontSize="14"
-                               FontFamily="Comfortaa"
-                               FontWeight="Bold"
+                               FontFamily="{StaticResource ComfortaaBold}"
                                IsVisible="{Binding !IsParentMode}"/>
                     
                     <!-- Для родителя - имя ребенка с выпадающим меню -->
@@ -114,8 +113,7 @@
                                 
                                 <TextBlock Text="{Binding ChildDisplayName}" 
                                            FontSize="14"
-                                           FontFamily="Comfortaa"
-                                           FontWeight="Bold"/>
+                                           FontFamily="{StaticResource ComfortaaBold}"/>
                                 
                                 <!-- Стрелочка вниз -->
                                 <TextBlock Text="v"
@@ -144,8 +142,7 @@
                                                 
                                                 <TextBlock Text="{Binding Login}"
                                                            FontSize="14"
-                                                           FontFamily="Comfortaa"
-                                                           FontWeight="Medium"
+                                                           FontFamily="{StaticResource ComfortaaMedium}"
                                                            Padding="10,5"
                                                            HorizontalAlignment="Center"/>
                                             </Button>
@@ -226,12 +223,11 @@
                                 <StackPanel>
                                     <TextBlock Text="{Binding DayNumber}"
                                                FontSize="14"
-                                               FontFamily="Comfortaa"
-                                               FontWeight="Bold"
+                                               FontFamily="{StaticResource ComfortaaBold}"
                                                HorizontalAlignment="Center"/>
                                     <TextBlock Text="{Binding DayName}"
                                                FontSize="10"
-                                               FontFamily="Comfortaa"
+                                               FontFamily="{StaticResource ComfortaaRegular}"
                                                FontWeight="Regular"
                                                HorizontalAlignment="Center"/>
                                 </StackPanel>
@@ -253,8 +249,7 @@
                                     <!-- Заголовок дня -->
                                     <TextBlock Text="{Binding DataContext.DateTitle, ElementName=Root}"
                                                FontSize="14"
-                                               FontFamily="Comfortaa"
-                                               FontWeight="Bold"
+                                               FontFamily="{StaticResource ComfortaaBold}"
                                                HorizontalAlignment="Center"/>
                                     
                                     <!-- Список задач -->
@@ -284,15 +279,14 @@
                                                                         VerticalAlignment="Center">
                                                                 <TextBlock Text="{Binding Title}"
                                                                            FontSize="10"
-                                                                           FontFamily="Comfortaa"
-                                                                           FontWeight="Bold"
+                                                                           FontFamily="{StaticResource ComfortaaBold}"
                                                                            TextDecorations="{Binding IsTitleStrikethrough, Converter={StaticResource BoolToStrikethroughConverter}}"
                                                                            VerticalAlignment="Center"
                                                                            Margin="0,0,6,0"/>
                                                                 
                                                                 <TextBlock Text="{Binding TimeRange}"
                                                                            FontSize="10"
-                                                                           FontFamily="Comfortaa"
+                                                                           FontFamily="{StaticResource ComfortaaRegular}"
                                                                            FontWeight="Regular"
                                                                            VerticalAlignment="Center"/>
                                                             </StackPanel>
@@ -314,8 +308,7 @@
                                                                                 IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
                                                                         <TextBlock Text="{Binding RewardCoins}"
                                                                                 FontSize="14"
-                                                                                FontFamily="Comfortaa"
-                                                                                FontWeight="Bold"/>
+                                                                                FontFamily="{StaticResource ComfortaaBold}"/>
                                                                         
                                                                         <Ellipse Width="16" 
                                                                                 Height="16" 
@@ -331,8 +324,7 @@
                                                                                     Spacing="4">
                                                                             <TextBlock Text="{Binding RewardCoins}"
                                                                                     FontSize="14"
-                                                                                    FontFamily="Comfortaa"
-                                                                                    FontWeight="Bold"/>
+                                                                                    FontFamily="{StaticResource ComfortaaBold}"/>
                                                                             
                                                                             <Ellipse Width="16" 
                                                                                     Height="16" 
@@ -349,8 +341,7 @@
                                                                         BorderThickness="0"
                                                                         CornerRadius="16"
                                                                         FontSize="10"
-                                                                        FontFamily="Comfortaa"
-                                                                        FontWeight="Bold"
+                                                                        FontFamily="{StaticResource ComfortaaBold}"
                                                                         IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
                                                                     <Button.IsVisible>
                                                                         <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
@@ -402,15 +393,14 @@
                                                                             VerticalAlignment="Center">
                                                                     <TextBlock Text="{Binding Title}"
                                                                                FontSize="10"
-                                                                               FontFamily="Comfortaa"
-                                                                               FontWeight="Bold"
+                                                                               FontFamily="{StaticResource ComfortaaBold}"
                                                                                TextDecorations="{Binding IsTitleStrikethrough, Converter={StaticResource BoolToStrikethroughConverter}}"
                                                                                VerticalAlignment="Center"
                                                                                Margin="0,0,6,0"/>
                                                                     
                                                                     <TextBlock Text="{Binding TimeRange}"
                                                                                FontSize="10"
-                                                                               FontFamily="Comfortaa"
+                                                                               FontFamily="{StaticResource ComfortaaRegular}"
                                                                                FontWeight="Regular"
                                                                                VerticalAlignment="Center"/>
                                                                 </StackPanel>
@@ -431,8 +421,7 @@
                                                                                     IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
                                                                             <TextBlock Text="{Binding RewardCoins}"
                                                                                     FontSize="14"
-                                                                                    FontFamily="Comfortaa"
-                                                                                    FontWeight="Bold"/>
+                                                                                    FontFamily="{StaticResource ComfortaaBold}"/>
                                                                             
                                                                             <Ellipse Width="16" 
                                                                                     Height="16" 
@@ -448,8 +437,7 @@
                                                                                         Spacing="4">
                                                                                 <TextBlock Text="{Binding RewardCoins}"
                                                                                         FontSize="14"
-                                                                                        FontFamily="Comfortaa"
-                                                                                        FontWeight="Bold"/>
+                                                                                        FontFamily="{StaticResource ComfortaaBold}"/>
                                                                                 
                                                                                 <Ellipse Width="16" 
                                                                                         Height="16" 
@@ -466,8 +454,7 @@
                                                                             BorderThickness="0"
                                                                             CornerRadius="16"
                                                                             FontSize="10"
-                                                                            FontFamily="Comfortaa"
-                                                                            FontWeight="Bold">
+                                                                            FontFamily="{StaticResource ComfortaaBold}">
                                                                         <Button.IsVisible>
                                                                             <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
                                                                                 <Binding Path="Status" 
@@ -496,7 +483,7 @@
                                                             <TextBlock Grid.Row="1"
                                                                        Text="{Binding Description}"
                                                                        FontSize="10"
-                                                                       FontFamily="Comfortaa"
+                                                                       FontFamily="{StaticResource ComfortaaRegular}"
                                                                        FontWeight="Regular"
                                                                        TextWrapping="Wrap"
                                                                        Margin="0,12,0,12"
@@ -548,7 +535,7 @@
                                                                             CornerRadius="16"
                                                                             Padding="6,6,6,6"
                                                                             FontSize="10"
-                                                                            FontFamily="Comfortaa"
+                                                                            FontFamily="{StaticResource ComfortaaBold}"
                                                                             FontWeight="Bold"
                                                                             IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}"
                                                                             Command="{Binding DataContext.MarkAsCompletedCommand, ElementName=Root}"
@@ -567,7 +554,7 @@
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
                                                FontSize="12"
-                                               FontFamily="Comfortaa"
+                                               FontFamily="{StaticResource ComfortaaRegular}"
                                                Foreground="#999999"
                                                IsVisible="{Binding DataContext.ShowNoTasksMessage, ElementName=Root}"
                                                Margin="0,50,0,0"/>
@@ -581,7 +568,7 @@
                                         <TextBlock Text="Чтобы начать составлять расписание, добавьте ребенка в личном кабинете"
                                                 TextWrapping="Wrap"
                                                 FontSize="12"
-                                                FontFamily="Comfortaa"
+                                                FontFamily="{StaticResource ComfortaaRegular}"
                                                 TextAlignment="Center"
                                                 Foreground="#999999"/>
                                         
@@ -593,7 +580,7 @@
                                                 Foreground="White"
                                                 CornerRadius="16"
                                                 FontSize="12"
-                                                FontFamily="Comfortaa"
+                                                FontFamily="{StaticResource ComfortaaMedium}"
                                                 FontWeight="Medium"
                                                 HorizontalAlignment="Center"
                                                 HorizontalContentAlignment="Center"
@@ -630,8 +617,7 @@
                             <TextBlock Text="Добавить задачу" 
                                        VerticalAlignment="Center"
                                        FontSize="10"
-                                       FontFamily="Comfortaa"
-                                       FontWeight="Bold"
+                                       FontFamily="{StaticResource ComfortaaBold}"
                                        Grid.Column="0"/>
 
                             <Button Content="+"

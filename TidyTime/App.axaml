@@ -14,4 +14,16 @@
         <StyleInclude Source="avares://TidyTime/Assets/Styles/TabStyles.axaml"/>
         <StyleInclude Source="avares://TidyTime/Assets/Styles/Inputs.axaml"/>
     </Application.Styles>
+    
+    <Application.Resources>
+        <FontFamily x:Key="ComfortaaRegular">
+            avares://TidyTime/Assets/Fonts/Comfortaa-Regular.ttf#Comfortaa
+        </FontFamily>
+        <FontFamily x:Key="ComfortaaBold">
+            avares://TidyTime/Assets/Fonts/Comfortaa-Bold.ttf#Comfortaa
+        </FontFamily>
+        <FontFamily x:Key="ComfortaaMedium">
+            avares://TidyTime/Assets/Fonts/Comfortaa-Medium.ttf#Comfortaa
+        </FontFamily>
+    </Application.Resources>
 </Application>

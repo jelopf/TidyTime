@@ -13,38 +13,42 @@
         <Border Padding="30,45,30,16">
             <StackPanel Spacing="30">
                 <TextBlock Text="Добро пожаловать в Tidy Time!" 
-                        FontSize="25" FontWeight="Bold"
-                        FontFamily="Comfortaa"
+                        FontSize="25"
+                        FontFamily="{StaticResource ComfortaaBold}"
                         TextAlignment="Left"
                         TextWrapping="Wrap"/>
 
                 <TextBlock Text="Для детей, которые любят успевать, и родителей, которые ценят спокойствие." 
                         FontSize="14"
-                        FontFamily="Comfortaa"
+                        FontFamily="{StaticResource ComfortaaRegular}"
                         TextAlignment="Left"
                         TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
 
             <TabControl>
-                <TabItem Header="Вход">
+                <TabItem Header="Вход" FontFamily="{StaticResource ComfortaaMedium}">
                     <Border Background="#FFFFFF" Padding="30,18.16,30,30" CornerRadius="0, 16, 16, 16">
                         <StackPanel Spacing="">
                             <StackPanel>
-                                <TextBox Watermark="Email / Телефон" Text="{Binding LoginInput}" />
-                                <TextBlock Text="{Binding LoginInputError}" Foreground="Red" FontSize="12"/>
+                                <TextBox Watermark="Email / Телефон" Text="{Binding LoginInput}"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding LoginInputError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
 
                             <StackPanel>
-                                <TextBox Watermark="Пароль" Text="{Binding PasswordInput}" PasswordChar="*" />
-                                <TextBlock Text="{Binding PasswordInputError}" Foreground="Red" FontSize="12"/>
+                                <TextBox Watermark="Пароль" Text="{Binding PasswordInput}" PasswordChar="*"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding PasswordInputError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
 
                             <Button Content="Войти"
                                     Command="{Binding LoginUserCommand}"
 
                                     HorizontalAlignment="Center"
-                                    FontFamily="Comfortaa"
+                                    FontFamily="{StaticResource ComfortaaMedium}"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Background="#C3F08C"
@@ -54,7 +58,7 @@
                     </Border>
                 </TabItem>
 
-                <TabItem Header="Регистрация">
+                <TabItem Header="Регистрация" FontFamily="{StaticResource ComfortaaMedium}">
                     <Border Background="#FFFFFF" Padding="30,18.16,30,30" CornerRadius="16, 0, 16, 16">
                         <StackPanel Spacing="" Background="#FFFFFF">
 
@@ -62,33 +66,43 @@
                                 <ComboBox ItemsSource="{Binding Roles}" 
                                         SelectedItem="{Binding SelectedRole}" 
                                         HorizontalAlignment="Stretch" 
-                                        PlaceholderText="Роль"/>
-                                <TextBlock Text="{Binding RegisterRoleError}" Foreground="Red" FontSize="12"/>
+                                        PlaceholderText="Роль"
+                                        FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding RegisterRoleError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
                             
                             <StackPanel>
-                                <TextBox Watermark="Фамилия Имя" Text="{Binding RegisterFullNameInput}"/>
-                                <TextBlock Text="{Binding RegisterFullNameInputError}" Foreground="Red" FontSize="12"/>
+                                <TextBox Watermark="Фамилия Имя" Text="{Binding RegisterFullNameInput}"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding RegisterFullNameInputError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
 
                             <StackPanel>
-                                <TextBox Watermark="Телефон" Text="{Binding RegisterLoginInput}" />
-                                <TextBlock Text="{Binding RegisterLoginInputError}" Foreground="Red" FontSize="12"/>
+                                <TextBox Watermark="Телефон" Text="{Binding RegisterLoginInput}"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding RegisterLoginInputError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
 
                             <StackPanel>
-                                <TextBox Watermark="Пароль" Text="{Binding RegisterPasswordInput}" PasswordChar="*" />
-                                <TextBlock Text="{Binding RegisterPasswordInputError}" Foreground="Red" FontSize="12"/>
+                                <TextBox Watermark="Пароль" Text="{Binding RegisterPasswordInput}" PasswordChar="*"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding RegisterPasswordInputError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
 
                             <StackPanel>
-                                <TextBox Watermark="Повторите пароль" Text="{Binding RegisterRepeatPasswordInput}" PasswordChar="*" />
-                                <TextBlock Text="{Binding RegisterRepeatPasswordInputError}" Foreground="Red" FontSize="12"/>
+                                <TextBox Watermark="Повторите пароль" Text="{Binding RegisterRepeatPasswordInput}" PasswordChar="*"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
+                                <TextBlock Text="{Binding RegisterRepeatPasswordInputError}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
                             </StackPanel>
 
                             <Button Content="Зарегистрироваться" 
                                     Command="{Binding RegisterUserCommand}"
-                                    FontFamily="Comfortaa"
+                                    FontFamily="{StaticResource ComfortaaMedium}"
                                     HorizontalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"

@@ -56,8 +56,7 @@
                                         </Grid>
                                         <TextBlock Text="{Binding UserFullName}"
                                         FontSize="14"
-                                        FontFamily="Comfortaa"
-                                        FontWeight="Bold"
+                                        FontFamily="{StaticResource ComfortaaBold}"
                                         HorizontalAlignment="Left"
                                         Padding="8,20,0,0"
                                         TextWrapping="Wrap"
@@ -73,9 +72,7 @@
                                         <Grid>
                                                 <TextBlock Text="Дети"
                                                 FontSize="14"
-                                                FontFamily="Comfortaa"
-                                                FontWeight="Bold"
-                                                />
+                                                FontFamily="{StaticResource ComfortaaBold}"/>
 
                                                 <Button Content="+"
                                                 FontSize="20"
@@ -87,7 +84,7 @@
                                                 
                                                 <TextBlock Text="Нет добавленных детей"
                                                         FontSize="12"
-                                                        FontFamily="Comfortaa"
+                                                        FontFamily="{StaticResource ComfortaaRegular}"
                                                         Foreground="#656565"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
@@ -110,8 +107,7 @@
                                                                                 <Grid>
                                                                                         <TextBlock Text="{Binding FullName}"
                                                                                                 FontSize="14"
-                                                                                                FontFamily="Comfortaa"
-                                                                                                FontWeight="Medium"
+                                                                                                FontFamily="{StaticResource ComfortaaMedium}"
                                                                                                 VerticalAlignment="Center"
                                                                                                 TextWrapping="Wrap"/>
                                                                                 </Grid>
@@ -138,7 +134,6 @@
                 CornerRadius="16"
                 FontSize="14"
                 Padding="7"
-                FontFamily="Comfortaa"
-                FontWeight="Medium"/>
+                FontFamily="{StaticResource Comfortaamedium}"/>
     </Grid>
 </UserControl>
