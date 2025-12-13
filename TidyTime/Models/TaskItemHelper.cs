@@ -45,8 +45,15 @@ public static class TaskItemHelper
     public static bool IsTitleStrikethrough(TaskStatus status)
         => status == TaskStatus.Completed;
 
-    public static int GetRewardCoins(int difficulty)
-        => difficulty * 10;
+    public static int GetRewardCoins(int difficulty) => difficulty switch
+    {
+        1 => 6,   // Легкая
+        2 => 12,  // Средняя
+        3 => 24,  // Высокая
+        4 => 50,  // Великая
+        5 => 150, // Легендарная
+        _ => 0
+    };
 
     public static bool HasDescription(string description)
         => !string.IsNullOrWhiteSpace(description);
