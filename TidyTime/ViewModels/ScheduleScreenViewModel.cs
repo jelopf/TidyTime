@@ -41,6 +41,12 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private bool _isParentMode = false;
 
     [ObservableProperty]
+    private bool _showNoChildrenMessage = false;
+
+    [ObservableProperty]
+    private bool _showNoTasksMessage = false;
+
+    [ObservableProperty]
     private bool _isLoading = true;
 
     [ObservableProperty]
@@ -94,6 +100,17 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             if (IsParentMode)
             {
                 await LoadChildrenAsync();
+                UpdateNoChildrenMessage();
+
+                if (!Children.Any())
+                {
+                    Tasks.Clear();
+                    return;
+                }
+            }
+            else
+            {
+                UpdateMessagesVisibility();
             }
 
             UpdateDisplayNames();
@@ -165,6 +182,13 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (_currentUser == null) return;
 
+        if (IsParentMode && !Children.Any())
+        {
+            Tasks.Clear();
+            UpdateMessagesVisibility();
+            return;
+        }
+
         IsLoading = true;
         
         try
@@ -191,7 +215,15 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         finally
         {
             IsLoading = false;
+            UpdateMessagesVisibility();
         }
+    }
+
+    private void UpdateMessagesVisibility()
+    {
+        ShowNoChildrenMessage = IsParentMode && !Children.Any();
+        
+        ShowNoTasksMessage = !ShowNoChildrenMessage && !Tasks.Any() && !IsLoading;
     }
     
     [RelayCommand]
@@ -212,6 +244,13 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             SelectedChild = Children.First();
             UpdateDisplayNames();
         }
+
+        UpdateNoChildrenMessage();
+    }
+
+    private void UpdateNoChildrenMessage()
+    {
+        ShowNoChildrenMessage = IsParentMode && !Children.Any();
     }
 
     private void CalculateTotalCoins()
@@ -249,6 +288,11 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private void OpenAddTask()
     {
         if (_currentUser == null) return;
+
+        if (IsParentMode && !Children.Any())
+        {
+            return;
+        }
 
         AddTaskPopupViewModel = new AddTaskPopupViewModel(
             _taskService,
@@ -318,6 +362,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
 
         SelectedChild = child;
         UpdateDisplayNames();
+        UpdateNoChildrenMessage();
         LoadTasksForDateAsync().ConfigureAwait(false);
     }
 

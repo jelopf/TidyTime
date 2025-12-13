@@ -120,7 +120,8 @@
                                 <!-- Стрелочка вниз -->
                                 <TextBlock Text="v"
                                            FontSize="10"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center"
+                                           IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}"/>
                             </StackPanel>
                         </Button.Content>
                         
@@ -131,7 +132,7 @@
                                          Background="White"
                                          BorderThickness="0"
                                          MaxHeight="200"
-                                         IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=0}">
+                                         IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}">
                                     
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
@@ -173,7 +174,7 @@
         </Border>
 
         <!-- расписание -->
-        <Border Background="{Binding IsParentMode, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#2A5F9E; #86C7FF'}"  
+        <Border Background="{Binding IsParentMode, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#80A8DF; #86C7FF'}"  
                 Height="416" 
                 VerticalAlignment="Center"
                 CornerRadius="16"
@@ -568,8 +569,36 @@
                                                FontSize="12"
                                                FontFamily="Comfortaa"
                                                Foreground="#999999"
-                                               IsVisible="{Binding DataContext.Tasks.Count, ElementName=Root, Converter={StaticResource IntToBoolConverter}, ConverterParameter=0}"
+                                               IsVisible="{Binding DataContext.ShowNoTasksMessage, ElementName=Root}"
                                                Margin="0,50,0,0"/>
+
+                                    <StackPanel HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Spacing="16"
+                                                Margin="0,50,0,0"
+                                                IsVisible="{Binding DataContext.ShowNoChildrenMessage, ElementName=Root}">
+                                        
+                                        <TextBlock Text="Чтобы начать составлять расписание, добавьте ребенка в личном кабинете"
+                                                TextWrapping="Wrap"
+                                                FontSize="12"
+                                                FontFamily="Comfortaa"
+                                                TextAlignment="Center"
+                                                Foreground="#999999"/>
+                                        
+                                        <Button Content="Перейти в профиль"
+                                                Command="{Binding DataContext.GoToProfileCommand, ElementName=Root}"
+                                                Width="160"
+                                                Height="35"
+                                                Background="#80A8DF"
+                                                Foreground="White"
+                                                CornerRadius="16"
+                                                FontSize="12"
+                                                FontFamily="Comfortaa"
+                                                FontWeight="Medium"
+                                                HorizontalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -612,7 +641,8 @@
                                     Padding="0"
                                     Grid.Column="1"
                                     Background="Transparent"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
+                                    VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Command="{Binding OpenAddTaskCommand}"/>

@@ -25,31 +25,7 @@ namespace TidyTime.Services
             await _firebaseService.PostUserAsync(user);
             await Task.Delay(1500);
 
-            await CreateWelcomeTaskAsync(user);
-
             return true;
-        }
-
-        private async Task CreateWelcomeTaskAsync(User user)
-        {
-            var taskService = new TaskService();
-            
-            var welcomeTask = new TaskItem
-            {
-                Title = "Добро пожаловать!👋",
-                Description = "Это ваша первая задача!",
-                StartTime = DateTime.Today.AddHours(10),
-                EndTime = DateTime.Today.AddHours(11),
-                IsAllDay = false,
-                Difficulty = 1,
-                Status = Models.TaskStatus.Pending,
-                OwnerId = user.Id,
-                AssignedChildId = user.Id,
-                CreatedAt = DateTime.UtcNow,
-                UpdatedAt = DateTime.UtcNow
-            };
-            
-            await taskService.AddTaskAsync(welcomeTask);
         }
 
         public async Task<User?> LoginUserAsync(string login, string password)
