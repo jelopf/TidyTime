@@ -41,7 +41,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private bool _isParentMode = false;
 
     [ObservableProperty]
-    private bool _isLoading;
+    private bool _isLoading = true;
 
     [ObservableProperty]
     private TaskItem? _selectedTask;
@@ -74,32 +74,43 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         _dayOfWeekService = dayOfWeekService;
         _currentUser = authService.GetCurrentUser();
 
-        InitializeAsync();
-    }
-
-    private async void InitializeAsync()
-    {
-        if (_currentUser == null) return;
-
-        if (IsParentMode)
+        if (_currentUser != null)
         {
-            await LoadChildrenAsync();
+            IsParentMode = _currentUser.Role == UserRole.Parent;
         }
 
-        UpdateDisplayNames();
-        UpdateDateTitle();
-        GenerateWeekDays();
-        
-        await LoadChildrenAsync();
-        await LoadTasksForDateAsync();
-        CalculateTotalCoins();
+        _ = InitializeAsync();
+    }
 
-        AddTaskPopupViewModel = new AddTaskPopupViewModel(
-            _taskService,
-            CloseAddTask,
-            _currentUser.Id,
-            SelectedDate
-        );
+    private async Task InitializeAsync()
+    {
+        try
+        {
+            if (_currentUser == null) return;
+
+            UpdateDateTitle();
+            GenerateWeekDays();
+            
+            if (IsParentMode)
+            {
+                await LoadChildrenAsync();
+            }
+
+            UpdateDisplayNames();
+            await LoadTasksForDateAsync();
+            CalculateTotalCoins();
+
+            AddTaskPopupViewModel = new AddTaskPopupViewModel(
+                _taskService,
+                CloseAddTask,
+                _currentUser.Id,
+                SelectedDate
+            );
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void UpdateDisplayNames()
@@ -107,7 +118,6 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         if (_currentUser == null) return;
 
         UserDisplayName = _currentUser.FullName; 
-        IsParentMode = _currentUser.Role == UserRole.Parent;
 
         if (IsParentMode && SelectedChild != null)
         {

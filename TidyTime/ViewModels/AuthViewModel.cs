@@ -134,7 +134,14 @@ public partial class AuthViewModel : ViewModelBase
             RegisterLoginInputError = "Пользователь уже существует";
             return;
         }
-        
+
+        await Task.Delay(1000);
+        var loggedInUser = await _authService.LoginUserAsync(RegisterLoginInput, RegisterPasswordInput);
+
+        if (loggedInUser == null)
+        {
+        }
+
         IDayOfWeekService dayOfWeekService = new DayOfWeekService();
         var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(scheduleVm);
