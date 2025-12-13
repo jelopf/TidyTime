@@ -8,7 +8,8 @@
              x:DataType="vm:GameMenuViewModel">
 
     <Grid Background="White">
-        <Button Content=">"
+        <Button Content="&lt;"
+        Command="{Binding GoBackCommand}"
         HorizontalAlignment="Left"
         VerticalAlignment="Top"
         Width="11.56" Height="20.02"

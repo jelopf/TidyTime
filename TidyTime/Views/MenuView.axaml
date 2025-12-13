@@ -34,7 +34,8 @@
                 <StackPanel VerticalAlignment="Bottom"
                 Orientation="Horizontal">
                     <StackPanel>
-                        <Button Background="#FFFFFF"
+                        <Button Command="{Binding GoToGamesCommand}"
+                        Background="#FFFFFF"
                         Width="135"
                         Height="135"
                         CornerRadius="16">
