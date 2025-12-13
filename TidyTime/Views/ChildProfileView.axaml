@@ -49,7 +49,7 @@
                                                 Width="23.73"
                                                 Padding="0"/>
                                         </Grid>
-                                        <TextBlock Text="Фамилия Имя"
+                                        <TextBlock Text="{Binding UserFullName}"
                                         FontSize="14"
                                         FontFamily="Comfortaa"
                                         FontWeight="Bold"
@@ -77,7 +77,7 @@
                                                         FontWeight="Regular"
                                                         Margin="0,19,0,0"/>
 
-                                                        <TextBlock Text ="15"
+                                                        <TextBlock Text ="{Binding CompletedTasksCountDisplay}"
                                                         HorizontalAlignment="Right"
                                                         FontSize="25"
                                                         FontFamily="Comfortaa"
@@ -95,11 +95,20 @@
                                         CornerRadius="16"
                                         Padding="0,10,0,9">
                                                 <Grid>
-                                                        <TextBlock Text="120"
-                                                        HorizontalAlignment="Center"
-                                                        FontSize="14"
-                                                        FontFamily="Comfortaa"
-                                                        FontWeight="Bold"/>
+                                                        <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Spacing="4">
+                                                                <TextBlock Text="{Binding TotalCoinsDisplay}"
+                                                                HorizontalAlignment="Center"
+                                                                FontSize="14"
+                                                                FontFamily="Comfortaa"
+                                                                FontWeight="Bold"/>
+
+                                                                <Ellipse Width="16" 
+                                                                Height="16" 
+                                                                Fill="#FFCC00"/>
+                                                        </StackPanel>
                                                 </Grid>
                                         </Border>
                                 </Grid>
