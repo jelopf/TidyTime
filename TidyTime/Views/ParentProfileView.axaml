@@ -2,10 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="using:TidyTime.Converters"
              xmlns:vm="using:TidyTime.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="TidyTime.Views.ParentProfileView"
              x:DataType="vm:ParentProfileViewModel">
+
+<UserControl.Resources>
+    <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
+</UserControl.Resources>
 
     <Grid Background="White">
 
@@ -49,7 +54,7 @@
                                                 Width="23.73"
                                                 Padding="0"/>
                                         </Grid>
-                                        <TextBlock Text="Фамилия Имя"
+                                        <TextBlock Text="{Binding UserFullName}"
                                         FontSize="14"
                                         FontFamily="Comfortaa"
                                         FontWeight="Bold"
@@ -80,53 +85,39 @@
                                                 Width="16"
                                                 Height="16"/>
                                                 
-                                                <ListBox Margin="0,16,0,0"
+                                                <TextBlock Text="Нет добавленных детей"
+                                                        FontSize="12"
+                                                        FontFamily="Comfortaa"
+                                                        Foreground="#656565"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Margin="0,30,0,0"
+                                                        IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=0}"/>
+                                                        
+                                                <ListBox ItemsSource="{Binding Children}"
+                                                Margin="0,16,0,0"
                                                 Background="Transparent"
-                                                ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                                                        <ListBoxItem Background="#FFA53F"
-                                                        Height="45"
-                                                        CornerRadius="16"
-                                                        Margin="0,16,0,0"
-                                                        Padding="30,0,30,0">
-                                                                <Grid>
-                                                                        <TextBlock Text="Вася Пупкин"
-                                                                        FontSize="14"
-                                                                        FontFamily="Comfortaa"
-                                                                        FontWeight="Medium"
-                                                                        VerticalAlignment="Center"
-                                                                        TextWrapping="Wrap"/>
-                                                                </Grid>
-                                                        </ListBoxItem>
-
-                                                        <ListBoxItem Background="#FFA53F"
-                                                        Height="45"
-                                                        CornerRadius="16"
-                                                        Margin="0,16,0,0"
-                                                        Padding="30,0,30,0">
-                                                                <Grid>
-                                                                        <TextBlock Text="Эдуард Смешной"
-                                                                        FontSize="14"
-                                                                        FontFamily="Comfortaa"
-                                                                        FontWeight="Medium"
-                                                                        VerticalAlignment="Center"
-                                                                        TextWrapping="Wrap"/>
-                                                                </Grid>
-                                                        </ListBoxItem>
-
-                                                        <ListBoxItem Background="#FFA53F"
-                                                        Height="45"
-                                                        CornerRadius="16"
-                                                        Margin="0,16,0,0"
-                                                        Padding="30,0,30,0">
-                                                                <Grid>
-                                                                        <TextBlock Text="TheGreatestTree"
-                                                                        FontSize="14"
-                                                                        FontFamily="Comfortaa"
-                                                                        FontWeight="Medium"
-                                                                        VerticalAlignment="Center"
-                                                                        TextWrapping="Wrap"/>
-                                                                </Grid>
-                                                        </ListBoxItem>
+                                                ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                                
+                                                IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}}">
+                                                        <ListBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                        <Border Background="#FFA53F"
+                                                                                Height="45"
+                                                                                CornerRadius="16"
+                                                                                Margin="0,16,0,0"
+                                                                                Padding="30,0,30,0">
+                                                                                <Grid>
+                                                                                        <TextBlock Text="{Binding FullName}"
+                                                                                                FontSize="14"
+                                                                                                FontFamily="Comfortaa"
+                                                                                                FontWeight="Medium"
+                                                                                                VerticalAlignment="Center"
+                                                                                                TextWrapping="Wrap"/>
+                                                                                </Grid>
+                                                                        </Border>
+                                                                </DataTemplate>
+                                                        </ListBox.ItemTemplate>
                                                 </ListBox>
                                         </Grid>
                                 </Border>

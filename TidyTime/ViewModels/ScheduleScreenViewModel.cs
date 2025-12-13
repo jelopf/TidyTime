@@ -38,7 +38,16 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private User? _selectedChild;
 
     [ObservableProperty]
-    private bool _isLoading;
+    private bool _isParentMode = false;
+
+    [ObservableProperty]
+    private bool _showNoChildrenMessage = false;
+
+    [ObservableProperty]
+    private bool _showNoTasksMessage = false;
+
+    [ObservableProperty]
+    private bool _isLoading = true;
 
     [ObservableProperty]
     private TaskItem? _selectedTask;
@@ -56,7 +65,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private int _totalCoins = 0;
 
     [ObservableProperty]
-    private bool _isPopupOpen;
+    private bool _isAddTaskPopupOpen;
 
     public AddTaskPopupViewModel? AddTaskPopupViewModel { get; private set; }
 
@@ -71,38 +80,65 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         _dayOfWeekService = dayOfWeekService;
         _currentUser = authService.GetCurrentUser();
 
-        InitializeAsync();
+        if (_currentUser != null)
+        {
+            IsParentMode = _currentUser.Role == UserRole.Parent;
+        }
+
+        _ = InitializeAsync();
     }
 
-    private async void InitializeAsync()
+    private async Task InitializeAsync()
     {
-        if (_currentUser == null) return;
+        try
+        {
+            if (_currentUser == null) return;
 
-        UpdateDisplayNames();
-        UpdateDateTitle();
-        GenerateWeekDays();
-        
-        await LoadChildrenAsync();
-        await LoadTasksForDateAsync();
-        CalculateTotalCoins();
+            UpdateDateTitle();
+            GenerateWeekDays();
+            
+            if (IsParentMode)
+            {
+                await LoadChildrenAsync();
+                UpdateNoChildrenMessage();
 
-        AddTaskPopupViewModel = new AddTaskPopupViewModel(
-            _taskService,
-            CloseAddTask,
-            _currentUser.Id,
-            SelectedDate
-        );
+                if (!Children.Any())
+                {
+                    Tasks.Clear();
+                    return;
+                }
+            }
+            else
+            {
+                UpdateMessagesVisibility();
+            }
+
+            UpdateDisplayNames();
+            await LoadTasksForDateAsync();
+            CalculateTotalCoins();
+
+            AddTaskPopupViewModel = new AddTaskPopupViewModel(
+                _taskService,
+                CloseAddTask,
+                _currentUser.Id,
+                SelectedDate
+            );
+        }
+        finally
+        {
+            IsLoading = false;
+        }
     }
 
     private void UpdateDisplayNames()
     {
         if (_currentUser == null) return;
 
-        UserDisplayName = _currentUser.Login;
+        UserDisplayName = _currentUser.FullName; 
 
-        if (_currentUser.Role == UserRole.Parent && SelectedChild != null)
+        if (IsParentMode && SelectedChild != null)
         {
-            ChildDisplayName = SelectedChild.Login;
+            ChildDisplayName = SelectedChild.FullName;
         }
         else
         {
@@ -146,6 +182,13 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (_currentUser == null) return;
 
+        if (IsParentMode && !Children.Any())
+        {
+            Tasks.Clear();
+            UpdateMessagesVisibility();
+            return;
+        }
+
         IsLoading = true;
         
         try
@@ -172,7 +215,15 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         finally
         {
             IsLoading = false;
+            UpdateMessagesVisibility();
         }
+    }
+
+    private void UpdateMessagesVisibility()
+    {
+        ShowNoChildrenMessage = IsParentMode && !Children.Any();
+        
+        ShowNoTasksMessage = !ShowNoChildrenMessage && !Tasks.Any() && !IsLoading;
     }
     
     [RelayCommand]
@@ -193,6 +244,13 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             SelectedChild = Children.First();
             UpdateDisplayNames();
         }
+
+        UpdateNoChildrenMessage();
+    }
+
+    private void UpdateNoChildrenMessage()
+    {
+        ShowNoChildrenMessage = IsParentMode && !Children.Any();
     }
 
     private void CalculateTotalCoins()
@@ -231,6 +289,11 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     {
         if (_currentUser == null) return;
 
+        if (IsParentMode && !Children.Any())
+        {
+            return;
+        }
+
         AddTaskPopupViewModel = new AddTaskPopupViewModel(
             _taskService,
             CloseAddTask,
@@ -238,12 +301,12 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             SelectedDate  
         );
         
-        IsPopupOpen = true;
+        IsAddTaskPopupOpen = true;
     }
 
     private void CloseAddTask()
     {
-        IsPopupOpen = false;
+        IsAddTaskPopupOpen = false;
         LoadTasksForDateAsync().ConfigureAwait(false);
         CalculateTotalCoins();
     }
@@ -261,7 +324,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             taskVm.Task 
         );
         
-        IsPopupOpen = true;
+        IsAddTaskPopupOpen = true;
     }
 
     [RelayCommand]
@@ -299,6 +362,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
 
         SelectedChild = child;
         UpdateDisplayNames();
+        UpdateNoChildrenMessage();
         LoadTasksForDateAsync().ConfigureAwait(false);
     }
 

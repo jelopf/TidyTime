@@ -1,5 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using TidyTime.Models;
 using TidyTime.Services;
 
 namespace TidyTime.ViewModels;
@@ -9,11 +10,17 @@ public partial class MenuViewModel : ViewModelBase
     private readonly IAuthService _authService;
     private readonly ITaskService _taskService;
 
+    [ObservableProperty]
+    private bool isParentMode = false;
+
     public MenuViewModel(INavigationService navigationService, IAuthService authService, ITaskService taskService)
         : base(navigationService)
     {
         _authService = authService;
         _taskService = taskService;
+
+        var currentUser = _authService.GetCurrentUser();
+        IsParentMode = currentUser?.Role == UserRole.Parent;
     }
 
     [RelayCommand]

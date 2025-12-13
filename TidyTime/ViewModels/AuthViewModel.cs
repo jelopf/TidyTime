@@ -26,11 +26,13 @@ public partial class AuthViewModel : ViewModelBase
     public ObservableCollection<string> Roles { get; } = new() { "Родитель", "Ребёнок" };
     [ObservableProperty] private string selectedRole = "";
 
+    [ObservableProperty] private string registerFullNameInput = "";
     [ObservableProperty] private string registerLoginInput = "";
     [ObservableProperty] private string registerPasswordInput = "";
     [ObservableProperty] private string registerRepeatPasswordInput = "";
 
     [ObservableProperty] private string registerRoleError = "";
+    [ObservableProperty] private string registerFullNameInputError = "";
     [ObservableProperty] private string registerLoginInputError = "";
     [ObservableProperty] private string registerPasswordInputError = "";
     [ObservableProperty] private string registerRepeatPasswordInputError = "";
@@ -89,6 +91,12 @@ public partial class AuthViewModel : ViewModelBase
             RegisterRoleError = "Выберите роль";
             isValid = false;
         }
+        
+        if (string.IsNullOrWhiteSpace(RegisterFullNameInput))
+        {
+            RegisterFullNameInputError = "Введите фамилию и имя";
+            isValid = false;
+        }
 
         if (string.IsNullOrWhiteSpace(RegisterLoginInput))
         {
@@ -113,6 +121,7 @@ public partial class AuthViewModel : ViewModelBase
         var user = new TidyTime.Models.User
         {
             Login = RegisterLoginInput,
+            FullName = RegisterFullNameInput,
             Role = SelectedRole == "Родитель" 
                 ? UserRole.Parent 
                 : UserRole.Child
@@ -125,7 +134,14 @@ public partial class AuthViewModel : ViewModelBase
             RegisterLoginInputError = "Пользователь уже существует";
             return;
         }
-        
+
+        await Task.Delay(1000);
+        var loggedInUser = await _authService.LoginUserAsync(RegisterLoginInput, RegisterPasswordInput);
+
+        if (loggedInUser == null)
+        {
+        }
+
         IDayOfWeekService dayOfWeekService = new DayOfWeekService();
         var scheduleVm = new ScheduleScreenViewModel(NavigationService, _authService, _taskService, dayOfWeekService);
         NavigationService.NavigateTo(scheduleVm);
@@ -140,6 +156,7 @@ public partial class AuthViewModel : ViewModelBase
     private void ClearRegisterErrors()
     {
         RegisterRoleError = "";
+        RegisterFullNameInputError = "";
         RegisterLoginInputError = "";
         RegisterPasswordInputError = "";
         RegisterRepeatPasswordInputError = "";

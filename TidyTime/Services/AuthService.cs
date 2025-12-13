@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TidyTime.Models;
@@ -20,7 +21,10 @@ namespace TidyTime.Services
                 return false;
 
             user.SetPassword(password);
+
             await _firebaseService.PostUserAsync(user);
+            await Task.Delay(1500);
+
             return true;
         }
 

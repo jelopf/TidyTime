@@ -17,6 +17,8 @@
         <converters:TaskStatusToBoolConverter x:Key="TaskStatusToBoolConverter"/>
         <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
         <converters:TaskStatusToHeightConverter x:Key="TaskStatusToHeightConverter"/>
+        <converters:BoolToValueConverter x:Key="BoolToValueConverter"/>
+        <converters:MultiBoolToVisibilityConverter x:Key="MultiBoolToVisibilityConverter"/>
     </UserControl.Resources>
 
     <!--Стили-->
@@ -97,13 +99,13 @@
                                FontSize="14"
                                FontFamily="Comfortaa"
                                FontWeight="Bold"
-                               IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}}"/>
+                               IsVisible="{Binding !IsParentMode}"/>
                     
                     <!-- Для родителя - имя ребенка с выпадающим меню -->
                     <Button Background="Transparent"
                             BorderThickness="0"
                             Padding="5,0,5,0"
-                            IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=0}">
+                            IsVisible="{Binding IsParentMode}">
                         
                         <Button.Content>
                             <StackPanel Orientation="Horizontal"
@@ -118,7 +120,8 @@
                                 <!-- Стрелочка вниз -->
                                 <TextBlock Text="v"
                                            FontSize="10"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center"
+                                           IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}"/>
                             </StackPanel>
                         </Button.Content>
                         
@@ -128,7 +131,8 @@
                                 <ListBox ItemsSource="{Binding Children}"
                                          Background="White"
                                          BorderThickness="0"
-                                         MaxHeight="200">
+                                         MaxHeight="200"
+                                         IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}">
                                     
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
@@ -170,7 +174,7 @@
         </Border>
 
         <!-- расписание -->
-        <Border Background="#86C7FF" 
+        <Border Background="{Binding IsParentMode, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#80A8DF; #86C7FF'}"  
                 Height="416" 
                 VerticalAlignment="Center"
                 CornerRadius="16"
@@ -299,37 +303,65 @@
                                                                         VerticalAlignment="Center"
                                                                         Spacing="6">
                                                                 
-                                                                <!-- монетки -->
+                                                                <!-- монетки для ребенка-->
                                                                 <StackPanel Orientation="Horizontal"
                                                                             Spacing="4"
-                                                                            IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
-                                                                    <TextBlock Text="{Binding RewardCoins}"
-                                                                               FontSize="14"
-                                                                               FontFamily="Comfortaa"
-                                                                               FontWeight="Bold"/>
-                                                                    
-                                                                    <Ellipse Width="16" 
-                                                                             Height="16" 
-                                                                             Fill="#FFCC00"/>
-                                                                </StackPanel>
+                                                                            IsVisible="{Binding !DataContext.IsParentMode, ElementName=Root}">
                                                                 
-                                                                <!-- монетки для выполненных задач-->
-                                                                <Border Background="#B2F6C3"
-                                                                        CornerRadius="16"
-                                                                        Padding="6,3,6,3"
-                                                                        IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
-                                                                    <StackPanel Orientation="Horizontal" 
-                                                                                Spacing="4">
+                                                                    <!-- Для невыполненных задач -->
+                                                                    <StackPanel Orientation="Horizontal"
+                                                                                Spacing="4"
+                                                                                IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
                                                                         <TextBlock Text="{Binding RewardCoins}"
-                                                                                   FontSize="14"
-                                                                                   FontFamily="Comfortaa"
-                                                                                   FontWeight="Bold"/>
+                                                                                FontSize="14"
+                                                                                FontFamily="Comfortaa"
+                                                                                FontWeight="Bold"/>
                                                                         
                                                                         <Ellipse Width="16" 
-                                                                                 Height="16" 
-                                                                                 Fill="#FFCC00"/>
+                                                                                Height="16" 
+                                                                                Fill="#FFCC00"/>
                                                                     </StackPanel>
-                                                                </Border>
+
+                                                                    <!-- монетки для выполненных задач-->
+                                                                    <Border Background="#B2F6C3"
+                                                                            CornerRadius="16"
+                                                                            Padding="6,3,6,3"
+                                                                            IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
+                                                                        <StackPanel Orientation="Horizontal" 
+                                                                                    Spacing="4">
+                                                                            <TextBlock Text="{Binding RewardCoins}"
+                                                                                    FontSize="14"
+                                                                                    FontFamily="Comfortaa"
+                                                                                    FontWeight="Bold"/>
+                                                                            
+                                                                            <Ellipse Width="16" 
+                                                                                    Height="16" 
+                                                                                    Fill="#FFCC00"/>
+                                                                        </StackPanel>
+                                                                    </Border>
+                                                                </StackPanel>
+                                                                
+                                                                <Button Content="Похвалить"
+                                                                        Width="74"
+                                                                        Height="23"
+                                                                        Padding="0"
+                                                                        Background="#B2F6C3"
+                                                                        BorderThickness="0"
+                                                                        CornerRadius="16"
+                                                                        FontSize="10"
+                                                                        FontFamily="Comfortaa"
+                                                                        FontWeight="Bold"
+                                                                        IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
+                                                                    <Button.IsVisible>
+                                                                        <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
+                                                                            <Binding Path="Status" 
+                                                                                    Converter="{StaticResource TaskStatusToBoolConverter}"
+                                                                                    ConverterParameter="Completed"/>
+                                                                            <Binding Path="DataContext.IsParentMode" 
+                                                                                    ElementName="Root"/>
+                                                                        </MultiBinding>
+                                                                    </Button.IsVisible>
+                                                                </Button>
                                                                 
                                                                 <!-- Стрелка вниз (развернуть) -->
                                                                 <Button Content="v"
@@ -391,34 +423,62 @@
                                                                     <!-- монетки в развернутом виде -->
                                                                     <StackPanel Orientation="Horizontal"
                                                                                 Spacing="4"
-                                                                                IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
-                                                                        <TextBlock Text="{Binding RewardCoins}"
-                                                                                   FontSize="14"
-                                                                                   FontFamily="Comfortaa"
-                                                                                   FontWeight="Bold"/>
+                                                                                IsVisible="{Binding !DataContext.IsParentMode, ElementName=Root}">
                                                                         
-                                                                        <Ellipse Width="16" 
-                                                                                 Height="16" 
-                                                                                 Fill="#FFCC00"/>
-                                                                    </StackPanel>
-                                                                    
-                                                                    <Border Background="#B2F6C3"
-                                                                            CornerRadius="16"
-                                                                            Padding="6,3,6,3"
-                                                                            IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
-                                                                        <StackPanel Orientation="Horizontal" 
-                                                                                    Spacing="4">
+                                                                        <!-- Для невыполненных задач -->
+                                                                        <StackPanel Orientation="Horizontal"
+                                                                                    Spacing="4"
+                                                                                    IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
                                                                             <TextBlock Text="{Binding RewardCoins}"
-                                                                                       FontSize="14"
-                                                                                       FontFamily="Comfortaa"
-                                                                                       FontWeight="Bold"/>
+                                                                                    FontSize="14"
+                                                                                    FontFamily="Comfortaa"
+                                                                                    FontWeight="Bold"/>
                                                                             
                                                                             <Ellipse Width="16" 
-                                                                                     Height="16" 
-                                                                                     Fill="#FFCC00"/>
+                                                                                    Height="16" 
+                                                                                    Fill="#FFCC00"/>
                                                                         </StackPanel>
-                                                                    </Border>
-                                                                    
+                                                                        
+                                                                        <!-- Для выполненных задач -->
+                                                                        <Border Background="#B2F6C3"
+                                                                                CornerRadius="16"
+                                                                                Padding="6,3,6,3"
+                                                                                IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
+                                                                            <StackPanel Orientation="Horizontal" 
+                                                                                        Spacing="4">
+                                                                                <TextBlock Text="{Binding RewardCoins}"
+                                                                                        FontSize="14"
+                                                                                        FontFamily="Comfortaa"
+                                                                                        FontWeight="Bold"/>
+                                                                                
+                                                                                <Ellipse Width="16" 
+                                                                                        Height="16" 
+                                                                                        Fill="#FFCC00"/>
+                                                                            </StackPanel>
+                                                                        </Border>
+                                                                    </StackPanel>
+
+                                                                    <Button Content="Похвалить"
+                                                                            Width="74"
+                                                                            Height="23"
+                                                                            Padding="0"
+                                                                            Background="#B2F6C3"
+                                                                            BorderThickness="0"
+                                                                            CornerRadius="16"
+                                                                            FontSize="10"
+                                                                            FontFamily="Comfortaa"
+                                                                            FontWeight="Bold">
+                                                                        <Button.IsVisible>
+                                                                            <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
+                                                                                <Binding Path="Status" 
+                                                                                        Converter="{StaticResource TaskStatusToBoolConverter}"
+                                                                                        ConverterParameter="Completed"/>
+                                                                                <Binding Path="DataContext.IsParentMode" 
+                                                                                        ElementName="Root"/>
+                                                                            </MultiBinding>
+                                                                        </Button.IsVisible>
+                                                                    </Button>
+
                                                                     <!-- Стрелка вниз (свернуть) -->
                                                                     <Button Content="^"
                                                                             Width="16"
@@ -509,8 +569,36 @@
                                                FontSize="12"
                                                FontFamily="Comfortaa"
                                                Foreground="#999999"
-                                               IsVisible="{Binding DataContext.Tasks.Count, ElementName=Root, Converter={StaticResource IntToBoolConverter}, ConverterParameter=0}"
+                                               IsVisible="{Binding DataContext.ShowNoTasksMessage, ElementName=Root}"
                                                Margin="0,50,0,0"/>
+
+                                    <StackPanel HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Spacing="16"
+                                                Margin="0,50,0,0"
+                                                IsVisible="{Binding DataContext.ShowNoChildrenMessage, ElementName=Root}">
+                                        
+                                        <TextBlock Text="Чтобы начать составлять расписание, добавьте ребенка в личном кабинете"
+                                                TextWrapping="Wrap"
+                                                FontSize="12"
+                                                FontFamily="Comfortaa"
+                                                TextAlignment="Center"
+                                                Foreground="#999999"/>
+                                        
+                                        <Button Content="Перейти в профиль"
+                                                Command="{Binding DataContext.GoToProfileCommand, ElementName=Root}"
+                                                Width="160"
+                                                Height="35"
+                                                Background="#80A8DF"
+                                                Foreground="White"
+                                                CornerRadius="16"
+                                                FontSize="12"
+                                                FontFamily="Comfortaa"
+                                                FontWeight="Medium"
+                                                HorizontalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
+                                                VerticalContentAlignment="Center"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -553,7 +641,8 @@
                                     Padding="0"
                                     Grid.Column="1"
                                     Background="Transparent"
-                                    BorderThickness="1"
+                                    BorderThickness="0"
+                                    VerticalAlignment="Center"
                                     HorizontalContentAlignment="Center"
                                     VerticalContentAlignment="Center"
                                     Command="{Binding OpenAddTaskCommand}"/>
@@ -564,10 +653,10 @@
         </Border>
 
         <!-- добавление задачи (попап)-->
-        <Popup IsOpen="{Binding IsPopupOpen}"
+        <Popup IsOpen="{Binding IsAddTaskPopupOpen}"
                Placement="Center">
             <views:AddTaskPopupView DataContext="{Binding AddTaskPopupViewModel}" />
         </Popup>
-
+        
     </StackPanel>
 </UserControl>
