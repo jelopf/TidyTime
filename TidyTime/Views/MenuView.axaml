@@ -21,18 +21,21 @@
         Command="{Binding GoBackCommand}"/>
 
         <Border Background="#FFFF94"
-        MaxHeight="433"
+        Height="433"
         CornerRadius="16"
-        Margin="0,80,0,127"
+        Margin="0,80,0,0"
+        VerticalAlignment="Top"
         Padding="29.5,30,30,30">
             <Grid>
                 <TextBlock Text="Tidy Time"
                 FontSize="25"
-                FontFamily="{StaticResource Comfortaabold}"
+                FontFamily="{StaticResource ComfortaaBold}"
                 Margin="0,15,0,0"/>
-                <StackPanel VerticalAlignment="Bottom"
-                Orientation="Horizontal">
-                    <StackPanel IsVisible="{Binding !IsParentMode}">
+                
+                <DockPanel VerticalAlignment="Bottom"
+                HorizontalAlignment="Stretch">
+                    <StackPanel IsVisible="{Binding !IsParentMode}"
+                    Margin="0,0,30,0">
                         <Button Command="{Binding GoToGamesCommand}"
                         Background="#FFFFFF"
                         Width="135"
@@ -48,7 +51,8 @@
                         Margin="0,12,0,0"/>
                     </StackPanel>
                     
-                    <StackPanel Margin="30,0,0,0">
+                    <StackPanel
+                    HorizontalAlignment="Center">
                         <Button Background="#FFFFFF"
                         Width="135"
                         Height="135"
@@ -59,10 +63,10 @@
                         VerticalAlignment="Bottom"
                         HorizontalAlignment="Center"
                         FontSize="14"
-                        FontFamily="{StaticResource Comfortaamedium}"
+                        FontFamily="{StaticResource ComfortaaMedium}"
                         Margin="0,12,0,0"/>
                     </StackPanel>
-                </StackPanel>
+                </DockPanel>
             </Grid>
         </Border>
     </Grid>

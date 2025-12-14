@@ -24,21 +24,21 @@
         
         <Grid>
                 <Border Background="#DF80D6"
-                MaxHeight="406"
+                Height="406"
                 CornerRadius="16"
-                Margin="0,80,0,154"
-                Padding="30">
+                Margin="0,80,0,0"
+                Padding="30"
+                VerticalAlignment="Top">
                         <Grid>
                                 <StackPanel MaxHeight="177"
                                 VerticalAlignment="Top"
-                                HorizontalAlignment="Center"
-                                Margin="90,0,75.02,0">
+                                HorizontalAlignment="Center">
                                         <Grid>
                                                 <Border Background="#EEEEEE"
                                                 Width="120"
                                                 Height="120"
                                                 CornerRadius="8"
-                                                HorizontalAlignment="Left">
+                                                HorizontalAlignment="Center">
                                                 </Border>
 
                                                 <Button Content="К"
@@ -52,7 +52,7 @@
                                         <TextBlock Text="{Binding UserFullName}"
                                         FontSize="14"
                                         FontFamily="{StaticResource ComfortaaBold}"
-                                        HorizontalAlignment="Left"
+                                        HorizontalAlignment="Center"
                                         Padding="8,20,0,0"
                                         TextWrapping="Wrap"
                                         TextAlignment="Center"/>
@@ -122,7 +122,7 @@
                 Margin="0,0,0,64"
                 Width="135"
                 Height="30"
-                Background="MediumPurple"
+                Background="#F4AEE9"
                 CornerRadius="16"
                 FontSize="14"
                 Padding="7"
