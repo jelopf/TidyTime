@@ -52,11 +52,19 @@
         </Style>
 
         <Style Selector="TabItem">
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="CornerRadius" Value="16, 16, 0, 0"/>
             <Setter Property="MinHeight" Value="31"/>
             <Setter Property="Width" Value="36"/>
             <Setter Property="Padding" Value="0,4,0,4"/>
+        </Style>
+
+        <Style Selector="TabItem:selected">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+
+        <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+	        <Setter Property="IsVisible" Value="false"/>
         </Style>
     </UserControl.Styles>
 
@@ -177,211 +185,97 @@
                 CornerRadius="16"
                 Padding="18,8,18,0">
             <Grid>
-                <!-- тут должна быть кнопка переключения недели -->
-                <Button Width="4.97"
-                        Height="9.37"
-                        Content="&lt;"
-                        Margin="1,12,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        FontSize="12"
-                        Command="{Binding NavigateToPreviousWeekCommand}"/>
+                <Grid>
+                    <!-- тут должна быть кнопка переключения недели -->
+                    <Button Width="4.97"
+                            Height="9.37"
+                            Content="&lt;"
+                            Margin="1,12,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            FontSize="12"
+                            Command="{Binding NavigateToPreviousWeekCommand}"/>
 
-                <!-- табы дней недели -->
-                <!--динамический tabcontrol-->
-                <TabControl ItemsSource="{Binding WeekDays}"
-                            SelectedIndex="{Binding SelectedDayIndex}"
-                            SelectionChanged="OnTabSelectionChanged">
-                    
-                    <TabControl.Styles>
-                        <Style Selector="TabControl">
-                            <Setter Property="ItemsPanel">
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="7"/>
-                                </ItemsPanelTemplate>
-                            </Setter>
-                        </Style>
-                    </TabControl.Styles>
+                    <!-- табы дней недели -->
+                    <!--динамический tabcontrol-->
+                    <TabControl ItemsSource="{Binding WeekDays}"
+                                SelectedIndex="{Binding SelectedDayIndex}"
+                                SelectionChanged="OnTabSelectionChanged">
+                        
+                        <TabControl.Styles>
+                            <Style Selector="TabControl">
+                                <Setter Property="ItemsPanel">
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="7"/>
+                                    </ItemsPanelTemplate>
+                                </Setter>
+                            </Style>
+                        </TabControl.Styles>
 
-                    <!--шаблон отображения кнокпи дня-->
-                    <TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <Button Background="{Binding IsSelected, Converter={StaticResource BoolToBackgroundConverter}}"
-                                    Width="36" 
-                                    Height="31"
-                                    CornerRadius="16"
-                                    BorderThickness="0"
-                                    Padding="0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    Command="{Binding DataContext.SelectDayCommand, ElementName=Root}"
-                                    CommandParameter="{Binding}">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding DayNumber}"
-                                               FontSize="14"
-                                               FontFamily="{StaticResource ComfortaaBold}"
-                                               HorizontalAlignment="Center"/>
-                                    <TextBlock Text="{Binding DayName}"
-                                               FontSize="10"
-                                               FontFamily="{StaticResource ComfortaaRegular}"
-                                               FontWeight="Regular"
-                                               HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
-                        </DataTemplate>
-                    </TabControl.ItemTemplate>
+                        <!--шаблон отображения кнокпи дня-->
+                        <TabControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Background="Transparent"
+                                        Width="36" 
+                                        Height="31"
+                                        CornerRadius="16"
+                                        BorderThickness="0"
+                                        Padding="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        Command="{Binding DataContext.SelectDayCommand, ElementName=Root}"
+                                        CommandParameter="{Binding}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding DayNumber}"
+                                                FontSize="14"
+                                                FontFamily="{StaticResource ComfortaaBold}"
+                                                HorizontalAlignment="Center"/>
+                                        <TextBlock Text="{Binding DayName}"
+                                                FontSize="10"
+                                                FontFamily="{StaticResource ComfortaaRegular}"
+                                                HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </TabControl.ItemTemplate>
 
-                    <!--шаблон содержимого таба (само расписани)-->
-                    <TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <Border Background="#FFFFFF"
-                                    Padding="12"
-                                    CornerRadius="16"
-                                    Height="323"
-                                    Margin="0,0,0,50"
-                                    VerticalAlignment="Top">
-                                
-                                <StackPanel>
-                                    <!-- Заголовок дня -->
-                                    <TextBlock Text="{Binding DataContext.DateTitle, ElementName=Root}"
-                                               FontSize="14"
-                                               FontFamily="{StaticResource ComfortaaBold}"
-                                               HorizontalAlignment="Center"/>
+                        <!--шаблон содержимого таба (само расписани)-->
+                        <TabControl.ContentTemplate>
+                            <DataTemplate>
+                                <Border Background="#FFFFFF"
+                                        Padding="12"
+                                        CornerRadius="16"
+                                        Height="323"
+                                        Margin="0,0,0,50"
+                                        VerticalAlignment="Top">
                                     
-                                    <!-- Список задач -->
-                                    <ItemsControl ItemsSource="{Binding DataContext.Tasks, ElementName=Root}"
-                                                  Margin="0,12,0,0">
+                                    <StackPanel>
+                                        <!-- Заголовок дня -->
+                                        <TextBlock Text="{Binding DataContext.DateTitle, ElementName=Root}"
+                                                FontSize="14"
+                                                FontFamily="{StaticResource ComfortaaBold}"
+                                                HorizontalAlignment="Center"/>
                                         
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <!-- Карточка задачи-->
-                                                <StackPanel Margin="0,0,0,12">
-                                                    
-                                                    <!-- Свернутый вид-->
-                                                    <Border Background="{Binding CardColor}"
-                                                            CornerRadius="16"
-                                                            Padding="12"
-                                                            Height="{Binding Status, Converter={StaticResource TaskStatusToHeightConverter}}"
-                                                            IsVisible="{Binding !IsExpanded}">
-                                                        <Grid>
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                            </Grid.ColumnDefinitions>
-                                                            
-                                                            <!-- название и время -->
-                                                            <StackPanel Grid.Column="0"
-                                                                        Orientation="Horizontal"
-                                                                        VerticalAlignment="Center">
-                                                                <TextBlock Text="{Binding Title}"
-                                                                           FontSize="10"
-                                                                           FontFamily="{StaticResource ComfortaaBold}"
-                                                                           TextDecorations="{Binding IsTitleStrikethrough, Converter={StaticResource BoolToStrikethroughConverter}}"
-                                                                           VerticalAlignment="Center"
-                                                                           Margin="0,0,6,0"/>
-                                                                
-                                                                <TextBlock Text="{Binding TimeRange}"
-                                                                           FontSize="10"
-                                                                           FontFamily="{StaticResource ComfortaaRegular}"
-                                                                           FontWeight="Regular"
-                                                                           VerticalAlignment="Center"/>
-                                                            </StackPanel>
-                                                            
-                                                            <!-- награда и стрелочка -->
-                                                            <StackPanel Grid.Column="1"
-                                                                        Orientation="Horizontal"
-                                                                        VerticalAlignment="Center"
-                                                                        Spacing="6">
-                                                                
-                                                                <!-- монетки для ребенка-->
-                                                                <StackPanel Orientation="Horizontal"
-                                                                            Spacing="4"
-                                                                            IsVisible="{Binding !DataContext.IsParentMode, ElementName=Root}">
-                                                                
-                                                                    <!-- Для невыполненных задач -->
-                                                                    <StackPanel Orientation="Horizontal"
-                                                                                Spacing="4"
-                                                                                IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
-                                                                        <TextBlock Text="{Binding RewardCoins}"
-                                                                                FontSize="14"
-                                                                                FontFamily="{StaticResource ComfortaaBold}"/>
-                                                                        
-                                                                        <Ellipse Width="16" 
-                                                                                Height="16" 
-                                                                                Fill="#FFCC00"/>
-                                                                    </StackPanel>
-
-                                                                    <!-- монетки для выполненных задач-->
-                                                                    <Border Background="#B2F6C3"
-                                                                            CornerRadius="16"
-                                                                            Padding="6,3,6,3"
-                                                                            IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
-                                                                        <StackPanel Orientation="Horizontal" 
-                                                                                    Spacing="4">
-                                                                            <TextBlock Text="{Binding RewardCoins}"
-                                                                                    FontSize="14"
-                                                                                    FontFamily="{StaticResource ComfortaaBold}"/>
-                                                                            
-                                                                            <Ellipse Width="16" 
-                                                                                    Height="16" 
-                                                                                    Fill="#FFCC00"/>
-                                                                        </StackPanel>
-                                                                    </Border>
-                                                                </StackPanel>
-                                                                
-                                                                <Button Content="Похвалить"
-                                                                        Width="74"
-                                                                        Height="23"
-                                                                        Padding="0"
-                                                                        Background="#B2F6C3"
-                                                                        BorderThickness="0"
-                                                                        CornerRadius="16"
-                                                                        FontSize="10"
-                                                                        FontFamily="{StaticResource ComfortaaBold}"
-                                                                        IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
-                                                                    <Button.IsVisible>
-                                                                        <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
-                                                                            <Binding Path="Status" 
-                                                                                    Converter="{StaticResource TaskStatusToBoolConverter}"
-                                                                                    ConverterParameter="Completed"/>
-                                                                            <Binding Path="DataContext.IsParentMode" 
-                                                                                    ElementName="Root"/>
-                                                                        </MultiBinding>
-                                                                    </Button.IsVisible>
-                                                                </Button>
-                                                                
-                                                                <!-- Стрелка вниз (развернуть) -->
-                                                                <Button Content="v"
-                                                                        Width="16"
-                                                                        Height="16"
-                                                                        Padding="0"
-                                                                        Background="Transparent"
-                                                                        BorderThickness="0"
-                                                                        FontSize="12"
-                                                                        Command="{Binding DataContext.ToggleTaskExpansionCommand, ElementName=Root}"
-                                                                        CommandParameter="{Binding}"/>
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Border>
-                                                    
-                                                    <!-- Развернутый вид -->
-                                                    <Border Background="{Binding CardColor}"
-                                                            CornerRadius="16"
-                                                            Padding="12"
-                                                            Height="109"
-                                                            IsVisible="{Binding IsExpanded}">
-                                                        <Grid>
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="Auto"/>
-                                                                <RowDefinition Height="*"/>
-                                                                <RowDefinition Height="Auto"/>
-                                                            </Grid.RowDefinitions>
-                                                            
-                                                            <Grid Grid.Row="0">
+                                        <!-- Список задач -->
+                                        <ItemsControl ItemsSource="{Binding DataContext.Tasks, ElementName=Root}"
+                                                    Margin="0,12,0,0">
+                                            
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <!-- Карточка задачи-->
+                                                    <StackPanel Margin="0,0,0,12">
+                                                        
+                                                        <!-- Свернутый вид-->
+                                                        <Border Background="{Binding CardColor}"
+                                                                CornerRadius="16"
+                                                                Padding="12"
+                                                                Height="{Binding Status, Converter={StaticResource TaskStatusToHeightConverter}}"
+                                                                IsVisible="{Binding !IsExpanded}">
+                                                            <Grid>
                                                                 <Grid.ColumnDefinitions>
                                                                     <ColumnDefinition Width="*"/>
                                                                     <ColumnDefinition Width="Auto"/>
@@ -392,29 +286,30 @@
                                                                             Orientation="Horizontal"
                                                                             VerticalAlignment="Center">
                                                                     <TextBlock Text="{Binding Title}"
-                                                                               FontSize="10"
-                                                                               FontFamily="{StaticResource ComfortaaBold}"
-                                                                               TextDecorations="{Binding IsTitleStrikethrough, Converter={StaticResource BoolToStrikethroughConverter}}"
-                                                                               VerticalAlignment="Center"
-                                                                               Margin="0,0,6,0"/>
+                                                                            FontSize="10"
+                                                                            FontFamily="{StaticResource ComfortaaBold}"
+                                                                            TextDecorations="{Binding IsTitleStrikethrough, Converter={StaticResource BoolToStrikethroughConverter}}"
+                                                                            VerticalAlignment="Center"
+                                                                            Margin="0,0,6,0"/>
                                                                     
                                                                     <TextBlock Text="{Binding TimeRange}"
-                                                                               FontSize="10"
-                                                                               FontFamily="{StaticResource ComfortaaRegular}"
-                                                                               FontWeight="Regular"
-                                                                               VerticalAlignment="Center"/>
+                                                                            FontSize="10"
+                                                                            FontFamily="{StaticResource ComfortaaRegular}"
+                                                                            FontWeight="Regular"
+                                                                            VerticalAlignment="Center"/>
                                                                 </StackPanel>
                                                                 
+                                                                <!-- награда и стрелочка -->
                                                                 <StackPanel Grid.Column="1"
                                                                             Orientation="Horizontal"
                                                                             VerticalAlignment="Center"
                                                                             Spacing="6">
                                                                     
-                                                                    <!-- монетки в развернутом виде -->
+                                                                    <!-- монетки для ребенка-->
                                                                     <StackPanel Orientation="Horizontal"
                                                                                 Spacing="4"
                                                                                 IsVisible="{Binding !DataContext.IsParentMode, ElementName=Root}">
-                                                                        
+                                                                    
                                                                         <!-- Для невыполненных задач -->
                                                                         <StackPanel Orientation="Horizontal"
                                                                                     Spacing="4"
@@ -427,8 +322,8 @@
                                                                                     Height="16" 
                                                                                     Fill="#FFCC00"/>
                                                                         </StackPanel>
-                                                                        
-                                                                        <!-- Для выполненных задач -->
+
+                                                                        <!-- монетки для выполненных задач-->
                                                                         <Border Background="#B2F6C3"
                                                                                 CornerRadius="16"
                                                                                 Padding="6,3,6,3"
@@ -445,7 +340,7 @@
                                                                             </StackPanel>
                                                                         </Border>
                                                                     </StackPanel>
-
+                                                                    
                                                                     <Button Content="Похвалить"
                                                                             Width="74"
                                                                             Height="23"
@@ -454,7 +349,8 @@
                                                                             BorderThickness="0"
                                                                             CornerRadius="16"
                                                                             FontSize="10"
-                                                                            FontFamily="{StaticResource ComfortaaBold}">
+                                                                            FontFamily="{StaticResource ComfortaaBold}"
+                                                                            IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
                                                                         <Button.IsVisible>
                                                                             <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
                                                                                 <Binding Path="Status" 
@@ -465,9 +361,9 @@
                                                                             </MultiBinding>
                                                                         </Button.IsVisible>
                                                                     </Button>
-
-                                                                    <!-- Стрелка вниз (свернуть) -->
-                                                                    <Button Content="^"
+                                                                    
+                                                                    <!-- Стрелка вниз (развернуть) -->
+                                                                    <Button Content="v"
                                                                             Width="16"
                                                                             Height="16"
                                                                             Padding="0"
@@ -478,122 +374,234 @@
                                                                             CommandParameter="{Binding}"/>
                                                                 </StackPanel>
                                                             </Grid>
-                                                            
-                                                            <!--Описание -->
-                                                            <TextBlock Grid.Row="1"
-                                                                       Text="{Binding Description}"
-                                                                       FontSize="10"
-                                                                       FontFamily="{StaticResource ComfortaaRegular}"
-                                                                       FontWeight="Regular"
-                                                                       TextWrapping="Wrap"
-                                                                       Margin="0,12,0,12"
-                                                                       IsVisible="{Binding HasDescription}"/>
-                                                            
-                                                            <!-- Кнопки управления -->
-                                                            <Grid Grid.Row="2">
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="Auto"/>
-                                                                </Grid.ColumnDefinitions>
+                                                        </Border>
+                                                        
+                                                        <!-- Развернутый вид -->
+                                                        <Border Background="{Binding CardColor}"
+                                                                CornerRadius="16"
+                                                                Padding="12"
+                                                                Height="109"
+                                                                IsVisible="{Binding IsExpanded}">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                    <RowDefinition Height="*"/>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                </Grid.RowDefinitions>
                                                                 
-                                                                <StackPanel Grid.Column="0" 
-                                                                            Orientation="Horizontal"
-                                                                            Spacing="12">
+                                                                <Grid Grid.Row="0">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
                                                                     
-                                                                    <!--Кнопка удалить-->
-                                                                    <Button Content="У"
-                                                                            Width="20"
-                                                                            Height="20"
-                                                                            Padding="0"
-                                                                            Background="Transparent"
-                                                                            BorderThickness="0"
-                                                                            FontSize="12"
-                                                                            Command="{Binding DataContext.DeleteTaskCommand, ElementName=Root}"
-                                                                            CommandParameter="{Binding}"/>
+                                                                    <!-- название и время -->
+                                                                    <StackPanel Grid.Column="0"
+                                                                                Orientation="Horizontal"
+                                                                                VerticalAlignment="Center">
+                                                                        <TextBlock Text="{Binding Title}"
+                                                                                FontSize="10"
+                                                                                FontFamily="{StaticResource ComfortaaBold}"
+                                                                                TextDecorations="{Binding IsTitleStrikethrough, Converter={StaticResource BoolToStrikethroughConverter}}"
+                                                                                VerticalAlignment="Center"
+                                                                                Margin="0,0,6,0"/>
+                                                                        
+                                                                        <TextBlock Text="{Binding TimeRange}"
+                                                                                FontSize="10"
+                                                                                FontFamily="{StaticResource ComfortaaRegular}"
+                                                                                FontWeight="Regular"
+                                                                                VerticalAlignment="Center"/>
+                                                                    </StackPanel>
                                                                     
-                                                                    <!--Кнопка редактировать-->
-                                                                    <Button Content="Р"
-                                                                            Width="20"
-                                                                            Height="20"
-                                                                            Padding="0"
-                                                                            Background="Transparent"
-                                                                            BorderThickness="0"
-                                                                            FontSize="12"
-                                                                            Command="{Binding DataContext.EditTaskCommand, ElementName=Root}"
-                                                                            CommandParameter="{Binding}"/>
-                                                                </StackPanel>
-                                                                
-                                                                <!-- Кнопка выполнено -->
-                                                                <StackPanel Grid.Column="1" 
-                                                                            HorizontalAlignment="Right"
-                                                                            Orientation="Horizontal"
-                                                                            Spacing="6">
-                                                                    
-                                                                    <Button Content="Выполнено"
-                                                                            Background="#535353"
-                                                                            Foreground="White"
-                                                                            CornerRadius="16"
-                                                                            Padding="6,6,6,6"
-                                                                            FontSize="10"
-                                                                            FontFamily="{StaticResource ComfortaaBold}"
-                                                                            FontWeight="Bold"
-                                                                            IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}"
-                                                                            Command="{Binding DataContext.MarkAsCompletedCommand, ElementName=Root}"
-                                                                            CommandParameter="{Binding}"/>
-                                                                </StackPanel>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Border>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                    
-                                    <!-- Сообщение, если задач нет -->
-                                    <TextBlock Text="Задач на сегодня нет"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               FontSize="12"
-                                               FontFamily="{StaticResource ComfortaaRegular}"
-                                               Foreground="#999999"
-                                               IsVisible="{Binding DataContext.ShowNoTasksMessage, ElementName=Root}"
-                                               Margin="0,50,0,0"/>
+                                                                    <StackPanel Grid.Column="1"
+                                                                                Orientation="Horizontal"
+                                                                                VerticalAlignment="Center"
+                                                                                Spacing="6">
+                                                                        
+                                                                        <!-- монетки в развернутом виде -->
+                                                                        <StackPanel Orientation="Horizontal"
+                                                                                    Spacing="4"
+                                                                                    IsVisible="{Binding !DataContext.IsParentMode, ElementName=Root}">
+                                                                            
+                                                                            <!-- Для невыполненных задач -->
+                                                                            <StackPanel Orientation="Horizontal"
+                                                                                        Spacing="4"
+                                                                                        IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}">
+                                                                                <TextBlock Text="{Binding RewardCoins}"
+                                                                                        FontSize="14"
+                                                                                        FontFamily="{StaticResource ComfortaaBold}"/>
+                                                                                
+                                                                                <Ellipse Width="16" 
+                                                                                        Height="16" 
+                                                                                        Fill="#FFCC00"/>
+                                                                            </StackPanel>
+                                                                            
+                                                                            <!-- Для выполненных задач -->
+                                                                            <Border Background="#B2F6C3"
+                                                                                    CornerRadius="16"
+                                                                                    Padding="6,3,6,3"
+                                                                                    IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
+                                                                                <StackPanel Orientation="Horizontal" 
+                                                                                            Spacing="4">
+                                                                                    <TextBlock Text="{Binding RewardCoins}"
+                                                                                            FontSize="14"
+                                                                                            FontFamily="{StaticResource ComfortaaBold}"/>
+                                                                                    
+                                                                                    <Ellipse Width="16" 
+                                                                                            Height="16" 
+                                                                                            Fill="#FFCC00"/>
+                                                                                </StackPanel>
+                                                                            </Border>
+                                                                        </StackPanel>
 
-                                    <StackPanel HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Spacing="16"
-                                                Margin="0,50,0,0"
-                                                IsVisible="{Binding DataContext.ShowNoChildrenMessage, ElementName=Root}">
+                                                                        <Button Content="Похвалить"
+                                                                                Width="74"
+                                                                                Height="23"
+                                                                                Padding="0"
+                                                                                Background="#B2F6C3"
+                                                                                BorderThickness="0"
+                                                                                CornerRadius="16"
+                                                                                FontSize="10"
+                                                                                FontFamily="{StaticResource ComfortaaBold}">
+                                                                            <Button.IsVisible>
+                                                                                <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
+                                                                                    <Binding Path="Status" 
+                                                                                            Converter="{StaticResource TaskStatusToBoolConverter}"
+                                                                                            ConverterParameter="Completed"/>
+                                                                                    <Binding Path="DataContext.IsParentMode" 
+                                                                                            ElementName="Root"/>
+                                                                                </MultiBinding>
+                                                                            </Button.IsVisible>
+                                                                        </Button>
+
+                                                                        <!-- Стрелка вниз (свернуть) -->
+                                                                        <Button Content="^"
+                                                                                Width="16"
+                                                                                Height="16"
+                                                                                Padding="0"
+                                                                                Background="Transparent"
+                                                                                BorderThickness="0"
+                                                                                FontSize="12"
+                                                                                Command="{Binding DataContext.ToggleTaskExpansionCommand, ElementName=Root}"
+                                                                                CommandParameter="{Binding}"/>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                                
+                                                                <!--Описание -->
+                                                                <TextBlock Grid.Row="1"
+                                                                        Text="{Binding Description}"
+                                                                        FontSize="10"
+                                                                        FontFamily="{StaticResource ComfortaaRegular}"
+                                                                        FontWeight="Regular"
+                                                                        TextWrapping="Wrap"
+                                                                        Margin="0,12,0,12"
+                                                                        IsVisible="{Binding HasDescription}"/>
+                                                                
+                                                                <!-- Кнопки управления -->
+                                                                <Grid Grid.Row="2">
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition Width="*"/>
+                                                                        <ColumnDefinition Width="Auto"/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    
+                                                                    <StackPanel Grid.Column="0" 
+                                                                                Orientation="Horizontal"
+                                                                                Spacing="12">
+                                                                        
+                                                                        <!--Кнопка удалить-->
+                                                                        <Button Content="У"
+                                                                                Width="20"
+                                                                                Height="20"
+                                                                                Padding="0"
+                                                                                Background="Transparent"
+                                                                                BorderThickness="0"
+                                                                                FontSize="12"
+                                                                                Command="{Binding DataContext.DeleteTaskCommand, ElementName=Root}"
+                                                                                CommandParameter="{Binding}"/>
+                                                                        
+                                                                        <!--Кнопка редактировать-->
+                                                                        <Button Content="Р"
+                                                                                Width="20"
+                                                                                Height="20"
+                                                                                Padding="0"
+                                                                                Background="Transparent"
+                                                                                BorderThickness="0"
+                                                                                FontSize="12"
+                                                                                Command="{Binding DataContext.EditTaskCommand, ElementName=Root}"
+                                                                                CommandParameter="{Binding}"/>
+                                                                    </StackPanel>
+                                                                    
+                                                                    <!-- Кнопка выполнено -->
+                                                                    <StackPanel Grid.Column="1" 
+                                                                                HorizontalAlignment="Right"
+                                                                                Orientation="Horizontal"
+                                                                                Spacing="6">
+                                                                        
+                                                                        <Button Content="Выполнено"
+                                                                                Background="#535353"
+                                                                                Foreground="White"
+                                                                                CornerRadius="16"
+                                                                                Padding="6,6,6,6"
+                                                                                FontSize="10"
+                                                                                FontFamily="{StaticResource ComfortaaBold}"
+                                                                                FontWeight="Bold"
+                                                                                IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}"
+                                                                                Command="{Binding DataContext.MarkAsCompletedCommand, ElementName=Root}"
+                                                                                CommandParameter="{Binding}"/>
+                                                                    </StackPanel>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Border>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                         
-                                        <TextBlock Text="Чтобы начать составлять расписание, добавьте ребенка в личном кабинете"
-                                                TextWrapping="Wrap"
+                                        <!-- Сообщение, если задач нет -->
+                                        <TextBlock Text="Задач на сегодня нет"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
                                                 FontSize="12"
                                                 FontFamily="{StaticResource ComfortaaRegular}"
-                                                TextAlignment="Center"
-                                                Foreground="#999999"/>
-                                        
-                                        <Button Content="Перейти в профиль"
-                                                Command="{Binding DataContext.GoToProfileCommand, ElementName=Root}"
-                                                Width="160"
-                                                Height="35"
-                                                Background="#80A8DF"
-                                                Foreground="White"
-                                                CornerRadius="16"
-                                                FontSize="12"
-                                                FontFamily="{StaticResource ComfortaaMedium}"
-                                                FontWeight="Medium"
-                                                HorizontalAlignment="Center"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalContentAlignment="Center"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </TabControl.ContentTemplate>
-                </TabControl>
+                                                Foreground="#999999"
+                                                IsVisible="{Binding DataContext.ShowNoTasksMessage, ElementName=Root}"
+                                                Margin="0,50,0,0"/>
 
-                <!-- тут должна быть кнопка переключения недель -->
-                <Button Width="4.97"
+                                        <StackPanel HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Spacing="16"
+                                                    Margin="0,50,0,0"
+                                                    IsVisible="{Binding DataContext.ShowNoChildrenMessage, ElementName=Root}">
+                                            
+                                            <TextBlock Text="Чтобы начать составлять расписание, добавьте ребенка в личном кабинете"
+                                                    TextWrapping="Wrap"
+                                                    FontSize="12"
+                                                    FontFamily="{StaticResource ComfortaaRegular}"
+                                                    TextAlignment="Center"
+                                                    Foreground="#999999"/>
+                                            
+                                            <Button Content="Перейти в профиль"
+                                                    Command="{Binding DataContext.GoToProfileCommand, ElementName=Root}"
+                                                    Width="160"
+                                                    Height="35"
+                                                    Background="#80A8DF"
+                                                    Foreground="White"
+                                                    CornerRadius="16"
+                                                    FontSize="12"
+                                                    FontFamily="{StaticResource ComfortaaMedium}"
+                                                    FontWeight="Medium"
+                                                    HorizontalAlignment="Center"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Center"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </TabControl.ContentTemplate>
+                    </TabControl>
+                </Grid>
+                    <!-- тут должна быть кнопка переключения недель -->
+                    <Button Width="4.97"
                         Height="9.37"
                         Content="&gt;"
                         Margin="0,12,1,0"
