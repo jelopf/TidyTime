@@ -22,7 +22,7 @@
         <Grid Height="451"
         Margin="0,62,0,0"
         VerticalAlignment="Top">
-            <Border Background="#2E3186"
+            <Border Background="#1CDBB5"
             Height="433"
             CornerRadius="16"
             VerticalAlignment="Bottom">
@@ -56,7 +56,8 @@
                             <Button Background="#FFFFFF"
                             Width="135"
                             Height="135"
-                            CornerRadius="16">
+                            CornerRadius="16"
+                            HorizontalAlignment="Center">
                             </Button>
 
                             <TextBlock Text="Кексы"
@@ -73,7 +74,8 @@
                             <Button Background="#FFFFFF"
                             Width="135"
                             Height="135"
-                            CornerRadius="16">
+                            CornerRadius="16"
+                            HorizontalAlignment="Center">
                             </Button>
 
                             <TextBlock Text="Пазлы"
@@ -88,7 +90,7 @@
             </Border>
 
             <!--Баланс-->
-            <Border Background="#BEB2FF"
+            <Border Background="#B2FFD8"
             Width="94"
             Height="35"
             VerticalAlignment="Top"

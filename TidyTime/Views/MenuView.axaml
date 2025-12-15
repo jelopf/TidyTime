@@ -34,13 +34,13 @@
                 
                 <DockPanel VerticalAlignment="Bottom"
                 HorizontalAlignment="Stretch">
-                    <StackPanel IsVisible="{Binding !IsParentMode}"
-                    Margin="0,0,30,0">
+                    <StackPanel IsVisible="{Binding !IsParentMode}">
                         <Button Command="{Binding GoToGamesCommand}"
                         Background="#FFFFFF"
                         Width="135"
                         Height="135"
-                        CornerRadius="16">
+                        CornerRadius="16"
+                        HorizontalAlignment="Center">
                         </Button>
 
                         <TextBlock Text="Игры"
@@ -51,12 +51,12 @@
                         Margin="0,12,0,0"/>
                     </StackPanel>
                     
-                    <StackPanel
-                    HorizontalAlignment="Center">
+                    <StackPanel>
                         <Button Background="#FFFFFF"
                         Width="135"
                         Height="135"
-                        CornerRadius="16">
+                        CornerRadius="16"
+                        HorizontalAlignment="Center">
                         </Button>
 
                         <TextBlock Text="Настройки"
