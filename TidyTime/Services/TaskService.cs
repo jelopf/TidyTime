@@ -17,7 +17,7 @@ public class TaskService : BaseFirebaseService, ITaskService
         if (user.Role == UserRole.Child)
         {
             return tasks
-                .Where(t => t.OwnerId == user.Id)
+                .Where(t => t.AssignedChildId == user.Id)
                 .ToList();
         }
 

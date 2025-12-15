@@ -120,7 +120,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             AddTaskPopupViewModel = new AddTaskPopupViewModel(
                 _taskService,
                 CloseAddTask,
-                _currentUser.Id,
+                _currentUser,
                 SelectedDate
             );
         }
@@ -297,7 +297,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         AddTaskPopupViewModel = new AddTaskPopupViewModel(
             _taskService,
             CloseAddTask,
-            _currentUser.Id,
+            _currentUser,
             SelectedDate  
         );
         
@@ -319,7 +319,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         AddTaskPopupViewModel = new AddTaskPopupViewModel(
             _taskService,
             CloseAddTask,
-            _currentUser.Id,
+            _currentUser,
             SelectedDate, 
             taskVm.Task 
         );

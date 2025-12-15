@@ -12,7 +12,7 @@ namespace TidyTime.ViewModels;
 public partial class AddTaskPopupViewModel : ObservableObject
 {
     private readonly ITaskService _taskService;
-    private readonly string _userId;
+    private readonly User _currentUser;
     private readonly DateTime _selectedDate;
     private readonly TaskItem? _existingTask;
 
@@ -20,16 +20,25 @@ public partial class AddTaskPopupViewModel : ObservableObject
 
     public AddTaskPopupViewModel(ITaskService taskService, 
                                 Action closeAction, 
-                                string userId, 
+                                User currentUser, 
                                 DateTime selectedDate, 
                                 TaskItem? existingTask = null)
     {
         _taskService = taskService;
-        _userId = userId;
+        _currentUser = currentUser;
         _selectedDate = selectedDate;
         _existingTask = existingTask;
 
         CloseCommand = new RelayCommand(closeAction);
+
+        if (currentUser.Role == UserRole.Parent)
+        {
+            LoadChildrenForParentAsync();
+        }
+        else if (currentUser.Role == UserRole.Child)
+        {
+            SelectedChildId = currentUser.Id;
+        }
 
         if (existingTask != null)
         {
@@ -67,10 +76,34 @@ public partial class AddTaskPopupViewModel : ObservableObject
     private bool _isEndTimeSelected = false;
 
     [ObservableProperty]
+    private ObservableCollection<User> availableChildren = new();
+
+    [ObservableProperty]
+    private string? selectedChildId;
+
+    [ObservableProperty]
     private ObservableCollection<int> difficultyLevels = new() { 1, 2, 3, 4, 5 };
 
     public string StartTimeDisplay => StartTime.ToString(@"hh\:mm");
     public string EndTimeDisplay => EndTime.ToString(@"hh\:mm");
+
+    private async void LoadChildrenForParentAsync()
+    {
+        try
+        {
+            var children = await _taskService.GetChildrenForParentAsync(_currentUser.Id);
+            AvailableChildren = new ObservableCollection<User>(children);
+            
+            if (AvailableChildren.Any())
+            {
+                SelectedChildId = AvailableChildren.First().Id;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading children: {ex.Message}");
+        }
+    }
 
     partial void OnStartTimeChanged(TimeSpan value)
     {
@@ -117,8 +150,20 @@ public partial class AddTaskPopupViewModel : ObservableObject
         task.IsAllDay = IsAllDay;
         task.Difficulty = Difficulty;
         task.Status = _existingTask?.Status ?? Models.TaskStatus.Pending;
-        task.OwnerId = _userId;
-        task.AssignedChildId = _userId;
+        task.OwnerId = _currentUser.Id;
+
+        if (_currentUser.Role == UserRole.Child)
+        {
+            task.AssignedChildId = _currentUser.Id;
+        }
+        else if (_currentUser.Role == UserRole.Parent)
+        {
+            task.AssignedChildId = SelectedChildId ?? _currentUser.Id;
+        }
+        else
+        {
+            task.AssignedChildId = _currentUser.Id;
+        }
 
         if (task.StartTime >= task.EndTime)
         {
@@ -147,13 +192,32 @@ public partial class AddTaskPopupViewModel : ObservableObject
             return;
         }
 
-        var user = new User { Id = _userId, Role = UserRole.Child };
-        var tasks = await _taskService.GetTasksForDateAsync(user, start.Date);
+        string targetChildId;
         
-        var conflictingTasks = tasks
+        if (_currentUser.Role == UserRole.Child)
+        {
+            targetChildId = _currentUser.Id;
+        }
+        else if (_currentUser.Role == UserRole.Parent && SelectedChildId != null)
+        {
+            targetChildId = SelectedChildId;
+        }
+        else
+        {
+            HasTimeConflict = false;
+            return;
+        }
+
+        var allTasks = await _taskService.GetAllTasksAsync();
+        var childTasks = allTasks
+            .Where(t => t.AssignedChildId == targetChildId && 
+                    t.StartTime.Date == start.Date)
+            .ToList();
+        
+        var conflictingTasks = childTasks
             .Where(t => t.Id != (_existingTask?.Id ?? "") && 
-                       !t.IsAllDay &&
-                       ((t.StartTime < end && t.EndTime > start)))
+                    !t.IsAllDay &&
+                    t.StartTime < end && t.EndTime > start)
             .ToList();
 
         HasTimeConflict = conflictingTasks.Any();
