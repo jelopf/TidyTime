@@ -91,7 +91,7 @@ public class TaskService : BaseFirebaseService, ITaskService
         var allTasks = await GetAllTasksAsync();
         
         return allTasks
-            .Where(t => t.OwnerId == parentId && t.AssignedChildId == childId)
+            .Where(t => t.AssignedChildId == childId)
             .OrderBy(t => t.StartTime)
             .ToList();
     }
