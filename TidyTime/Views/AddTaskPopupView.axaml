@@ -35,7 +35,12 @@
                         FontFamily="{StaticResource ComfortaaMedium}"
                         VerticalAlignment="Center"/>
 
-                    <Button Content="X"
+                    <Button Content="⨉"
+                        Width="30"
+                        Height="30"
+                        CornerRadius="8"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
                         Grid.Column="1"
                         Command="{Binding CloseCommand}"
                         Background="Transparent"
@@ -162,50 +167,60 @@
 
                     <StackPanel Orientation="Horizontal" 
                                 HorizontalAlignment="Center"
-                                Spacing="10">
+                                Spacing="25">
                         
                         <Button Content="1"
-                                Width="45"
-                                Height="45"
+                                Width="30"
+                                Height="30"
                                 Background="#EFEFEE"
                                 Foreground="#656565"
-                                CornerRadius="16"
+                                CornerRadius="8"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
                                 Command="{Binding SelectDifficultyCommand}"
                                 CommandParameter="1"/>
                         
                         <Button Content="2"
-                                Width="45"
-                                Height="45"
+                                Width="30"
+                                Height="30"
                                 Background="#EFEFEE"
                                 Foreground="#656565"
-                                CornerRadius="16"
+                                CornerRadius="8"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
                                 Command="{Binding SelectDifficultyCommand}"
                                 CommandParameter="2"/>
                         
                         <Button Content="3"
-                                Width="45"
-                                Height="45"
+                                Width="30"
+                                Height="30"
                                 Background="#EFEFEE"
                                 Foreground="#656565"
-                                CornerRadius="16"
+                                CornerRadius="8"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
                                 Command="{Binding SelectDifficultyCommand}"
                                 CommandParameter="3"/>
                         
                         <Button Content="4"
-                                Width="45"
-                                Height="45"
+                                Width="30"
+                                Height="30"
                                 Background="#EFEFEE"
                                 Foreground="#656565"
-                                CornerRadius="16"
+                                CornerRadius="8"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
                                 Command="{Binding SelectDifficultyCommand}"
                                 CommandParameter="4"/>
                         
                         <Button Content="5"
-                                Width="45"
-                                Height="45"
+                                Width="30"
+                                Height="30"
                                 Background="#EFEFEE"
                                 Foreground="#656565"
-                                CornerRadius="16"
+                                CornerRadius="8"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
                                 Command="{Binding SelectDifficultyCommand}"
                                 CommandParameter="5"/>
                     </StackPanel>

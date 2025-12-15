@@ -350,6 +350,8 @@
                                                                             CornerRadius="16"
                                                                             FontSize="10"
                                                                             FontFamily="{StaticResource ComfortaaBold}"
+                                                                            VerticalContentAlignment="Center"
+                                                                            HorizontalContentAlignment="Center"
                                                                             IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=Completed}">
                                                                         <Button.IsVisible>
                                                                             <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">

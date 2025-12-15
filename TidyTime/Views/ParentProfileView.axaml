@@ -48,6 +48,7 @@
 
                                                 <Button Content="К"
                                                 VerticalAlignment="Bottom"
+                                                Background="Transparent"
                                                 Margin="111.25,0,0,0.79"
                                                 HorizontalAlignment="Right"
                                                 Height="24.97"
@@ -76,6 +77,7 @@
 
                                                 <Button Content="+"
                                                 FontSize="20"
+                                                Background="Transparent"
                                                 Padding="0"
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Right"

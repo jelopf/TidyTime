@@ -31,7 +31,7 @@
                     <Border Background="#FFFFFF" Padding="30,18.16,30,30" CornerRadius="0, 16, 16, 16">
                         <StackPanel Spacing="">
                             <StackPanel>
-                                <TextBox Watermark="Email / Телефон" Text="{Binding LoginInput}"
+                                <TextBox Watermark="Логин" Text="{Binding LoginInput}"
                                 FontFamily="{StaticResource ComfortaaRegular}"/>
                                 <TextBlock Text="{Binding LoginInputError}" Foreground="Red" FontSize="12"
                                 FontFamily="{StaticResource ComfortaaRegular}"/>
@@ -80,7 +80,7 @@
                             </StackPanel>
 
                             <StackPanel>
-                                <TextBox Watermark="Телефон" Text="{Binding RegisterLoginInput}"
+                                <TextBox Watermark="Логин" Text="{Binding RegisterLoginInput}"
                                 FontFamily="{StaticResource ComfortaaRegular}"/>
                                 <TextBlock Text="{Binding RegisterLoginInputError}" Foreground="Red" FontSize="12"
                                 FontFamily="{StaticResource ComfortaaRegular}"/>
