@@ -35,7 +35,7 @@
                         FontFamily="{StaticResource ComfortaaMedium}"
                         VerticalAlignment="Center"/>
 
-                    <Button Content="⨉"
+                    <Button Content="X"
                         Width="30"
                         Height="30"
                         CornerRadius="8"
