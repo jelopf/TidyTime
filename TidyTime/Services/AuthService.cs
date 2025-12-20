@@ -55,5 +55,18 @@ namespace TidyTime.Services
         {
             return _currentUser;
         }
+
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            try
+            {
+                await _firebaseService.UpdateUserAsync(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

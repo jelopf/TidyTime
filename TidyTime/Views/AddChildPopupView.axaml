@@ -1,0 +1,98 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.AddChildPopupView"
+             x:DataType="vm:AddChildPopupViewModel">
+
+    <Grid>
+        <Border Background="White"
+                MaxHeight="489"
+                CornerRadius="16"
+                HorizontalAlignment="Stretch"
+                Margin="0,120,0,120"
+                Padding="30"
+                BorderBrush="#656565"
+                BorderThickness="1">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок и кнопка закрытия -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Добавление ребенка" 
+                        FontSize="14"
+                        FontFamily="{StaticResource ComfortaaMedium}"
+                        VerticalAlignment="Center"/>
+
+                    <Button Content="X"
+                        Width="30"
+                        Height="30"
+                        CornerRadius="8"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Grid.Column="1"
+                        Command="{Binding CloseCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="14"/>
+                </Grid>
+
+                <!-- Форма ввода -->
+                <StackPanel Grid.Row="1"
+                            Margin="0,20,0,20"
+                            Spacing="16">
+
+                    <TextBox Watermark="Имя и фамилия ребёнка"
+                            Text="{Binding FullName}"
+                            FontFamily="{StaticResource ComfortaaRegular}"
+                            FontSize="14"/>
+                    
+                    <TextBlock Text="{Binding FullNameError}" 
+                            Foreground="Red" 
+                            FontSize="12"
+                            FontFamily="{StaticResource ComfortaaRegular}"
+                            Margin="0,-10,0,0"/>
+
+                    <TextBox Watermark="Логин ребёнка"
+                            Text="{Binding ChildLogin}"
+                            FontFamily="{StaticResource ComfortaaRegular}"
+                            FontSize="14"/>
+                    
+                    <TextBlock Text="{Binding LoginError}" 
+                            Foreground="Red" 
+                            FontSize="12"
+                            FontFamily="{StaticResource ComfortaaRegular}"
+                            Margin="0,-10,0,0"/>
+                </StackPanel>
+
+                <!-- Кнопка добавления -->
+                <Button Grid.Row="2"
+                        Content="Добавить"
+                        Command="{Binding AddChildCommand}"
+                        FontFamily="{StaticResource ComfortaaMedium}"
+                        FontSize="14"
+                        Width="135"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Background="#86C6FF"
+                        CornerRadius="16"
+                        IsEnabled="{Binding !IsLoading}">
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -26,6 +26,11 @@ public partial class ParentProfileViewModel : ViewModelBase
     [ObservableProperty]
     private bool _isLoading = true;
 
+    [ObservableProperty]
+    private bool _isAddChildPopupOpen;
+
+    public AddChildPopupViewModel? AddChildPopupViewModel { get; private set; }
+
     public ParentProfileViewModel(INavigationService navigationService, IAuthService authService, ITaskService taskService) 
         : base(navigationService)
     {
@@ -78,9 +83,23 @@ public partial class ParentProfileViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private async Task AddChild()
+    private void OpenAddChild()
     {
-        // TODO: Реализовать добавление ребенка
-        await LoadChildrenAsync();
+        if (_currentUser == null) return;
+
+        AddChildPopupViewModel = new AddChildPopupViewModel(
+            _authService,
+            _taskService,
+            CloseAddChild,
+            _currentUser
+        );
+        
+        IsAddChildPopupOpen = true;
+    }
+
+    private void CloseAddChild()
+    {
+        IsAddChildPopupOpen = false;
+        LoadChildrenAsync().ConfigureAwait(false);
     }
 }

@@ -3,10 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="using:TidyTime.Converters"
+             xmlns:views="using:TidyTime.Views"
              xmlns:vm="using:TidyTime.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="TidyTime.Views.ParentProfileView"
-             x:DataType="vm:ParentProfileViewModel">
+             x:DataType="vm:ParentProfileViewModel"
+             x:Name="Root">
 
 <UserControl.Resources>
     <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
@@ -82,7 +84,8 @@
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Right"
                                                 Width="16"
-                                                Height="16"/>
+                                                Height="16"
+                                                Command="{Binding OpenAddChildCommand}"/>
                                                 
                                                 <TextBlock Text="Нет добавленных детей"
                                                         FontSize="12"
@@ -98,7 +101,7 @@
                                                 Background="Transparent"
                                                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                                 
-                                                IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}}">
+                                                IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}">
                                                         <ListBox.ItemTemplate>
                                                                 <DataTemplate>
                                                                         <Border Background="#FFA53F"
@@ -106,13 +109,11 @@
                                                                                 CornerRadius="16"
                                                                                 Margin="0,16,0,0"
                                                                                 Padding="30,0,30,0">
-                                                                                <Grid>
                                                                                         <TextBlock Text="{Binding FullName}"
                                                                                                 FontSize="14"
                                                                                                 FontFamily="{StaticResource ComfortaaMedium}"
                                                                                                 VerticalAlignment="Center"
                                                                                                 TextWrapping="Wrap"/>
-                                                                                </Grid>
                                                                         </Border>
                                                                 </DataTemplate>
                                                         </ListBox.ItemTemplate>
@@ -137,5 +138,10 @@
                 FontSize="14"
                 Padding="7"
                 FontFamily="{StaticResource ComfortaaMedium}"/>
+
+        <Popup IsOpen="{Binding IsAddChildPopupOpen}"
+               Placement="Center">
+            <views:AddChildPopupView DataContext="{Binding AddChildPopupViewModel}" />
+        </Popup>
     </Grid>
 </UserControl>

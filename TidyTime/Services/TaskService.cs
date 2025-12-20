@@ -112,9 +112,13 @@ public class TaskService : BaseFirebaseService, ITaskService
         var allUsers = await FirebaseClient.Child("users").OnceAsync<User>();
         
         return allUsers
-            .Select(u => u.Object)
-            .Where(u => u.ParentId == parentId || 
-                       (u.Role == UserRole.Child && u.Id == parentId))
+            .Select(u => 
+            {
+                var user = u.Object;
+                user.Id = u.Key;
+                return user;
+            })
+            .Where(u => u.ParentId == parentId && u.Role == UserRole.Child)
             .ToList();
     }
 }
