@@ -121,7 +121,8 @@ public partial class ScheduleScreenViewModel : ViewModelBase
                 _taskService,
                 CloseAddTask,
                 _currentUser,
-                SelectedDate
+                SelectedDate,
+                SelectedChild?.Id
             );
         }
         finally
@@ -298,7 +299,8 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             _taskService,
             CloseAddTask,
             _currentUser,
-            SelectedDate  
+            SelectedDate,
+            SelectedChild?.Id
         );
         
         IsAddTaskPopupOpen = true;
@@ -321,7 +323,8 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             CloseAddTask,
             _currentUser,
             SelectedDate, 
-            taskVm.Task 
+            SelectedChild?.Id,
+            taskVm.Task
         );
         
         IsAddTaskPopupOpen = true;

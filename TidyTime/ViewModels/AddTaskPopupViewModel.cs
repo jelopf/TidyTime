@@ -21,12 +21,14 @@ public partial class AddTaskPopupViewModel : ObservableObject
     public AddTaskPopupViewModel(ITaskService taskService, 
                                 Action closeAction, 
                                 User currentUser, 
-                                DateTime selectedDate, 
+                                DateTime selectedDate,
+                                string? selectedChildId, 
                                 TaskItem? existingTask = null)
     {
         _taskService = taskService;
         _currentUser = currentUser;
         _selectedDate = selectedDate;
+        SelectedChildId = selectedChildId;
         _existingTask = existingTask;
 
         CloseCommand = new RelayCommand(closeAction);
@@ -94,7 +96,7 @@ public partial class AddTaskPopupViewModel : ObservableObject
             var children = await _taskService.GetChildrenForParentAsync(_currentUser.Id);
             AvailableChildren = new ObservableCollection<User>(children);
             
-            if (AvailableChildren.Any())
+            if (string.IsNullOrEmpty(SelectedChildId) && AvailableChildren.Any())
             {
                 SelectedChildId = AvailableChildren.First().Id;
             }
