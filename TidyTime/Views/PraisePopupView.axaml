@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:TidyTime.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
+             x:Class="TidyTime.Views.PraisePopupView"
+             x:DataType="vm:PraisePopupViewModel">
+
+    <Grid>
+        <Border Background="White"
+                MaxHeight="489"
+                CornerRadius="16"
+                HorizontalAlignment="Stretch"
+                Margin="0,80,0,71"
+                Padding="30"
+                BorderBrush="#656565"
+                BorderThickness="1">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                <!-- Заголовок -->
+                    <TextBlock Text="Выберите комплимент:"
+                            FontFamily="{StaticResource ComfortaaMedium}"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            VerticalAlignment="Center"/>
+
+                    <Button Content="X"
+                        Width="30"
+                        Height="30"
+                        CornerRadius="8"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Grid.Column="1"
+                        Command="{Binding CloseCommand}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="14"/>
+                </Grid>
+
+            <!-- Список комплиментов -->
+                <StackPanel Background="Transparent" Grid.Row="1" Margin="0,0,0,0" Spacing="16">
+                    <ListBox ItemsSource="{Binding PraiseOptions}"
+                            SelectedItem="{Binding SelectedPraise}"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent" Orientation="Horizontal" Spacing="12" HorizontalAlignment="Stretch">
+                                    <RadioButton IsChecked="{Binding IsSelected,
+                                                RelativeSource={RelativeSource AncestorType=ListBoxItem}}" />
+                                    <TextBlock Text="{Binding Text}" 
+                                            FontSize="14"
+                                            FontFamily="{StaticResource ComfortaaRegular}" 
+                                            VerticalAlignment="Center" 
+                                            TextWrapping="Wrap"
+                                            MaxWidth="250"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!-- Свой вариант -->
+                    <TextBox Text="{Binding CustomPraiseText}"
+                            FontFamily="{StaticResource ComfortaaRegular}" 
+                            MaxLength="50"
+                            Watermark="Свой вариант"
+                            Background="#EFEFEE"
+                            CornerRadius="16"
+                            Height="45"/>
+                </StackPanel>
+
+                <!-- Кнопка сохранить -->
+                <Button Grid.Row="2"
+                        Content="Сохранить"
+                        Command="{Binding SaveCommand}"
+                        FontSize="14"
+                        FontFamily="{StaticResource ComfortaaRegular}" 
+                        Width="135"
+                        Height="45"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Background="#86C6FF"
+                        CornerRadius="16"
+                        Margin="0,30,0,0"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -69,6 +69,11 @@ public partial class ScheduleScreenViewModel : ViewModelBase
 
     public AddTaskPopupViewModel? AddTaskPopupViewModel { get; private set; }
 
+    public PraisePopupViewModel? PraisePopupViewModel { get; private set; }
+
+    [ObservableProperty]
+    private bool _isPraisePopupOpen;
+
     public ScheduleScreenViewModel(INavigationService navigationService, 
                                   IAuthService authService, 
                                   ITaskService taskService,
@@ -209,7 +214,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             Tasks.Clear();
             foreach (var taskItem in taskItems.OrderBy(t => t.StartTime))
             {
-                var taskVm = new TaskItemViewModel(taskItem, NavigationService);
+                var taskVm = new TaskItemViewModel(taskItem, NavigationService, OpenPraisePopup);
                 Tasks.Add(taskVm);
             }
         }
@@ -409,5 +414,25 @@ public partial class ScheduleScreenViewModel : ViewModelBase
         GenerateWeekDays();
         UpdateDateTitle();
         LoadTasksForDateAsync().ConfigureAwait(false);
+    }
+
+    private void OpenPraisePopup(TaskItem task)
+    {
+        if (SelectedChild == null)
+            return;
+
+        PraisePopupViewModel = new PraisePopupViewModel(
+            SelectedChild.Id,
+            task.Id,
+            ClosePraisePopup
+        );
+
+        IsPraisePopupOpen = true;
+    }
+
+    private void ClosePraisePopup()
+    {
+        IsPraisePopupOpen = false;
+        PraisePopupViewModel = null;
     }
 }

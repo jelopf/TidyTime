@@ -342,6 +342,7 @@
                                                                     </StackPanel>
                                                                     
                                                                     <Button Content="Похвалить"
+                                                                            Command="{Binding PraiseCommand}"
                                                                             Width="74"
                                                                             Height="23"
                                                                             Padding="0"
@@ -457,6 +458,7 @@
                                                                         </StackPanel>
 
                                                                         <Button Content="Похвалить"
+                                                                                Command="{Binding PraiseCommand}"
                                                                                 Width="74"
                                                                                 Height="23"
                                                                                 Padding="0"
@@ -464,7 +466,9 @@
                                                                                 BorderThickness="0"
                                                                                 CornerRadius="16"
                                                                                 FontSize="10"
-                                                                                FontFamily="{StaticResource ComfortaaBold}">
+                                                                                FontFamily="{StaticResource ComfortaaBold}"
+                                                                                VerticalContentAlignment="Center"
+                                                                                HorizontalContentAlignment="Center">
                                                                             <Button.IsVisible>
                                                                                 <MultiBinding Converter="{StaticResource MultiBoolToVisibilityConverter}">
                                                                                     <Binding Path="Status" 
@@ -652,6 +656,13 @@
         <Popup IsOpen="{Binding IsAddTaskPopupOpen}"
                Placement="Center">
             <views:AddTaskPopupView DataContext="{Binding AddTaskPopupViewModel}" />
+        </Popup>
+
+        <!-- отправка похвалы (попап)-->
+        <Popup IsOpen="{Binding IsPraisePopupOpen}"
+            Placement="Center">
+            <views:PraisePopupView
+                DataContext="{Binding PraisePopupViewModel}" />
         </Popup>
         
     </StackPanel>

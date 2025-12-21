@@ -1,18 +1,21 @@
 using System;
+using CommunityToolkit.Mvvm.Input;
 using TidyTime.Models;
 using TidyTime.Services;
 
 namespace TidyTime.ViewModels;
 
-public class TaskItemViewModel : ViewModelBase
+public partial class TaskItemViewModel : ViewModelBase
 {
     private readonly TaskItem _taskItem;
     private bool _isExpanded;
-    
-    public TaskItemViewModel(TaskItem taskItem, INavigationService navigationService) 
+    private readonly Action<TaskItem> _onPraiseRequested;
+
+    public TaskItemViewModel(TaskItem taskItem, INavigationService navigationService, Action<TaskItem> onPraiseRequested)
         : base(navigationService)
     {
         _taskItem = taskItem;
+        _onPraiseRequested = onPraiseRequested;
     }
     
     public TaskItem Task => _taskItem;
@@ -42,4 +45,10 @@ public class TaskItemViewModel : ViewModelBase
     public bool IsTitleStrikethrough => TaskItemHelper.IsTitleStrikethrough(_taskItem.Status);
     public int RewardCoins => TaskItemHelper.GetRewardCoins(_taskItem.Difficulty);
     public bool HasDescription => TaskItemHelper.HasDescription(_taskItem.Description);
+
+    [RelayCommand]
+    private void Praise()
+    {
+        _onPraiseRequested(_taskItem);
+    }
 }
