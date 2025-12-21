@@ -9,8 +9,7 @@
 
     <Grid Background="White">
         <!-- кнопка назад -->
-        <Button Content=">"
-        HorizontalAlignment="Right"
+        <Button HorizontalAlignment="Right"
         VerticalAlignment="Top"
         Width="11.56" Height="20.02"
         Background="Transparent"
@@ -18,7 +17,9 @@
         Margin="0,31,30,0"
         Padding="0"
         FontSize="20"
-        Command="{Binding GoBackCommand}"/>
+        Command="{Binding GoBackCommand}">
+            <Image Source="/Assets/Images/Forward.png" Stretch="UniformToFill"/>
+        </Button>
 
         <Border Background="#FFFF94"
         Height="433"
@@ -26,6 +27,9 @@
         Margin="0,80,0,0"
         VerticalAlignment="Top"
         Padding="29.5,30,30,30">
+            <Border.Background>
+                <ImageBrush Source="/Assets/Images/BackMenu.png" Stretch="UniformToFill"/>
+            </Border.Background>
             <Grid>
                 <TextBlock Text="Tidy Time"
                 FontSize="25"
@@ -41,6 +45,9 @@
                         Height="135"
                         CornerRadius="16"
                         HorizontalAlignment="Center">
+                            <Image Source="/Assets/Images/MenuChildGame.png"
+                            Width="103.63"
+                            Height="78.96"/>
                         </Button>
 
                         <TextBlock Text="Игры"
@@ -57,6 +64,9 @@
                         Height="135"
                         CornerRadius="16"
                         HorizontalAlignment="Center">
+                            <Image Source="/Assets/Images/MenuChildSetting.png"
+                                Width="95"
+                                Height="95"/>
                         </Button>
 
                         <TextBlock Text="Настройки"

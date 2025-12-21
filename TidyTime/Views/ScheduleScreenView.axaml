@@ -81,8 +81,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- иконка профиля -->
-                <Button Grid.Column="0" 
-                        Content="П" 
+                <Button Grid.Column="0"
                         Width="20" 
                         Height="22"
                         Padding="0"
@@ -92,7 +91,9 @@
                         FontSize="16"
                         HorizontalAlignment="Center"
                         HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"/>
+                        VerticalContentAlignment="Center">
+                        <Image Source="/Assets/Images/SheduleIcon.png" Stretch="UniformToFill"/>
+                </Button>
                 
                 <!-- ФИ -->
                 <StackPanel Grid.Column="1" 
@@ -124,10 +125,10 @@
                                            FontFamily="{StaticResource ComfortaaBold}"/>
                                 
                                 <!-- Стрелочка вниз -->
-                                <TextBlock Text="v"
-                                           FontSize="10"
-                                           VerticalAlignment="Center"
-                                           IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}"/>
+                                <Image Source="/Assets/Images/SheduleAllChild.png"
+                                    VerticalAlignment="Center"
+                                    Stretch="UniformToFill"
+                                    IsVisible="{Binding Children.Count, Converter={StaticResource IntToBoolConverter}, ConverterParameter=1}"/>
                             </StackPanel>
                         </Button.Content>
                         
@@ -163,21 +164,43 @@
                 </StackPanel>
                 
                 <!-- иконка меню -->
-                <Button Grid.Column="2" 
-                        Content="М" 
-                        Width="20" 
-                        Height="20"
-                        Padding="0"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        FontSize="16"
-                        HorizontalAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Command="{Binding GoToMenuCommand}"/>
+                <Button Grid.Column="2"
+                    Width="20" 
+                    Height="20"
+                    Padding="0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    FontSize="16"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding GoToMenuCommand}">
+                        <Image Source="/Assets/Images/SheduleMenu.png" Stretch="UniformToFill"/>
+                </Button>
             </Grid>
         </Border>
 
+        <Border Background="#C2E2FF"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top"
+        Width="94"
+        Margin="0,0,0,9"
+        Padding="0,10,0,9"
+        CornerRadius="16">
+            <StackPanel Orientation="Horizontal"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding TotalCoinsDisplay}"
+                    HorizontalAlignment="Center"
+                    FontSize="14"
+                    FontFamily="{StaticResource ComfortaaBold}"
+                    Margin="0,0,6,0"/>
+
+                    <Ellipse Width="16" 
+                    Height="16" 
+                    Fill="#FFCC00"/>
+                </StackPanel>
+        </Border>
         <!-- расписание -->
         <Border Background="{Binding IsParentMode, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#80A8DF; #86C7FF'}"  
                 Height="416" 
@@ -188,15 +211,17 @@
                 <Grid>
                     <!-- тут должна быть кнопка переключения недели -->
                     <Button Width="4.97"
-                            Height="9.37"
-                            Content="&lt;"
-                            Margin="1,12,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            FontSize="12"
-                            Command="{Binding NavigateToPreviousWeekCommand}"/>
+                        Height="9.37"
+                        Content="&lt;"
+                        Margin="1,12,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        FontSize="12"
+                        Command="{Binding NavigateToPreviousWeekCommand}">
+                            <Image Source="/Assets/Images/SheduleReturn.png" Stretch="UniformToFill"/>
+                    </Button>
 
                     <!-- табы дней недели -->
                     <!--динамический tabcontrol-->
@@ -366,15 +391,16 @@
                                                                     </Button>
                                                                     
                                                                     <!-- Стрелка вниз (развернуть) -->
-                                                                    <Button Content="v"
-                                                                            Width="16"
-                                                                            Height="16"
-                                                                            Padding="0"
-                                                                            Background="Transparent"
-                                                                            BorderThickness="0"
-                                                                            FontSize="12"
-                                                                            Command="{Binding DataContext.ToggleTaskExpansionCommand, ElementName=Root}"
-                                                                            CommandParameter="{Binding}"/>
+                                                                    <Button Width="16"
+                                                                        Height="16"
+                                                                        Padding="0"
+                                                                        Background="Transparent"
+                                                                        BorderThickness="0"
+                                                                        FontSize="12"
+                                                                        Command="{Binding DataContext.ToggleTaskExpansionCommand, ElementName=Root}"
+                                                                        CommandParameter="{Binding}">
+                                                                            <Image Source="/Assets/Images/SheduleShowTask.png"/>
+                                                                    </Button>
                                                                 </StackPanel>
                                                             </Grid>
                                                         </Border>
@@ -481,15 +507,16 @@
                                                                         </Button>
 
                                                                         <!-- Стрелка вниз (свернуть) -->
-                                                                        <Button Content="^"
-                                                                                Width="16"
-                                                                                Height="16"
-                                                                                Padding="0"
-                                                                                Background="Transparent"
-                                                                                BorderThickness="0"
-                                                                                FontSize="12"
-                                                                                Command="{Binding DataContext.ToggleTaskExpansionCommand, ElementName=Root}"
-                                                                                CommandParameter="{Binding}"/>
+                                                                        <Button Width="16"
+                                                                            Height="16"
+                                                                            Padding="0"
+                                                                            Background="Transparent"
+                                                                            BorderThickness="0"
+                                                                            FontSize="12"
+                                                                            Command="{Binding DataContext.ToggleTaskExpansionCommand, ElementName=Root}"
+                                                                            CommandParameter="{Binding}">
+                                                                                <Image Source="/Assets/Images/SheduleHideTask.png"/>
+                                                                        </Button>
                                                                     </StackPanel>
                                                                 </Grid>
                                                                 
@@ -515,46 +542,58 @@
                                                                                 Spacing="12">
                                                                         
                                                                         <!--Кнопка удалить-->
-                                                                        <Button Content="У"
-                                                                                Width="20"
-                                                                                Height="20"
-                                                                                Padding="0"
-                                                                                Background="Transparent"
-                                                                                BorderThickness="0"
-                                                                                FontSize="12"
-                                                                                Command="{Binding DataContext.DeleteTaskCommand, ElementName=Root}"
-                                                                                CommandParameter="{Binding}"/>
+                                                                        <Button Width="20"
+                                                                            Height="20"
+                                                                            Padding="0"
+                                                                            Background="Transparent"
+                                                                            BorderThickness="0"
+                                                                            FontSize="12"
+                                                                            Command="{Binding DataContext.DeleteTaskCommand, ElementName=Root}"
+                                                                            CommandParameter="{Binding}">
+                                                                                <Image Source="/Assets/Images/SheduleDel.png"/>
+                                                                        </Button>
                                                                         
                                                                         <!--Кнопка редактировать-->
-                                                                        <Button Content="Р"
-                                                                                Width="20"
-                                                                                Height="20"
-                                                                                Padding="0"
-                                                                                Background="Transparent"
-                                                                                BorderThickness="0"
-                                                                                FontSize="12"
-                                                                                Command="{Binding DataContext.EditTaskCommand, ElementName=Root}"
-                                                                                CommandParameter="{Binding}"/>
+                                                                        <Button Width="20"
+                                                                            Height="20"
+                                                                            Padding="0"
+                                                                            Background="Transparent"
+                                                                            BorderThickness="0"
+                                                                            FontSize="12"
+                                                                            Command="{Binding DataContext.EditTaskCommand, ElementName=Root}"
+                                                                            CommandParameter="{Binding}">
+                                                                                <Image Source="/Assets/Images/SheduleEdit.png"/>
+                                                                        </Button>
                                                                     </StackPanel>
                                                                     
                                                                     <!-- Кнопка выполнено -->
-                                                                    <StackPanel Grid.Column="1" 
-                                                                                HorizontalAlignment="Right"
-                                                                                Orientation="Horizontal"
-                                                                                Spacing="6">
+                                                                    <Border Grid.Column="1" 
+                                                                    HorizontalAlignment="Right"
+                                                                    Background="#535353"
+                                                                    CornerRadius="16"
+                                                                    Padding="3,0,3,0">
                                                                         
-                                                                        <Button Content="Выполнено"
-                                                                                Background="#535353"
-                                                                                Foreground="White"
-                                                                                CornerRadius="16"
-                                                                                Padding="6,6,6,6"
-                                                                                FontSize="10"
-                                                                                FontFamily="{StaticResource ComfortaaBold}"
-                                                                                FontWeight="Bold"
-                                                                                IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}"
-                                                                                Command="{Binding DataContext.MarkAsCompletedCommand, ElementName=Root}"
-                                                                                CommandParameter="{Binding}"/>
-                                                                    </StackPanel>
+                                                                        <Button Background="Transparent"
+                                                                        Foreground="White"
+                                                                        CornerRadius="16"
+                                                                        FontSize="10"
+                                                                        FontFamily="{StaticResource ComfortaaBold}"
+                                                                        FontWeight="Bold"
+                                                                        IsVisible="{Binding Status, Converter={StaticResource TaskStatusToBoolConverter}, ConverterParameter=NotCompleted}"
+                                                                        Command="{Binding DataContext.MarkAsCompletedCommand, ElementName=Root}"
+                                                                        CommandParameter="{Binding}">
+                                                                            <StackPanel Orientation="Horizontal"
+                                                                            HorizontalAlignment="Center"
+                                                                            Spacing="6">
+                                                                                <TextBlock Text="Выполнено"
+                                                                                HorizontalAlignment="Left"/>
+                                                                                <Image Source="/Assets/Images/SheduleComplete.png"
+                                                                                Width="6.97"
+                                                                                Height="11.36"
+                                                                                HorizontalAlignment="Right"/>
+                                                                            </StackPanel>
+                                                                        </Button>
+                                                                    </Border>
                                                                 </Grid>
                                                             </Grid>
                                                         </Border>
@@ -616,7 +655,9 @@
                         Background="Transparent"
                         BorderThickness="0"
                         FontSize="12"
-                        Command="{Binding NavigateToNextWeekCommand}"/>
+                        Command="{Binding NavigateToNextWeekCommand}">
+                        <Image Source="/Assets/Images/SheduleForward.png" Stretch="UniformToFill"/>
+                    </Button>
 
                 <!-- Нижняя панель с кнопкой добавления задачи -->
                 <StackPanel VerticalAlignment="Bottom">
@@ -634,18 +675,19 @@
                                        FontFamily="{StaticResource ComfortaaBold}"
                                        Grid.Column="0"/>
 
-                            <Button Content="+"
-                                    Width="18" 
-                                    Height="18"
-                                    FontSize="20"
-                                    Padding="0"
-                                    Grid.Column="1"
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    VerticalAlignment="Center"
-                                    HorizontalContentAlignment="Center"
-                                    VerticalContentAlignment="Center"
-                                    Command="{Binding OpenAddTaskCommand}"/>
+                            <Button Width="18" 
+                                Height="18"
+                                FontSize="20"
+                                Padding="0"
+                                Grid.Column="1"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                VerticalAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Command="{Binding OpenAddTaskCommand}">
+                                <Image Source="/Assets/Images/SheduleAddTask.png" Stretch="UniformToFill"/>
+                            </Button>
                         </Grid>
                     </Border>
                 </StackPanel>

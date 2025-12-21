@@ -8,8 +8,7 @@
              x:DataType="vm:GameMenuViewModel">
 
     <Grid Background="White">
-        <Button Content="&lt;"
-        Command="{Binding GoBackCommand}"
+        <Button Command="{Binding GoBackCommand}"
         HorizontalAlignment="Left"
         VerticalAlignment="Top"
         Width="11.56" Height="20.02"
@@ -17,7 +16,9 @@
         BorderThickness="0"
         Margin="30,31,0,0"
         Padding="0"
-        FontSize="20"/>
+        FontSize="20">
+            <Image Source="/Assets/Images/Return.png" Stretch="UniformToFill"/>
+        </Button>
 
         <Grid Height="451"
         Margin="0,62,0,0"
@@ -26,16 +27,20 @@
             Height="433"
             CornerRadius="16"
             VerticalAlignment="Bottom">
+                <Border.Background>
+                    <ImageBrush Source="/Assets/Images/BackMenuGame.png" Stretch="UniformToFill"/>
+                </Border.Background>
                 <StackPanel Margin="30,47,30,30">
                     <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                         <!--Кнопка "Мемори"-->
                         <StackPanel>
-                            <Button Background="#FFFFFF"
+                            <Button Background="Transparent"
                             Width="135"
                             Height="135"
                             CornerRadius="16">
+                                <Image Source="/Assets/Images/MenuGameMemo.png" Stretch="UniformToFill"/>
                             </Button>
 
                             <TextBlock Text="Мемори"
@@ -53,11 +58,12 @@
                         <!--Кнопка "Кексы"-->
                         <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Left">
-                            <Button Background="#FFFFFF"
+                            <Button Background="Transparent"
                             Width="135"
                             Height="135"
                             CornerRadius="16"
                             HorizontalAlignment="Center">
+                                <Image Source="/Assets/Images/MenuGameCupcakes.png" Stretch="UniformToFill"/>
                             </Button>
 
                             <TextBlock Text="Кексы"
@@ -71,11 +77,12 @@
                         <!--Кнопка "Пазлы"-->
                         <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Right">
-                            <Button Background="#FFFFFF"
+                            <Button Background="Transparent"
                             Width="135"
                             Height="135"
                             CornerRadius="16"
                             HorizontalAlignment="Center">
+                                <Image Source="/Assets/Images/MenuGamePuzzles.png" Stretch="UniformToFill"/>
                             </Button>
 
                             <TextBlock Text="Пазлы"

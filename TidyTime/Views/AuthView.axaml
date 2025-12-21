@@ -9,6 +9,9 @@
 
         
     <StackPanel Background="#B8ED78">
+        <StackPanel.Background>
+            <ImageBrush Source="/Assets/Images/BackRegistr.png" Stretch="UniformToFill"/>
+        </StackPanel.Background>
             
         <Border Padding="30,45,30,16">
             <StackPanel Spacing="30">

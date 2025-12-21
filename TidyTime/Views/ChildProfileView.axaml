@@ -10,8 +10,7 @@
     <Grid Background="White">
 
         <!-- стрелка назад -->
-        <Button Content="&lt;"
-                Command="{Binding GoBackCommand}"
+        <Button Command="{Binding GoBackCommand}"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Margin="30,30,0,0"
@@ -20,7 +19,9 @@
                 Background="Transparent"
                 BorderThickness="0"
                 FontSize="20"
-                Padding="0"/>
+                Padding="0">
+                <Image Source="/Assets/Images/Return.png" Stretch="UniformToFill"/>
+        </Button>
         
         <Grid>
                 <Border Background="#DF80D6"
@@ -29,6 +30,9 @@
                 Margin="0,80,0,0"
                 Padding="30"
                 VerticalAlignment="Top">
+                        <Border.Background>
+                                <ImageBrush Source="/Assets/Images/BackProfChild.png" Stretch="UniformToFill"/>
+                        </Border.Background>
                         <Grid>
                                 <StackPanel MaxHeight="177"
                                 VerticalAlignment="Top"
@@ -39,16 +43,20 @@
                                                 Height="120"
                                                 CornerRadius="8"
                                                 HorizontalAlignment="Center">
+                                                        <Image Source="/Assets/Images/ProfIcon.png"
+                                                        Width="60"
+                                                        Height="68"/>
                                                 </Border>
 
-                                                <Button Content="К"
-                                                VerticalAlignment="Bottom"
+                                                <Button VerticalAlignment="Bottom"
                                                 Background="Transparent"
                                                 Margin="111.25,0,0,0.79"
                                                 HorizontalAlignment="Right"
                                                 Height="24.97"
                                                 Width="23.73"
-                                                Padding="0"/>
+                                                Padding="0">
+                                                        <Image Source="/Assets/Images/ProfEdit.png" Stretch="UniformToFill"/>
+                                                </Button>
                                         </Grid>
                                         <TextBlock Text="{Binding UserFullName}"
                                         FontSize="14"
