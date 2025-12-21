@@ -174,13 +174,22 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private void GenerateWeekDays()
     {
         WeekDays.Clear();
-        
-        var weekDays = _dayOfWeekService.GenerateWeekDays(SelectedDate);
+
+        int diff = (7 + (SelectedDate.DayOfWeek - DayOfWeek.Monday)) % 7;
+        var startOfWeek = SelectedDate.AddDays(-diff);
+
+        var weekDays = _dayOfWeekService.GenerateWeekDays(startOfWeek);
         
         foreach (var day in weekDays)
         {
             WeekDays.Add(day);
         }
+
+        var todayIndex = WeekDays
+            .Select((day, index) => new { day, index })
+            .FirstOrDefault(x => x.day.Date.Date == SelectedDate.Date)?.index ?? 0;
+
+        SelectedDayIndex = todayIndex;
     }
 
     [RelayCommand]
