@@ -99,7 +99,7 @@
                 <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
-                    <TextBlock Text="120"
+                    <TextBlock Text="{Binding TotalCoinsDisplay}"
                     HorizontalAlignment="Center"
                     FontSize="14"
                     FontFamily="{StaticResource ComfortaaBold}"

@@ -62,7 +62,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private string _dateTitle = "";
 
     [ObservableProperty]
-    private int _totalCoins = 0;
+    private int _totalCoinsDisplay = 0;
 
     [ObservableProperty]
     private bool _isAddTaskPopupOpen;
@@ -270,10 +270,9 @@ public partial class ScheduleScreenViewModel : ViewModelBase
 
     private void CalculateTotalCoins()
     {
-        TotalCoins = Tasks
-            .Where(t => t.Status == Models.TaskStatus.Completed)
-            .Sum(t => t.RewardCoins);
+        TotalCoinsDisplay = _currentUser?.Role == UserRole.Child ? _currentUser.TotalCoins : 0;
     }
+
 
     [RelayCommand]
     private void SelectDay(DayOfWeekItem day)
@@ -357,12 +356,24 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     [RelayCommand]
     private async Task MarkAsCompletedAsync(TaskItemViewModel taskVm)
     {
-        if (_currentUser == null || string.IsNullOrEmpty(taskVm.Id)) return;
+        if (_currentUser == null || string.IsNullOrEmpty(taskVm.Id)) 
+            return;
 
         await _taskService.MarkTaskAsCompletedAsync(taskVm.Id);
+
+        if (_currentUser.Role == UserRole.Child)
+        {
+            _currentUser.TotalCoins += TaskItemHelper.GetRewardCoins(taskVm.Task.Difficulty);
+            _currentUser.CompletedTasksCount++;
+
+            await _authService.UpdateUserAsync(_currentUser);
+        }
+
         await LoadTasksForDateAsync();
-        CalculateTotalCoins();
+
+        TotalCoinsDisplay = _currentUser.Role == UserRole.Child ? _currentUser.TotalCoins : 0;
     }
+
 
     [RelayCommand]
     private void ToggleTaskExpansion(TaskItemViewModel taskVm)

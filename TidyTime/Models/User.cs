@@ -14,6 +14,9 @@ public class User
     public List<string> ChildrenIds { get; set; } = new(); 
     public string ParentId { get; set; } = "";
 
+    public int TotalCoins { get; set; } = 0;
+    public int CompletedTasksCount { get; set; } = 0;
+
     public void SetPassword(string password)
     {
         PasswordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(password, hashType: HashType.SHA384);

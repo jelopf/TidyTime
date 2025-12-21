@@ -13,8 +13,6 @@ public partial class ChildProfileViewModel : ViewModelBase
     private readonly IAuthService _authService;
     private readonly ITaskService _taskService;
     private User? _currentUser;
-    private int _totalCoins;
-    private int _completedTasksCount;
 
     [ObservableProperty]
     private string _userName = "";
@@ -44,10 +42,10 @@ public partial class ChildProfileViewModel : ViewModelBase
             UserFullName = _currentUser.FullName;
         }
         
-        _ = LoadProfileDataAsync();
+        LoadProfileDataAsync();
     }
 
-    private async Task LoadProfileDataAsync()
+    private void LoadProfileDataAsync()
     {
         if (_currentUser == null) return;
         
@@ -55,14 +53,8 @@ public partial class ChildProfileViewModel : ViewModelBase
         {
             IsLoading = true;
             
-            var tasks = await _taskService.GetTasksForUserAsync(_currentUser);
-            
-            var completedTasks = tasks.Where(t => t.Status == Models.TaskStatus.Completed).ToList();
-            _completedTasksCount = completedTasks.Count;
-            _totalCoins = completedTasks.Sum(t => TaskItemHelper.GetRewardCoins(t.Difficulty));
-            
-            CompletedTasksCountDisplay = _completedTasksCount;
-            TotalCoinsDisplay = _totalCoins;
+            TotalCoinsDisplay = _currentUser.TotalCoins;
+            CompletedTasksCountDisplay = _currentUser.CompletedTasksCount;
         }
         finally
         {
