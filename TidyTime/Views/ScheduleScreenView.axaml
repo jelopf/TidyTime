@@ -186,7 +186,8 @@
         Width="94"
         Margin="0,0,0,9"
         Padding="0,10,0,9"
-        CornerRadius="16">
+        CornerRadius="16"
+        IsVisible="{Binding !DataContext.IsParentMode, ElementName=Root}">
             <StackPanel Orientation="Horizontal"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
