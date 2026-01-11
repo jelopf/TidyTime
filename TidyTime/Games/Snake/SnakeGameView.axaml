@@ -1,0 +1,186 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="TidyTime.Games.Snake.SnakeGameView">
+    
+    <Grid Background="#1A1A2E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Панель статистики -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" 
+                   HorizontalAlignment="Center" Margin="15,10" Spacing="15">
+            <TextBlock x:Name="ScoreText" Foreground="#4A4AFF" FontSize="12" FontWeight="Bold"/>
+            <TextBlock x:Name="HighScoreText" Foreground="#FFAA00" FontSize="12" FontWeight="Bold"/>
+            <TextBlock x:Name="LengthText" Foreground="#00AA00" FontSize="12" FontWeight="Bold"/>
+            <TextBlock x:Name="TimeText" Foreground="#AA55FF" FontSize="12" FontWeight="Bold"/>
+        </StackPanel>
+        
+        <!-- Игровое поле -->
+        <Border Grid.Row="1" 
+                Margin="15" 
+                Background="#2D3047" 
+                CornerRadius="15"
+                BorderBrush="#5A5D7F"
+                BorderThickness="2">
+            <Canvas x:Name="GameCanvas"
+                   Width="300"
+                   Height="300"
+                   Background="#111"/>
+        </Border>
+        
+        <!-- Панель управления -->
+        <Grid Grid.Row="2" Margin="15" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Button Grid.Row="0"
+                    Content="↑"
+                    Width="60" 
+                    Height="60"
+                    HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
+                    Background="#4A4AFF"
+                    Foreground="White"
+                    CornerRadius="30"
+                    BorderBrush="#5A5D7F"
+                    BorderThickness="2"
+                    Click="UpButton_Click">
+                <Button.Styles>
+                    <Style Selector="Button:pointerover">
+                        <Setter Property="Background" Value="#5A5AFF"/>
+                    </Style>
+                    <Style Selector="Button:pressed">
+                        <Setter Property="Background" Value="#3A3AFF"/>
+                        <Setter Property="RenderTransform">
+                            <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                        </Setter>
+                    </Style>
+                </Button.Styles>
+            </Button>
+            
+            <StackPanel Grid.Row="1" 
+                       Orientation="Horizontal" 
+                       Spacing="10" 
+                       HorizontalAlignment="Center">
+                <Button Content="←"
+                        Width="60" 
+                        Height="60"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Background="#4A4AFF"
+                        Foreground="White"
+                        CornerRadius="30"
+                        BorderBrush="#5A5D7F"
+                        BorderThickness="2"
+                        Click="LeftButton_Click">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#5A5AFF"/>
+                        </Style>
+                        <Style Selector="Button:pressed">
+                            <Setter Property="Background" Value="#3A3AFF"/>
+                            <Setter Property="RenderTransform">
+                                <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                            </Setter>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                
+                <Button Content="↓"
+                        Width="60" 
+                        Height="60"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Background="#4A4AFF"
+                        Foreground="White"
+                        CornerRadius="30"
+                        BorderBrush="#5A5D7F"
+                        BorderThickness="2"
+                        Click="DownButton_Click">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#5A5AFF"/>
+                        </Style>
+                        <Style Selector="Button:pressed">
+                            <Setter Property="Background" Value="#3A3AFF"/>
+                            <Setter Property="RenderTransform">
+                                <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                            </Setter>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                
+                <Button Content="→"
+                        Width="60" 
+                        Height="60"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontSize="20"
+                        FontWeight="Bold"
+                        Background="#4A4AFF"
+                        Foreground="White"
+                        CornerRadius="30"
+                        BorderBrush="#5A5D7F"
+                        BorderThickness="2"
+                        Click="RightButton_Click">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover">
+                            <Setter Property="Background" Value="#5A5AFF"/>
+                        </Style>
+                        <Style Selector="Button:pressed">
+                            <Setter Property="Background" Value="#3A3AFF"/>
+                            <Setter Property="RenderTransform">
+                                <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                            </Setter>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+            </StackPanel>
+            
+            <!-- Кнопка ВЫХОД -->
+            <Button Grid.Row="2"
+                    Content="Выйти"
+                    Width="100"
+                    Height="40"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="#FF5555"
+                    Foreground="White"
+                    CornerRadius="10"
+                    BorderBrush="#FF7777"
+                    BorderThickness="2"
+                    Click="ExitButton_Click">
+                <Button.Styles>
+                    <Style Selector="Button:pointerover">
+                        <Setter Property="Background" Value="#FF6666"/>
+                        <Setter Property="BorderBrush" Value="#FF8888"/>
+                    </Style>
+                    <Style Selector="Button:pressed">
+                        <Setter Property="Background" Value="#FF4444"/>
+                        <Setter Property="RenderTransform">
+                            <ScaleTransform ScaleX="0.95" ScaleY="0.95"/>
+                        </Setter>
+                    </Style>
+                </Button.Styles>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

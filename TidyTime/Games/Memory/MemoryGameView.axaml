@@ -1,0 +1,128 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:TidyTime.Games.Memory"
+             xmlns:vm="clr-namespace:TidyTime.Games.Memory"
+             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="640"
+             x:Class="TidyTime.Games.Memory.MemoryGameView"
+             x:DataType="vm:MemoryGameViewModel">
+    
+    <UserControl.Resources>
+        <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Background="#1A1A2E">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Статистика -->
+        <StackPanel Grid.Row="0" Margin="20,15" Spacing="20" Orientation="Horizontal">
+            <Border Background="#4A4AFF" CornerRadius="10" Padding="10,5">
+                <TextBlock Text="{Binding Score}" 
+                          Foreground="White" 
+                          FontSize="20"
+                          FontWeight="Bold"/>
+            </Border>
+            
+            <Border Background="#FFAA00" CornerRadius="10" Padding="10,5">
+                <StackPanel Orientation="Horizontal" Spacing="5">
+                    <TextBlock Text="x" Foreground="White" FontSize="16"/>
+                    <TextBlock Text="{Binding Combo}" 
+                              Foreground="White" 
+                              FontSize="20"
+                              FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Background="#00AA00" CornerRadius="10" Padding="10,5">
+                <TextBlock Text="{Binding Level}" 
+                          Foreground="White" 
+                          FontSize="20"
+                          FontWeight="Bold"/>
+            </Border>
+        </StackPanel>
+        
+        <!-- Игровое поле -->
+        <Border Grid.Row="1" Margin="10,0,10,0" Background="#2D3047" CornerRadius="20" HorizontalAlignment="Stretch">
+            <Grid>
+                <!-- 12 кружочков -->
+                <ItemsControl ItemsSource="{Binding Circles}" Margin="20">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" Rows="4"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="8">
+                                <Button Width="60" 
+                                        Height="60" 
+                                        CornerRadius="35"
+                                        Background="{Binding BackgroundColor}"
+                                        BorderBrush="#5A5D7F"
+                                        BorderThickness="2"
+                                        Command="{Binding CircleClickCommand}">
+                                    
+                                    <Button.Styles>
+                                        <Style Selector="Button:pointerover">
+                                            <Setter Property="Background" Value="#4A4D6F"/>
+                                        </Style>
+                                        <Style Selector="Button:pressed">
+                                            <Setter Property="Background" Value="#5A5D8F"/>
+                                        </Style>
+                                    </Button.Styles>
+                                </Button>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                
+                <!-- Статус игры -->
+                <Border Background="#00000080" 
+                        CornerRadius="10"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Padding="20,10"
+                        IsVisible="{Binding !IsPlayersTurn}">
+                    <TextBlock Text="{Binding GameStatus}" 
+                              Foreground="White"
+                              FontSize="18"
+                              FontWeight="Bold"/>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- Панель управления -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                   HorizontalAlignment="Center" Margin="20" Spacing="20">
+            
+            <!-- Статус хода -->
+            <Border Background="{Binding IsPlayersTurn, Converter={StaticResource BoolToColorConverter}}"
+                    CornerRadius="10" Padding="15,8">
+                <TextBlock Text="{Binding GameStatus}" 
+                          Foreground="White"
+                          FontSize="14"
+                          MinWidth="150"
+                          TextAlignment="Center"/>
+            </Border>
+            
+            <!-- Кнопка выхода -->
+            <Button Content="Выйти"
+                    Width="100"
+                    Height="40"
+                    VerticalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    Background="#FF5555"
+                    Foreground="White"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    CornerRadius="10"
+                    Command="{Binding ExitGameCommand}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

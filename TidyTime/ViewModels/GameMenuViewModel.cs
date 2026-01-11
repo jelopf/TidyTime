@@ -1,5 +1,8 @@
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using TidyTime.Games.Memory;
+using TidyTime.Games.Snake;
 using TidyTime.Models;
 using TidyTime.Services;
 
@@ -38,5 +41,49 @@ public partial class GameMenuViewModel : ViewModelBase
             TotalCoinsDisplay = _currentUser.TotalCoins;
         else
             TotalCoinsDisplay = 0;
+    }
+
+    [RelayCommand]
+    private Task PlaySnakeAsync()
+    {
+        if (_currentUser == null || _currentUser.TotalCoins < 20)
+            return Task.CompletedTask; // безопасный досрочный выход
+
+        _currentUser.TotalCoins -= 20;
+        TotalCoinsDisplay = _currentUser.TotalCoins;
+
+        return UpdateAndNavigateToSnakeAsync();
+    }
+
+    private async Task UpdateAndNavigateToSnakeAsync()
+    {
+        if (_currentUser != null)
+            await _authService.UpdateUserAsync(_currentUser); // обновляем Firebase
+
+        NavigationService.NavigateTo(
+            new SnakeGameViewModel(NavigationService, _authService, _taskService)
+        );
+    }
+    
+    [RelayCommand]
+    private Task PlayMemoryAsync()
+    {
+        if (_currentUser == null || _currentUser.TotalCoins < 20)
+            return Task.CompletedTask;
+
+        _currentUser.TotalCoins -= 20;
+        TotalCoinsDisplay = _currentUser.TotalCoins;
+
+        return UpdateAndNavigateToReactionAsync();
+    }
+
+    private async Task UpdateAndNavigateToReactionAsync()
+    {
+        if (_currentUser != null)
+            await _authService.UpdateUserAsync(_currentUser);
+
+        NavigationService.NavigateTo(
+            new MemoryGameViewModel(NavigationService, _authService, _taskService)
+        );
     }
 }

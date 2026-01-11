@@ -34,16 +34,17 @@
                     <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                        <!--Кнопка "Мемори"-->
+                        <!--Кнопка "Змейка"-->
                         <StackPanel>
                             <Button Background="Transparent"
                             Width="135"
                             Height="135"
-                            CornerRadius="16">
+                            CornerRadius="16"
+                            Command="{Binding PlaySnakeCommand}">
                                 <Image Source="/Assets/Images/MenuGameMemo.png" Stretch="UniformToFill"/>
                             </Button>
 
-                            <TextBlock Text="Мемори"
+                            <TextBlock Text="Змейка"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
                             FontSize="14"
@@ -55,18 +56,19 @@
                     <Grid Margin="0,30,0,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
-                        <!--Кнопка "Кексы"-->
+                        <!--Кнопка "Реакция"-->
                         <StackPanel VerticalAlignment="Center"
                         HorizontalAlignment="Left">
                             <Button Background="Transparent"
                             Width="135"
                             Height="135"
                             CornerRadius="16"
-                            HorizontalAlignment="Center">
+                            HorizontalAlignment="Center"
+                            Command="{Binding PlayMemoryCommand}">
                                 <Image Source="/Assets/Images/MenuGameCupcakes.png" Stretch="UniformToFill"/>
                             </Button>
 
-                            <TextBlock Text="Кексы"
+                            <TextBlock Text="Реакция"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Center"
                             FontSize="14"
