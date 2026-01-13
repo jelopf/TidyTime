@@ -17,6 +17,8 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    public static IReminderService? CurrentReminderService { get; set; }
+
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is ISingleViewApplicationLifetime lifetime)

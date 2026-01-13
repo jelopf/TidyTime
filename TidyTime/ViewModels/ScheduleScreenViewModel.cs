@@ -16,6 +16,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
 {
     private readonly IAuthService _authService;
     private readonly ITaskService _taskService;
+    private readonly IReminderService? _reminderService;
     private readonly IDayOfWeekService _dayOfWeekService;
     private User? _currentUser;
 
@@ -77,13 +78,15 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     public ScheduleScreenViewModel(INavigationService navigationService, 
                                   IAuthService authService, 
                                   ITaskService taskService,
-                                  IDayOfWeekService dayOfWeekService) 
+                                  IDayOfWeekService dayOfWeekService,
+                                  IReminderService? reminderService = null) 
         : base(navigationService)
     {
         _authService = authService;
         _taskService = taskService;
         _dayOfWeekService = dayOfWeekService;
         _currentUser = authService.GetCurrentUser();
+        _reminderService = reminderService;
 
         if (_currentUser != null)
         {
@@ -337,7 +340,7 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             _currentUser,
             SelectedDate, 
             SelectedChild?.Id,
-            taskVm.Task
+            App.CurrentReminderService
         );
         
         IsAddTaskPopupOpen = true;
@@ -347,6 +350,14 @@ public partial class ScheduleScreenViewModel : ViewModelBase
     private async Task DeleteTaskAsync(TaskItemViewModel taskVm)
     {
         if (_currentUser == null || string.IsNullOrEmpty(taskVm.Id)) return;
+
+        var task = await _taskService.GetTaskByIdAsync(taskVm.Id);
+        if (task == null) return;
+
+        if (_currentUser.Role == UserRole.Child)
+        {
+            _reminderService?.CancelReminder(task);
+        }   
 
         await _taskService.DeleteTaskAsync(taskVm.Id);
         await LoadTasksForDateAsync();

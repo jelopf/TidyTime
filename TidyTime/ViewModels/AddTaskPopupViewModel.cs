@@ -14,6 +14,7 @@ public partial class AddTaskPopupViewModel : ObservableObject
     private readonly ITaskService _taskService;
     private readonly User _currentUser;
     private readonly DateTime _selectedDate;
+    private readonly IReminderService? _reminderService;
     private readonly TaskItem? _existingTask;
 
     public IRelayCommand CloseCommand { get; }
@@ -23,6 +24,7 @@ public partial class AddTaskPopupViewModel : ObservableObject
                                 User currentUser, 
                                 DateTime selectedDate,
                                 string? selectedChildId, 
+                                IReminderService? reminderService = null,
                                 TaskItem? existingTask = null)
     {
         _taskService = taskService;
@@ -30,6 +32,7 @@ public partial class AddTaskPopupViewModel : ObservableObject
         _selectedDate = selectedDate;
         SelectedChildId = selectedChildId;
         _existingTask = existingTask;
+        _reminderService = reminderService;
 
         CloseCommand = new RelayCommand(closeAction);
 
@@ -177,10 +180,21 @@ public partial class AddTaskPopupViewModel : ObservableObject
         if (_existingTask == null)
         {
             await _taskService.AddTaskAsync(task);
+
+            if (_currentUser.Role == UserRole.Child)
+            {
+                _reminderService?.ScheduleReminder(task);
+            }
         }
         else
         {
             await _taskService.UpdateTaskAsync(task);
+
+            if (_currentUser.Role == UserRole.Child)
+            {
+                _reminderService?.CancelReminder(task);
+                _reminderService?.ScheduleReminder(task);
+            }
         }
 
         CloseCommand.Execute(null);

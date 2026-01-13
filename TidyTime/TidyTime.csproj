@@ -24,5 +24,7 @@
     <PackageReference Include="FirebaseAuthentication.net" />
     <PackageReference Include="FirebaseDatabase.net" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Plugin.LocalNotification" />
+    <PackageReference Include="Xamarin.Essentials" />
   </ItemGroup>
 </Project>

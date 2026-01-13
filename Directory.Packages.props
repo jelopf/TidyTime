@@ -19,6 +19,8 @@
     <PackageVersion Include="FirebaseAuthentication.net" Version="4.1.0" />
     <PackageVersion Include="FirebaseDatabase.net" Version="5.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageVersion Include="Plugin.LocalNotification" Version="10.0.1" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.15" />
+    <PackageVersion Include="Xamarin.Essentials" Version="1.8.1" />
   </ItemGroup>
 </Project>
