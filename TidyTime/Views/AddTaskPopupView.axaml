@@ -2,10 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="using:TidyTime.Converters"
              xmlns:vm="using:TidyTime.ViewModels"
              mc:Ignorable="d" d:DesignWidth="360" d:DesignHeight="640"
              x:Class="TidyTime.Views.AddTaskPopupView"
              x:DataType="vm:AddTaskPopupViewModel">
+
+    <UserControl.Resources>
+        <converters:BoolToValueConverter x:Key="BoolToValueConverter"/>
+        <converters:IntToBackgroundConverter x:Key="IntToBackgroundConverter"/>
+        <converters:IntToForegroundConverter x:Key="IntToForegroundConverter"/>
+    </UserControl.Resources>
 
     <Grid>
         <Border Background="White"
@@ -73,7 +80,8 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="0" 
+                        <Button Grid.Column="0"
+                                Command="{Binding OpenStartTimePickerCommand}" 
                                 Margin="0,0,5,0"
                                 Background="#EFEFEE"
                                 BorderThickness="0"
@@ -100,13 +108,6 @@
                                             IsVisible="{Binding IsStartTimeSelected}"/>
                                 </Grid>
                             </Button.Content>
-                            
-                            <Button.Flyout>
-                                <Flyout Placement="Bottom">
-                                    <TimePicker SelectedTime="{Binding StartTime}"
-                                                Width="150"/>
-                                </Flyout>
-                            </Button.Flyout>
                         </Button>
                         
                         <TextBlock Text="-" 
@@ -114,6 +115,7 @@
                                    VerticalAlignment="Center"/>
                         
                         <Button Grid.Column="2" 
+                                Command="{Binding OpenEndTimePickerCommand}"
                                 Margin="5,0,0,0"
                                 Background="#EFEFEE"
                                 BorderThickness="0"
@@ -139,27 +141,22 @@
                                             IsVisible="{Binding IsEndTimeSelected}"/>
                                 </Grid>
                             </Button.Content>
-                            
-                            <Button.Flyout>
-                                <Flyout Placement="Bottom">
-                                    <TimePicker SelectedTime="{Binding EndTime}"
-                                                Width="150"/>
-                                </Flyout>
-                            </Button.Flyout>
                         </Button>
                     </Grid>
 
                     <Button Content="Весь день"
-                    Foreground="#656565"
+                    Foreground="{Binding IsAllDay, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#EFEFEE; #656565'}"
                     FontFamily="{StaticResource ComfortaaRegular}"
                     Width="135"
                     Height="45"
-                    Background="#EFEFEE"
+                    Background="{Binding IsAllDay, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#86C6FF; #EFEFEE'}"
+                    BorderBrush="{Binding IsAllDay, Converter={StaticResource BoolToValueConverter}, ConverterParameter='#0059a7ff; #EFEFEE'}"
                     CornerRadius="16"
                     HorizontalAlignment="Center"
                     VerticalContentAlignment="Center"
                     HorizontalContentAlignment="Center"
-                    Command="{Binding ToggleAllDayCommand}"/>
+                    Command="{Binding ToggleAllDayCommand}">
+                    </Button>
 
                     <TextBlock Text="Сложность:"
                     FontSize="14"
@@ -172,8 +169,8 @@
                         <Button Content="1"
                                 Width="30"
                                 Height="30"
-                                Background="#EFEFEE"
-                                Foreground="#656565"
+                                Background="{Binding Difficulty, Converter={StaticResource IntToBackgroundConverter}, ConverterParameter=1}"
+                                Foreground="{Binding Difficulty, Converter={StaticResource IntToForegroundConverter}, ConverterParameter=1}"
                                 CornerRadius="8"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Center"
@@ -183,8 +180,8 @@
                         <Button Content="2"
                                 Width="30"
                                 Height="30"
-                                Background="#EFEFEE"
-                                Foreground="#656565"
+                                Background="{Binding Difficulty, Converter={StaticResource IntToBackgroundConverter}, ConverterParameter=2}"
+                                Foreground="{Binding Difficulty, Converter={StaticResource IntToForegroundConverter}, ConverterParameter=2}"
                                 CornerRadius="8"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Center"
@@ -194,8 +191,8 @@
                         <Button Content="3"
                                 Width="30"
                                 Height="30"
-                                Background="#EFEFEE"
-                                Foreground="#656565"
+                                Background="{Binding Difficulty, Converter={StaticResource IntToBackgroundConverter}, ConverterParameter=3}"
+                                Foreground="{Binding Difficulty, Converter={StaticResource IntToForegroundConverter}, ConverterParameter=3}"
                                 CornerRadius="8"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Center"
@@ -205,8 +202,8 @@
                         <Button Content="4"
                                 Width="30"
                                 Height="30"
-                                Background="#EFEFEE"
-                                Foreground="#656565"
+                                Background="{Binding Difficulty, Converter={StaticResource IntToBackgroundConverter}, ConverterParameter=4}"
+                                Foreground="{Binding Difficulty, Converter={StaticResource IntToForegroundConverter}, ConverterParameter=4}"
                                 CornerRadius="8"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Center"
@@ -216,8 +213,8 @@
                         <Button Content="5"
                                 Width="30"
                                 Height="30"
-                                Background="#EFEFEE"
-                                Foreground="#656565"
+                                Background="{Binding Difficulty, Converter={StaticResource IntToBackgroundConverter}, ConverterParameter=5}"
+                                Foreground="{Binding Difficulty, Converter={StaticResource IntToForegroundConverter}, ConverterParameter=5}"
                                 CornerRadius="8"
                                 VerticalContentAlignment="Center"
                                 HorizontalContentAlignment="Center"
@@ -243,5 +240,71 @@
                                 FontFamily="{StaticResource ComfortaaRegular}"/>
             </Grid>
         </Border>
+    
+        <Popup x:Name="StartTimePopup"
+            IsOpen="{Binding IsStartTimePickerOpen}"
+            PlacementMode="Center"
+            OverlayDismissEventPassThrough="True">
+            <Border Background="#FFFFFF"
+                    CornerRadius="20"
+                    Padding="30"
+                    BorderBrush="#656565"
+                    BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Выберите время начала:"
+                            FontFamily="{StaticResource ComfortaaMedium}"
+                            FontSize="14"
+                            Margin="0,0,0,20"/>
+                    
+                    <TimePicker SelectedTime="{Binding StartTime}"
+                                HorizontalAlignment="Center"
+                                Width="200"/>
+                    
+                    <Button Content="OK"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Margin="0,20,0,0"
+                            Width="100"
+                            Height="40"
+                            Command="{Binding CloseStartTimePickerCommand}"
+                            Background="#86C6FF"
+                            CornerRadius="16"/>
+                </StackPanel>
+            </Border>
+        </Popup>
+
+        <Popup x:Name="EndTimePopup"
+            IsOpen="{Binding IsEndTimePickerOpen}"
+            PlacementMode="Center"
+            OverlayDismissEventPassThrough="True">
+            <Border Background="#FFFFFF"
+                    CornerRadius="20"
+                    Padding="30"
+                    BorderBrush="#656565"
+                    BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="Выберите время окончания:"
+                            FontFamily="{StaticResource ComfortaaMedium}"
+                            FontSize="14"
+                            Margin="0,0,0,20"/>
+                    
+                    <TimePicker SelectedTime="{Binding EndTime}"
+                                HorizontalAlignment="Center"
+                                Width="200"/>
+                    
+                    <Button Content="OK"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Margin="0,20,0,0"
+                            Width="100"
+                            Height="40"
+                            Command="{Binding CloseEndTimePickerCommand}"
+                            Background="#86C6FF"
+                            CornerRadius="16"/>
+                </StackPanel>
+            </Border>
+        </Popup>
     </Grid>
 </UserControl>

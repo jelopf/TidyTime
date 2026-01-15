@@ -89,6 +89,38 @@ public partial class AddTaskPopupViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<int> difficultyLevels = new() { 1, 2, 3, 4, 5 };
 
+    [ObservableProperty]
+    private bool _isStartTimePickerOpen = false;
+
+    [ObservableProperty]
+    private bool _isEndTimePickerOpen = false;
+
+    [RelayCommand]
+    private void OpenStartTimePicker()
+    {
+        IsStartTimePickerOpen = true;
+    }
+
+    [RelayCommand]
+    private void OpenEndTimePicker()
+    {
+        IsEndTimePickerOpen = true;
+    }
+
+    [RelayCommand]
+    private void CloseStartTimePicker()
+    {
+        IsStartTimePickerOpen = false;
+        IsStartTimeSelected = true;
+    }
+
+    [RelayCommand]
+    private void CloseEndTimePicker()
+    {
+        IsEndTimePickerOpen = false;
+        IsEndTimeSelected = true;
+    }
+
     public string StartTimeDisplay => StartTime.ToString(@"hh\:mm");
     public string EndTimeDisplay => EndTime.ToString(@"hh\:mm");
 
@@ -270,7 +302,22 @@ public partial class AddTaskPopupViewModel : ObservableObject
         }
         else
         {
-            EndTime = DateTime.Now.AddHours(1).TimeOfDay;
+            var now = DateTime.Now;
+            
+            var startHour = now.Hour + 1;
+            if (startHour >= 24) startHour = 0;
+            
+            StartTime = TimeSpan.FromHours(startHour).Add(TimeSpan.FromMinutes(0));
+            
+            var endHour = now.Hour + 2;
+            if (endHour >= 24) endHour = endHour - 24;
+            
+            EndTime = TimeSpan.FromHours(endHour).Add(TimeSpan.FromMinutes(0));
+            
+            if (EndTime <= StartTime)
+            {
+                EndTime = StartTime.Add(TimeSpan.FromHours(1));
+            }
         }
     }
 }
