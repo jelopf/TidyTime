@@ -39,60 +39,75 @@
                             <Button Background="Transparent"
                             Width="135"
                             Height="135"
+                            HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
                             CornerRadius="16"
                             Command="{Binding PlaySnakeCommand}">
-                                <Image Source="/Assets/Images/MenuGameMemo.png" Stretch="UniformToFill"/>
+                                <Image Source="/Assets/Images/MenuGameSnake.png" Stretch="UniformToFill"/>
                             </Button>
 
-                            <TextBlock Text="Змейка"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Center"
-                            FontSize="14"
-                            FontFamily="{StaticResource ComfortaaMedium}"
-                            Margin="0,12,0,0"/>
+                            <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                                <TextBlock Text="Змейка"
+                                FontSize="14"
+                                FontFamily="{StaticResource ComfortaaMedium}"
+                                Margin="0,12,0,0"/>
+                                <TextBlock Text=" ( 20 "
+                                FontSize="14"
+                                FontFamily="{StaticResource ComfortaaMedium}"
+                                Margin="0,12,0,0"/>
+                                <Ellipse Width="16" 
+                                Height="16" 
+                                Fill="#FFCC00"
+                                Margin="0,12,0,0"/>
+                                <TextBlock Text=" )"
+                                FontSize="14"
+                                FontFamily="{StaticResource ComfortaaMedium}"
+                                Margin="0,12,0,0"/>
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
 
                     <Grid Margin="0,30,0,0"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
-                        <!--Кнопка "Реакция"-->
+                        <!--Кнопка "Мемори"-->
                         <StackPanel VerticalAlignment="Center"
-                        HorizontalAlignment="Left">
+                        HorizontalAlignment="Center">
                             <Button Background="Transparent"
                             Width="135"
                             Height="135"
-                            CornerRadius="16"
                             HorizontalAlignment="Center"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            BorderThickness="0"
+                            CornerRadius="16"
                             Command="{Binding PlayMemoryCommand}">
-                                <Image Source="/Assets/Images/MenuGameCupcakes.png" Stretch="UniformToFill"/>
+                                <Image Source="/Assets/Images/MenuGameMemory.png" Stretch="UniformToFill"/>
                             </Button>
 
-                            <TextBlock Text="Реакция"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Center"
-                            FontSize="14"
-                            FontFamily="{StaticResource ComfortaaMedium}"
-                            Margin="0,12,0,0"/>
-                        </StackPanel>
-
-                        <!--Кнопка "Пазлы"-->
-                        <StackPanel VerticalAlignment="Center"
-                        HorizontalAlignment="Right">
-                            <Button Background="Transparent"
-                            Width="135"
-                            Height="135"
-                            CornerRadius="16"
+                            <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
                             HorizontalAlignment="Center">
-                                <Image Source="/Assets/Images/MenuGamePuzzles.png" Stretch="UniformToFill"/>
-                            </Button>
-
-                            <TextBlock Text="Пазлы"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Center"
-                            FontSize="14"
-                            FontFamily="{StaticResource ComfortaaMedium}"
-                            Margin="0,12,0,0"/>
+                                <TextBlock Text="Мемори"
+                                FontSize="14"
+                                FontFamily="{StaticResource ComfortaaMedium}"
+                                Margin="0,12,0,0"/>
+                                <TextBlock Text=" ( 20 "
+                                FontSize="14"
+                                FontFamily="{StaticResource ComfortaaMedium}"
+                                Margin="0,12,0,0"/>
+                                <Ellipse Width="16" 
+                                Height="16" 
+                                Fill="#FFCC00"
+                                Margin="0,12,0,0"/>
+                                <TextBlock Text=" )"
+                                FontSize="14"
+                                FontFamily="{StaticResource ComfortaaMedium}"
+                                Margin="0,12,0,0"/>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </StackPanel>

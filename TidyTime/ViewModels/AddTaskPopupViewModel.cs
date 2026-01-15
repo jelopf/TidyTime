@@ -265,6 +265,7 @@ public partial class AddTaskPopupViewModel : ObservableObject
         
         if (IsAllDay)
         {
+            StartTime = TimeSpan.FromHours(0).Add(TimeSpan.FromMinutes(00));
             EndTime = TimeSpan.FromHours(23).Add(TimeSpan.FromMinutes(59));
         }
         else

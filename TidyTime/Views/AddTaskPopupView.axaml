@@ -239,6 +239,8 @@
                         Background="#86C6FF"
                         CornerRadius="16"
                         Margin="0,30,0,0"/>
+                <TextBlock Text="{Binding TimeConflictMessage}" Foreground="Red" FontSize="12"
+                                FontFamily="{StaticResource ComfortaaRegular}"/>
             </Grid>
         </Border>
     </Grid>
