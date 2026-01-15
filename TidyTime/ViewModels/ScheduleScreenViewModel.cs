@@ -340,7 +340,8 @@ public partial class ScheduleScreenViewModel : ViewModelBase
             _currentUser,
             SelectedDate, 
             SelectedChild?.Id,
-            App.CurrentReminderService
+            App.CurrentReminderService,
+            taskVm.Task
         );
         
         IsAddTaskPopupOpen = true;

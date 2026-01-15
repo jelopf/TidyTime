@@ -33,11 +33,11 @@ public static class TaskItemHelper
             
         return difficulty switch
         {
-            1 => "#B2F6C3", 
-            2 => "#F7DAB3", 
-            3 => "#EFB3F5", 
-            4 => "#FFB3B3",
-            5 => "#B3D9FF",
+            1 => "#B3D9FF",
+            2 => "#B2F6C3",
+            3 => "#F7DAB3",
+            4 => "#FFB3B3", 
+            5 => "#EFB3F5",
             _ => "#EEEEEE"
         };
     }
